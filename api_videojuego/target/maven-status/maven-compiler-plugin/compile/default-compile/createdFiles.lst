@@ -1,2 +1,6 @@
 com/api_videojuego/resources/JakartaEE11Resource.class
+com/api_videojuego/services/ClienteService.class
+com/api_videojuego/db/connection/DBConnectionSingleton.class
+com/api_videojuego/db/clientes/ClienteDB.class
+com/api_videojuego/resources/endpoints/cliente/InsertarCiente.class
 com/api_videojuego/JakartaRestConfiguration.class
