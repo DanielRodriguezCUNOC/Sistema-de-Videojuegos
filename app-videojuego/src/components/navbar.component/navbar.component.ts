@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { MasterLoginService } from '../../services/login/masterlogin';
 
 @Component({
   selector: 'app-navbar',
