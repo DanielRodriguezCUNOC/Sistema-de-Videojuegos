@@ -28,7 +28,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Maven
-target/
+**/target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
