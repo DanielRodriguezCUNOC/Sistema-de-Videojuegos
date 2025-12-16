@@ -20,7 +20,6 @@
         </ul>
       </li>
       <li><span>Grupo</span></li>
-      <li><span>Ver Perfil</span></li>
       <li class="has-submenu">
         <span>Cartera Digital</span>
         <ul class="submenu">
@@ -30,6 +29,12 @@
       </li>
       <li><span>Estadísticas</span></li>
       <li><button class="btnLogout" (click)="logOut()">Cerrar Sesión</button></li>
+    </ul>
+    <ul class="nav-menu" routerLink="/perfil-usuario">
+      <li class="nav-profile">
+        <img class="profile-img" [src]="userAvatar" alt="" (error)="onAvatarError($event)" />
+        <span>Ver Perfil</span>
+      </li>
     </ul>
   </div>
 </nav>

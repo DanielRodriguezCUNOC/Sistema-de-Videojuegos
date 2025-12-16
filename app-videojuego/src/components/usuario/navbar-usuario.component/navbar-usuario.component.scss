@@ -1,90 +1,166 @@
+
+
+$bg: #0f1115;
+$bg-soft: #151821;
+$text: #e6e6e6;
+$text-muted: #9aa0ac;
+$accent: #4f8cff;
+$radius: 10px;
+
 .navbar-usuario {
-  background: #1a1a1a;
-  color: #fff;
-  padding: 0.5rem 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  background: $bg;
+  color: $text;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
   .nav-content {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
+    padding: 0.75rem 1.5rem;
     display: flex;
     align-items: center;
     gap: 2rem;
   }
+
   .nav-logo {
-    font-weight: 800;
-    font-size: 1.3rem;
-    background: linear-gradient(45deg, #ff00cc, #333399);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-right: 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    background: linear-gradient(45deg, #ff00cc, #333399); 
   }
-  .nav-busqueda input {
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    border: none;
-    width: 220px;
-    font-size: 1rem;
-    background: #222e3c;
-    color: #fff;
-    outline: none;
+
+  .nav-busqueda {
+    flex: 1;
+
+    input {
+      width: 100%;
+      background: $bg-soft;
+      border: none;
+      border-radius: $radius;
+      padding: 0.55rem 0.9rem;
+      color: $text;
+      font-size: 0.85rem;
+
+      &::placeholder {
+        color: $text-muted;
+      }
+
+      &:focus {
+        outline: 1px solid rgba($accent, 0.6);
+      }
+    }
   }
+
   .nav-menu {
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 1.4rem;
     list-style: none;
     margin: 0;
     padding: 0;
-    align-items: center;
-    .has-submenu {
+
+    li {
       position: relative;
-      &:hover .submenu {
-        display: block;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: $text-muted;
+
+      span {
+        transition: color 0.2s ease;
+      }
+
+      &:hover > span {
+        color: $text;
       }
     }
-    li {
-      cursor: pointer;
+
+    .has-submenu {
       position: relative;
-      > span {
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        transition: background 0.2s;
-        &:hover {
-          background: #333399;
-        }
-      }
-      .submenu {
-        display: none;
-        position: absolute;
-        top: 2.2rem;
-        left: 0;
-        background: #222e3c;
-        border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        min-width: 180px;
-        z-index: 10;
-        li {
-          padding: 0.7rem 1.2rem;
-          white-space: nowrap;
-          &:hover {
-            background: #333399;
-          }
-        }
+      &:hover .submenu, .submenu:hover {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
       }
     }
   }
+
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background: $bg-soft;
+    border-radius: $radius;
+    padding: 0.4rem;
+    list-style: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
+    transition: all 0.2s ease;
+
+    li {
+      padding: 0.45rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      color: $text-muted;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: $text;
+      }
+    }
+  }
+
   .btnLogout {
-    background: #ff0044;
-    color: #fff;
-    font-size: 16px;
-    text-align: left;
-    border: none;
-    padding: 0.5rem 3rem;
-    border-radius: 4px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: $text-muted;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
+
     &:hover {
-      background: #cc0033;
+      color: $text;
+      border-color: $accent;
     }
   }
 }
+
+@media (max-width: 900px) {
+  .navbar-usuario {
+    .nav-busqueda {
+      display: none;
+    }
+  }
+}
+
+.nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+
+  &:hover span {
+    color: $text;
+  }
+
+  .profile-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: $text-muted;
+    transition: color 0.2s ease;
+  }
+}
+
