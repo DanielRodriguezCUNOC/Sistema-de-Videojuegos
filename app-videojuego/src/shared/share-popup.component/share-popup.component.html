@@ -1,0 +1,22 @@
+@if (mostrar) {
+<div
+  class="share-popup"
+  [ngClass]="tipo"
+  role="alert"
+  aria-live="polite"
+  [style.--dur]="duracion + 'ms'"
+>
+  <div class="popup-header">
+    <div class="icon">@switch (tipo) { @case ('success') { } @case ('error') { } @default {} }</div>
+    <div>
+      <p class="title">
+        @switch (tipo) { @case ('success') { Éxito } @case ('error') { Error } @default {
+        Información } }
+      </p>
+      <p class="message">{{ mensaje }}</p>
+    </div>
+    <button class="close" (click)="cerrar()" aria-label="Cerrar">×</button>
+  </div>
+  <div class="progress"></div>
+</div>
+}
