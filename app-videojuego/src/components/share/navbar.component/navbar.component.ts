@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { MasterLoginService } from '../../services/login/masterlogin';
+import { Router, RouterLinkActive } from '@angular/router';
+import { MasterLoginService } from '../../../services/login/masterlogin';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })

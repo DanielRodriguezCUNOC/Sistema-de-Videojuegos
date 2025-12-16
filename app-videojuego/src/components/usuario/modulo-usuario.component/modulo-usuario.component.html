@@ -1,0 +1,51 @@
+<app-navbar-usuario></app-navbar-usuario>
+
+<main class="usuario-main">
+  <section class="usuario-banner">
+    <h1>¡Bienvenido, Usuario!</h1>
+    <p>Explora tus juegos, estadísticas y mucho más.</p>
+  </section>
+
+  <section class="usuario-carrusel">
+    <h2>Juegos Destacados y Recomendados</h2>
+    <div class="carrusel-imagenes">
+      <button class="carrusel-btn" aria-label="Anterior">&#8592;</button>
+      <div class="carrusel-img-container">
+        <a [routerLink]="['/juego', juegoActual.idVideojuego]">
+          <img [src]="imagenActual" [alt]="tituloActual" />
+          <div class="carrusel-overlay">
+            <h3>{{ tituloActual }}</h3>
+          </div>
+        </a>
+      </div>
+      <button class="carrusel-btn" aria-label="Siguiente">&#8594;</button>
+    </div>
+  </section>
+
+  <section class="usuario-biblioteca">
+    <h2>Tu Biblioteca Rápida</h2>
+    <div class="biblioteca-lista">
+      @for(juego of juegosComprados; track juego.idVideojuego ){
+      <a class="juego-card" [routerLink]="['/juego', juego.idVideojuego]">
+        <img [src]="juego.imagenJuego" [alt]="juego.titulo" />
+        <span>{{ juego.titulo }}</span>
+      </a>
+      }
+    </div>
+  </section>
+
+  <section class="usuario-estadisticas">
+    <h2>Estadísticas Rápidas</h2>
+    <div class="estadisticas-grid">
+      <div class="estadistica">
+        <span class="valor">{{ totalJuegos }}</span>
+        <span class="label">Juegos Totales</span>
+      </div>
+      <div class="estadistica">
+        <span class="valor">{{ saldoCartera | currency : 'USD' }}</span>
+        <span class="label">Saldo Cartera</span>
+      </div>
+    </div>
+  </section>
+</main>
+<app-footer></app-footer>

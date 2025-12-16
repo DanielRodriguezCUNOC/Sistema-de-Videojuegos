@@ -9,10 +9,13 @@
 
     <div class="nav-menu">
       <div class="nav-buttons">
-        <a class="btn-login" routerLink="/login">Iniciar Sesión</a>
-        <a class="btn-register" routerLink="/register">Registrarse</a>
+        @if(!isLoggedIn){
+        <a class="btn-login" routerLink="/login" routerLinkActive="active">Iniciar Sesión</a>
+        <a class="btn-register" routerLink="/register" routerLinkActive="active">Registrarse</a>
+        }
       </div>
 
+      @if(isLoggedIn){
       <div class="nav-profile">
         <input type="checkbox" id="profile-toggle" class="profile-toggle" />
         <label for="profile-toggle" class="profile-label">
@@ -22,6 +25,7 @@
           <li><button (click)="logout()">Cerrar sesión</button></li>
         </ul>
       </div>
+      }
     </div>
   </div>
 </nav>

@@ -1,0 +1,90 @@
+.navbar-usuario {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  .nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .nav-logo {
+    font-weight: 800;
+    font-size: 1.3rem;
+    background: linear-gradient(45deg, #ff00cc, #333399);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-right: 2rem;
+  }
+  .nav-busqueda input {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    width: 220px;
+    font-size: 1rem;
+    background: #222e3c;
+    color: #fff;
+    outline: none;
+  }
+  .nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    .has-submenu {
+      position: relative;
+      &:hover .submenu {
+        display: block;
+      }
+    }
+    li {
+      cursor: pointer;
+      position: relative;
+      > span {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background 0.2s;
+        &:hover {
+          background: #333399;
+        }
+      }
+      .submenu {
+        display: none;
+        position: absolute;
+        top: 2.2rem;
+        left: 0;
+        background: #222e3c;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        min-width: 180px;
+        z-index: 10;
+        li {
+          padding: 0.7rem 1.2rem;
+          white-space: nowrap;
+          &:hover {
+            background: #333399;
+          }
+        }
+      }
+    }
+  }
+  .btnLogout {
+    background: #ff0044;
+    color: #fff;
+    font-size: 16px;
+    text-align: left;
+    border: none;
+    padding: 0.5rem 3rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+      background: #cc0033;
+    }
+  }
+}
