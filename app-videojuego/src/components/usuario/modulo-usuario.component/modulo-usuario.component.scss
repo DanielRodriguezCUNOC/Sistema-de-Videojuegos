@@ -1,0 +1,145 @@
+.usuario-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.usuario-banner {
+  background: linear-gradient(90deg, #3a7ca5 0%, #66c0f4 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.usuario-carrusel {
+  background: #18222b;
+  border-radius: 12px;
+  padding: 2rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+
+  h2 {
+    color: #66c0f4;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .carrusel-imagenes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .carrusel-btn {
+    background: #222e3c;
+    color: #66c0f4;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+      background: #66c0f4;
+      color: #fff;
+    }
+  }
+
+  .carrusel-img-container {
+    position: relative;
+    width: 400px;
+    height: 220px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carrusel-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: #fff;
+      padding: 1rem;
+      h3 {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.usuario-biblioteca {
+  h2 {
+    color: #66c0f4;
+    margin-bottom: 1rem;
+  }
+  .biblioteca-lista {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  .juego-card {
+    background: #222e3c;
+    border-radius: 8px;
+    padding: 0.5rem;
+    min-width: 120px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+    img {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+    span {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.usuario-estadisticas {
+  h2 {
+    color: #66c0f4;
+    margin-bottom: 1rem;
+  }
+  .estadisticas-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    .estadistica {
+      background: #222e3c;
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+      .valor {
+        font-size: 2rem;
+        font-weight: 700;
+        display: block;
+      }
+      .label {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+    }
+  }
+}
