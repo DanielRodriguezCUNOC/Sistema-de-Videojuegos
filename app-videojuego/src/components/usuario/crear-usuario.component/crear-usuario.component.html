@@ -14,14 +14,14 @@
     </div>
 
     <div class="col-sm-6">
-      <label for="nickname" class="form-label">Nombre de Usuario</label>
+      <label for="nickname" class="form-label">Nickname</label>
       <input
         type="text"
         class="form-control"
         name="nickname"
         id="nickname"
         autocomplete="off"
-        placeholder="Tu Nombre de Usuario"
+        placeholder="Ej: DanooBlood"
         formControlName="nickname"
       />
     </div>
@@ -85,7 +85,7 @@
         name="avatar"
         id="avatar"
         (change)="onFileSelected($event)"
-        accept="image/*"
+        accept="image/png, image/jpeg"
       />
     </div>
 

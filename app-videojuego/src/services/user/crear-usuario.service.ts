@@ -9,7 +9,7 @@ import { CrearUsuarioDTO } from '../../models/dtos/usuario/crear-usuario-dto';
 })
 export class CrearUsuarioService {
   //* LLamamos a la API para crear un usuario
-  private apiURL = `${environment.apiBaseUrl}/usuario/crear`;
+  private apiURL = `${environment.apiBaseUrl}/usuario/crear-usuario`;
 
   constructor(private http: HttpClient) {}
 

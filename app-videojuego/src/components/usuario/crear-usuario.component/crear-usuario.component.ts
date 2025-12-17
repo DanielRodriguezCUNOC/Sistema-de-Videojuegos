@@ -21,12 +21,12 @@ export class CrearUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.nuevoRegistroUsuario = this.formBuilder.group({
-      nombre: [null, [Validators.required]],
-      tipoUsuario: ['', [Validators.required]],
-      email: [null, [Validators.required]],
-      usuario: [null, [Validators.required]],
+      correo_usuario: [null, [Validators.required]],
+      nickname: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      telefono: [null, [Validators.required]],
+      fecha_nacimiento: [null, [Validators.required]],
+      numero_telefonico: [null, [Validators.required]],
+      pais: [null, [Validators.required]],
     });
   }
 
