@@ -1,41 +1,28 @@
 <form [formGroup]="nuevoRegistroUsuario" (submit)="submit()">
   <div class="row g-3">
     <div class="col-sm-6">
-      <label for="nombre" class="form-label">Nombre Completo</label>
-      <input
-        type="text"
-        class="form-control"
-        name="nombre"
-        id="nombre"
-        autocomplete="off"
-        placeholder="Tu Nombre"
-        formControlName="nombre"
-      />
-    </div>
-
-    <div class="col-sm-6">
-      <label for="email" class="form-label">Correo Electrónico</label>
+      <label for="correo_usuario" class="form-label">Correo Electrónico</label>
       <input
         type="email"
         class="form-control"
-        name="email"
-        id="email"
+        name="correo_usuario"
+        id="correo_usuario"
         autocomplete="off"
         placeholder="Tu Correo Electrónico"
-        formControlName="email"
+        formControlName="correo_usuario"
       />
     </div>
 
     <div class="col-sm-6">
-      <label for="usuario" class="form-label">Nombre de Usuario</label>
+      <label for="nickname" class="form-label">Nombre de Usuario</label>
       <input
         type="text"
         class="form-control"
-        name="usuario"
-        id="usuario"
+        name="nickname"
+        id="nickname"
         autocomplete="off"
         placeholder="Tu Nombre de Usuario"
-        formControlName="usuario"
+        formControlName="nickname"
       />
     </div>
 
@@ -53,25 +40,50 @@
     </div>
 
     <div class="col-sm-6">
-      <label for="telefono" class="form-label">Teléfono</label>
+      <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+      <input
+        type="date"
+        class="form-control"
+        name="fecha_nacimiento"
+        id="fecha_nacimiento"
+        formControlName="fecha_nacimiento"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="numero_telefonico" class="form-label">Teléfono</label>
+      <input
+        type="tel"
+        class="form-control"
+        name="numero_telefonico"
+        id="numero_telefonico"
+        autocomplete="off"
+        placeholder="12345678"
+        formControlName="numero_telefonico"
+        maxlength="8"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="pais" class="form-label">País</label>
       <input
         type="text"
         class="form-control"
-        name="telefono"
-        id="telefono"
+        name="pais"
+        id="pais"
         autocomplete="off"
-        placeholder="Tu Número de Teléfono"
-        formControlName="telefono"
+        placeholder="Tu País"
+        formControlName="pais"
       />
     </div>
 
     <div class="col-12">
-      <label for="foto" class="form-label">Foto de Perfil</label>
+      <label for="avatar" class="form-label">Foto de Perfil</label>
       <input
         type="file"
         class="form-control"
-        name="foto"
-        id="foto"
+        name="avatar"
+        id="avatar"
         (change)="onFileSelected($event)"
         accept="image/*"
       />
@@ -82,6 +94,7 @@
     </div>
   </div>
 </form>
+
 <app-share-popup
   [mensaje]="infoMessage || ''"
   [tipo]="popupTipo"
