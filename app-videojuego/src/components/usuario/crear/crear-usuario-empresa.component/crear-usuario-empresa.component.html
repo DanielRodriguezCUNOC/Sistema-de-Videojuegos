@@ -1,0 +1,103 @@
+<form [formGroup]="nuevoRegistroUsuario" (submit)="submit()">
+  <div class="row g-3">
+    <div class="col-sm-6">
+      <label for="correo_usuario" class="form-label">Correo Electrónico</label>
+      <input
+        type="email"
+        class="form-control"
+        name="correo_usuario"
+        id="correo_usuario"
+        autocomplete="off"
+        placeholder="Tu Correo Electrónico"
+        formControlName="correo_usuario"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="nickname" class="form-label">Nickname</label>
+      <input
+        type="text"
+        class="form-control"
+        name="nickname"
+        id="nickname"
+        autocomplete="off"
+        placeholder="Ej: DanooBlood"
+        formControlName="nickname"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="password" class="form-label">Contraseña</label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        id="password"
+        autocomplete="off"
+        placeholder="Tu Contraseña"
+        formControlName="password"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+      <input
+        type="date"
+        class="form-control"
+        name="fecha_nacimiento"
+        id="fecha_nacimiento"
+        formControlName="fecha_nacimiento"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="numero_telefonico" class="form-label">Teléfono</label>
+      <input
+        type="tel"
+        class="form-control"
+        name="numero_telefonico"
+        id="numero_telefonico"
+        autocomplete="off"
+        placeholder="12345678"
+        formControlName="numero_telefonico"
+        maxlength="8"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="pais" class="form-label">País</label>
+      <input
+        type="text"
+        class="form-control"
+        name="pais"
+        id="pais"
+        autocomplete="off"
+        placeholder="Tu País"
+        formControlName="pais"
+      />
+    </div>
+
+    <div class="col-12">
+      <label for="avatar" class="form-label">Foto de Perfil</label>
+      <input
+        type="file"
+        class="form-control"
+        name="avatar"
+        id="avatar"
+        (change)="onFileSelected($event)"
+        accept="image/png, image/jpeg"
+      />
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Registrar Usuario</button>
+    </div>
+  </div>
+</form>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

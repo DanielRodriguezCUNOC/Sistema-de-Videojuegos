@@ -1,22 +1,22 @@
-package com.api_videojuego.dto.usuario;
+package com.api_videojuego.dto.usuario.crear;
 
 import java.time.LocalDate;
 
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-public class CrearUsuarioDTO {
+public class CrearUsuarioGamerDTO {
 
-  @FormDataParam("correo_usuario")
-  private String correo_usuario;
+  @FormDataParam("correoUsuario")
+  private String correoUsuario;
   @FormDataParam("nickname")
   private String nickname;
   @FormDataParam("password")
   private String password;
-  @FormDataParam("fecha_nacimiento")
-  private LocalDate fecha_nacimiento;
-  @FormDataParam("numero_telefonico")
-  private String numero_telefonico;
+  @FormDataParam("fechaNacimiento")
+  private LocalDate fechaNacimiento;
+  @FormDataParam("numeroTelefonico")
+  private String numeroTelefonico;
   @FormDataParam("pais")
   private String pais;
   @FormDataParam("avatar")
@@ -24,12 +24,12 @@ public class CrearUsuarioDTO {
 
   // * Getters and Setters */
 
-  public String getCorreo_usuario() {
-    return correo_usuario;
+  public String getCorreoUsuario() {
+    return correoUsuario;
   }
 
-  public void setCorreo_usuario(String correo_usuario) {
-    this.correo_usuario = correo_usuario;
+  public void setCorreoUsuario(String correoUsuario) {
+    this.correoUsuario = correoUsuario;
   }
 
   public String getNickname() {
@@ -48,20 +48,20 @@ public class CrearUsuarioDTO {
     this.password = password;
   }
 
-  public LocalDate getFecha_nacimiento() {
-    return fecha_nacimiento;
+  public LocalDate getFechaNacimiento() {
+    return fechaNacimiento;
   }
 
-  public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
-    this.fecha_nacimiento = fecha_nacimiento;
+  public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    this.fechaNacimiento = fechaNacimiento;
   }
 
-  public String getNumero_telefonico() {
-    return numero_telefonico;
+  public String getNumeroTelefonico() {
+    return numeroTelefonico;
   }
 
-  public void setNumero_telefonico(String numero_telefonico) {
-    this.numero_telefonico = numero_telefonico;
+  public void setNumeroTelefonico(String numeroTelefonico) {
+    this.numeroTelefonico = numeroTelefonico;
   }
 
   public String getPais() {
@@ -80,17 +80,16 @@ public class CrearUsuarioDTO {
     this.avatarPart = avatarPart;
   }
 
-  public boolean usuarioValido() {
-    return correo_usuario != null && !correo_usuario.isBlank() &&
-        nickname != null && !nickname.isBlank() &&
+  public boolean usuarioGamerValido() {
+    return correoUsuario != null && !correoUsuario.isBlank() &&
         password != null && !password.isBlank() &&
-        fecha_nacimiento != null &&
-        numero_telefonico != null && !numero_telefonico.isBlank() &&
+        fechaNacimiento != null &&
+        numeroTelefonico != null && !numeroTelefonico.isBlank() &&
         pais != null && !pais.isBlank() &&
         avatarPart != null;
   }
 
-  public long getAvatarSize() {
+  public long getAvatarGamerSize() {
     try {
       long size = avatarPart.getContentDisposition().getSize();
       if (size == -1) {
@@ -103,7 +102,7 @@ public class CrearUsuarioDTO {
     }
   }
 
-  public String getAvatarType() {
+  public String getAvatarGamerType() {
     try {
       return avatarPart.getMediaType().toString();
     } catch (Exception e) {
