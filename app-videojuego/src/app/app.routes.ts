@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { HomePageComponent } from '../pages/home-page.component/home-page.component';
 import { ModuloUsuarioComponent } from '../components/usuario/modulo-usuario.component/modulo-usuario.component';
 import { ModuloUsuarioPageComponent } from '../pages/usuario/modulo-usuario-page.component/modulo-usuario-page.component';
-import { CrearUsuarioComponent } from '../components/usuario/crear-usuario.component/crear-usuario.component';
-import { CrearUsuarioPageComponent } from '../pages/usuario/crear-usuario-page.component/crear-usuario-page.component';
+import { CrearUsuarioGamerPageComponent } from '../pages/usuario/crear/crear-usuario-gamer-page.component/crear-usuario-gamer-page.component';
+import { CrearUsuarioGamerComponent } from '../components/usuario/crear/crear-usuario-gamer.component/crear-usuario-gamer.component';
 
 export const routes: Routes = [
   {
@@ -12,12 +12,12 @@ export const routes: Routes = [
   },
   {
     path: 'crear-cuenta',
-    component: CrearUsuarioPageComponent,
+    component: CrearUsuarioGamerPageComponent,
 
     children: [
       {
         path: 'form',
-        component: CrearUsuarioComponent,
+        component: CrearUsuarioGamerComponent,
       },
       {
         path: '',

@@ -9,7 +9,7 @@ import org.apache.tomcat.jdbc.pool.PoolProperties;
 public class DBConnectionSingleton {
   private static final String IP = "localhost";
   private static final int PUERTO = 3306;
-  private static final String SCHEMA = "ordenes";
+  private static final String SCHEMA = "videojuegodb";
   private static final String USER_NAME = "root";
   private static final String PASSWORD = "P@boomi80";
   private static final String URL = "jdbc:mysql://" + IP + ":" + PUERTO + "/" + SCHEMA;

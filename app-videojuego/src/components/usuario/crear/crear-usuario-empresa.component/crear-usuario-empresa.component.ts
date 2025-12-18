@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { SharePopupComponent } from '../../../shared/share-popup.component/share-popup.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CrearUsuarioDTO } from '../../../models/dtos/usuario/crear-usuario-dto';
-import { CrearUsuarioService } from '../../../services/user/crear-usuario.service';
+import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
+import { CrearUsuarioService } from '../../../../services/user/crear-usuario.service';
+import { CrearUsuarioEmpresaDTO } from '../../../../models/dtos/usuario/crear/crear-usuario-empresa';
 
 @Component({
-  selector: 'app-crear-usuario.component',
-  imports: [SharePopupComponent, ReactiveFormsModule],
-  templateUrl: './crear-usuario.component.html',
-  styleUrl: './crear-usuario.component.scss',
+  selector: 'app-crear-usuario-empresa.component',
+  imports: [ReactiveFormsModule, SharePopupComponent],
+  templateUrl: './crear-usuario-empresa.component.html',
+  styleUrl: './crear-usuario-empresa.component.scss',
 })
-export class CrearUsuarioComponent implements OnInit {
+export class CrearUsuarioEmpresaComponent implements OnInit {
   nuevoRegistroUsuario!: FormGroup;
   selectedFile: File | null = null;
   infoMessage: string | null = null;
@@ -21,11 +21,11 @@ export class CrearUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.nuevoRegistroUsuario = this.formBuilder.group({
-      correo_usuario: [null, [Validators.required]],
-      nickname: [null, [Validators.required]],
+      correoUsuario: [null, [Validators.required]],
+      nombreCompleto: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      fecha_nacimiento: [null, [Validators.required]],
-      numero_telefonico: [null, [Validators.required]],
+      fechaNacimiento: [null, [Validators.required]],
+      numeroTelefonico: [null, [Validators.required]],
       pais: [null, [Validators.required]],
     });
   }
@@ -41,17 +41,18 @@ export class CrearUsuarioComponent implements OnInit {
   //* Envío del formulario */
   submit(): void {
     if (this.nuevoRegistroUsuario.valid) {
-      const datosUsuario: CrearUsuarioDTO = {
-        correo_usuario: this.nuevoRegistroUsuario.value.email,
-        nickname: this.nuevoRegistroUsuario.value.usuario,
+      const datosUsuario: CrearUsuarioEmpresaDTO = {
+        correoUsuario: this.nuevoRegistroUsuario.value.correoUsuario,
+        nombreCompleto: this.nuevoRegistroUsuario.value.nombreCompleto,
+        idEmpresa: Number(localStorage.getItem('idEmpresa')) || 0,
         password: this.nuevoRegistroUsuario.value.password,
-        fecha_nacimiento: new Date(this.nuevoRegistroUsuario.value.fecha_nacimiento),
-        numero_telefonico: this.nuevoRegistroUsuario.value.telefono,
+        fechaNacimiento: new Date(this.nuevoRegistroUsuario.value.fechaNacimiento),
+        numeroTelefonico: this.nuevoRegistroUsuario.value.numeroTelefonico,
         pais: this.nuevoRegistroUsuario.value.pais,
-        avatar: this.selectedFile || null,
+        avatar: this.selectedFile,
       };
 
-      this.crearUsuarioService.crearUsuario(datosUsuario).subscribe({
+      this.crearUsuarioService.crearUsuarioEmpresa(datosUsuario).subscribe({
         next: (response) => {
           this.infoMessage = 'Usuario registrado correctamente';
           this.popupTipo = 'success';

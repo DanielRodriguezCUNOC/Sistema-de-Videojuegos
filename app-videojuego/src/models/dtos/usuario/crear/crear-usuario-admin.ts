@@ -1,0 +1,9 @@
+export interface CrearUsuarioAdminDTO {
+  correoUsuario: string;
+  nombreCompleto: string;
+  password: string;
+  fechaNacimiento: Date;
+  numeroTelefonico: string;
+  pais: string;
+  avatar: File | null;
+}
