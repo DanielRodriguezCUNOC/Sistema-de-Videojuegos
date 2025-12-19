@@ -1,0 +1,22 @@
+<div class="dashboard">
+  <header class="topbar">
+    <div class="user-info">
+      <h2 style="color: #ebeef2; margin: 0">Gestionar Comisiones</h2>
+    </div>
+    <button class="logout-btn" (click)="regresar()">Regresar</button>
+  </header>
+
+  <main class="content">
+    <section class="cards-grid">
+      <div class="card card--purple" (click)="gestionarComisionGlobal()">
+        <h3>Comisión Global</h3>
+        <p>Configurar comisión general del sistema</p>
+      </div>
+
+      <div class="card card--orange" (click)="gestionarComisionEspecifica()">
+        <h3>Comisión Específica</h3>
+        <p>Configurar comisiones por empresa o categoría</p>
+      </div>
+    </section>
+  </main>
+</div>

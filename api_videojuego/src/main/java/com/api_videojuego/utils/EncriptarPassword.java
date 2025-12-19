@@ -7,7 +7,8 @@ import com.api_videojuego.excepciones.ErrorEncriptacion;
 
 public class EncriptarPassword {
 
-  public String encriptarPassword(String password, String correo) throws ErrorEncriptacion {
+  public String encriptarPassword(String password, String correo)
+      throws ErrorEncriptacion {
 
     try {
       String salt = password + correo;
@@ -21,5 +22,22 @@ public class EncriptarPassword {
       throw new ErrorEncriptacion("Error al encriptar la contraseña");
     }
 
+  }
+
+  public static void main(String[] args) {
+    try {
+      EncriptarPassword encriptador = new EncriptarPassword();
+
+      String correo = "admindano@gmail.com";
+      String password = "Danoo12345";
+
+      String passwordEncriptada = encriptador.encriptarPassword(password,
+          correo);
+
+      System.out.println("Password encriptada: " + passwordEncriptada);
+
+    } catch (Exception e) {
+      System.err.println("Error: " + e.getMessage());
+    }
   }
 }
