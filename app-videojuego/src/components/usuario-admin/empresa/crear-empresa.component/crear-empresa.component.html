@@ -1,0 +1,119 @@
+<div class="container">
+  <h2>Crear Nueva Empresa</h2>
+
+  <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-12">
+        <label class="form-label">Nombre de la Empresa</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombreEmpresa"
+          placeholder="Ingrese el nombre de la empresa"
+        />
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Descripción</label>
+        <textarea
+          class="form-control"
+          formControlName="descripcion"
+          rows="3"
+          placeholder="Descripción de la empresa"
+        ></textarea>
+      </div>
+
+      <div class="col-sm-6">
+        <label class="form-label">
+          <input type="checkbox" formControlName="estadoComentario" style="margin-right: 8px" />
+          Permitir comentarios
+        </label>
+      </div>
+
+      <div class="col-sm-6">
+        <label class="form-label">País</label>
+        <input type="text" class="form-control" formControlName="pais" placeholder="País" />
+      </div>
+
+      <div class="col-12">
+        <h4 style="color: rgba(255, 255, 255, 0.9); margin-top: 2rem; margin-bottom: 1rem">
+          Datos del Usuario Administrador
+        </h4>
+      </div>
+
+      <div class="col-sm-6">
+        <label class="form-label">Correo Electrónico</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="correoUsuario"
+          placeholder="correo@empresa.com"
+        />
+      </div>
+
+      <div class="col-sm-6">
+        <label class="form-label">Nombre Completo</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombreCompleto"
+          placeholder="Nombre completo del administrador"
+        />
+      </div>
+
+      <div class="col-sm-6">
+        <label class="form-label">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Contraseña"
+        />
+      </div>
+
+      <div class="col-sm-6">
+        <label class="form-label">Número Telefónico</label>
+        <input
+          type="tel"
+          class="form-control"
+          formControlName="numeroTelefonico"
+          placeholder="Número de teléfono"
+        />
+      </div>
+
+      <div class="col-sm-6">
+        <label class="form-label">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" formControlName="fechaNacimiento" />
+      </div>
+
+      <div class="col-sm-6">
+        <label class="form-label">Avatar (Opcional)</label>
+        <input
+          type="file"
+          class="form-control"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+        />
+      </div>
+
+      <div class="col-12">
+        <div
+          class="button-group"
+          style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center"
+        >
+          <button type="submit" class="btn-primary" [disabled]="!empresaForm.valid">
+            Crear Empresa
+          </button>
+          <button type="button" class="btn-secondary" (click)="regresar()">Cancelar</button>
+          <button type="button" class="btn-secondary" (click)="regresar()">Regresar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>
