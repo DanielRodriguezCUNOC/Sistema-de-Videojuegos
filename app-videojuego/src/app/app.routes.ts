@@ -6,11 +6,29 @@ import { CrearUsuarioGamerComponent } from '../components/usuario/crear/crear-us
 import { GamerModuleComponent } from '../components/usuario-gamer/gamer-module.component/gamer-module.component';
 import { EmpresaModuleComponent } from '../components/usuario-empresa/empresa-module.component/empresa-module.component';
 import { AdminModuleComponent } from '../components/usuario-admin/admin-module.component/admin-module.component';
+import { LoginPageComponent } from '../pages/login/login-page.component/login-page.component';
+import { LoginComponent } from '../components/login/login.component/login.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
+  },
+
+  {
+    path: 'login',
+    component: LoginPageComponent,
+    children: [
+      {
+        path: 'form-login',
+        component: LoginComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'form-login',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: 'crear-cuenta',
