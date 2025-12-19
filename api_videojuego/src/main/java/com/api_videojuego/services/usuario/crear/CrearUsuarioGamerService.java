@@ -2,6 +2,7 @@ package com.api_videojuego.services.usuario.crear;
 
 import java.io.InputStream;
 
+import com.api_videojuego.db.usuario.cartera.CarteraDigitalDB;
 import com.api_videojuego.db.usuario.crear.CrearUsuarioDB;
 import com.api_videojuego.db.usuario.crear.CrearUsuarioGamerDB;
 import com.api_videojuego.dto.usuario.crear.CrearUsuarioGamerDTO;
@@ -17,11 +18,13 @@ public class CrearUsuarioGamerService {
 
   private CrearUsuarioDB crearUsuarioGenericoDB;
   private CrearUsuarioGamerDB crearUsuarioDB;
+  private CarteraDigitalDB carteraDigitalDB;
   private static final Integer ROL_USUARIO = 3;
 
   public CrearUsuarioGamerService() {
     crearUsuarioGenericoDB = new CrearUsuarioDB();
     crearUsuarioDB = new CrearUsuarioGamerDB();
+    carteraDigitalDB = new CarteraDigitalDB();
 
   }
 
@@ -69,6 +72,9 @@ public class CrearUsuarioGamerService {
       // * Registramos el usuario gamer */
       registrarUsuarioGamer(crearUsuarioDTO, idUsuario);
 
+      // * Crear cartera digital */
+      crearCarteraDigital(crearUsuarioDTO, idUsuario);
+
     } catch (UsuarioYaRegistrado e) {
       throw e;
 
@@ -82,7 +88,7 @@ public class CrearUsuarioGamerService {
     }
   }
 
-  public void registrarUsuarioGenerico(CrearUsuarioGamerDTO crearUsuarioDTO,
+  private void registrarUsuarioGenerico(CrearUsuarioGamerDTO crearUsuarioDTO,
       Integer idRol) throws Exception {
 
     crearUsuarioGenericoDB.registrarUsuario(idRol,
@@ -93,15 +99,22 @@ public class CrearUsuarioGamerService {
 
   }
 
-  public Integer obtenerIdUsuarioPorCorreo(String correoUsuario)
+  private Integer obtenerIdUsuarioPorCorreo(String correoUsuario)
       throws Exception {
     return crearUsuarioGenericoDB.obtenerIdUsuarioPorCorreo(correoUsuario);
   }
 
-  public void registrarUsuarioGamer(CrearUsuarioGamerDTO crearUsuarioDTO,
+  private void registrarUsuarioGamer(CrearUsuarioGamerDTO crearUsuarioDTO,
       Integer idUsuario) throws Exception {
 
     crearUsuarioDB.registrarUsuarioGamer(idUsuario,
         crearUsuarioDTO.getNickname());
+  }
+
+  private void crearCarteraDigital(CrearUsuarioGamerDTO crearUsuarioDTO,
+      Integer idUsuario) throws Exception {
+
+    carteraDigitalDB.crearCarteraDigital(crearUsuarioDTO, idUsuario);
+
   }
 }
