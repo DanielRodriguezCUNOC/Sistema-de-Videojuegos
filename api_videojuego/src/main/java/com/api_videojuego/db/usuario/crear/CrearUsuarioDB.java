@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
+import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class CrearUsuarioDB {
@@ -32,13 +33,16 @@ public class CrearUsuarioDB {
 
       }
     } catch (SQLException e) {
-      throw new ErrorInsertarDB("Error al verificar si el usuario ya está registrado: " + e.getMessage());
+      throw new ErrorConsultaDB(
+          "Error al verificar si el usuario ya está registrado: "
+              + e.getMessage());
     }
     return false;
   }
 
-  public void registrarUsuario(Integer idRol, String correoUsuario, String password, LocalDate fechaNacimiento,
-      String numeroTelefonico, String pais, InputStream avatarStream) throws Exception {
+  public void registrarUsuario(Integer idRol, String correoUsuario,
+      String password, LocalDate fechaNacimiento, String numeroTelefonico,
+      String pais, InputStream avatarStream) throws Exception {
 
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -46,8 +50,8 @@ public class CrearUsuarioDB {
 
     try (PreparedStatement ps = conn.prepareStatement(query)) {
 
-      ps.setString(1, correoUsuario);
-      ps.setInt(2, idRol);
+      ps.setInt(1, idRol);
+      ps.setString(2, correoUsuario);
       ps.setString(3, password);
       ps.setObject(4, fechaNacimiento);
       ps.setString(5, numeroTelefonico);
@@ -56,12 +60,15 @@ public class CrearUsuarioDB {
       ps.executeUpdate();
 
     } catch (SQLException e) {
-      throw new ErrorInsertarDB("Error al registrar el usuario en la base de datos: " + e.getMessage());
+      throw new ErrorInsertarDB(
+          "Error al registrar el usuario en la base de datos: "
+              + e.getMessage());
     }
 
   }
 
-  public Integer obtenerIdUsuarioPorCorreo(String correoUsuario) throws Exception {
+  public Integer obtenerIdUsuarioPorCorreo(String correoUsuario)
+      throws Exception {
 
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -75,12 +82,15 @@ public class CrearUsuarioDB {
 
       if (rs.next()) {
         return rs.getInt("id_usuario");
-      } else {
-        throw new Exception("Usuario no encontrado con el correo: " + correoUsuario);
+      }
+      else {
+        throw new Exception(
+            "Usuario no encontrado con el correo: " + correoUsuario);
       }
 
     } catch (SQLException e) {
-      throw new Exception("Error al obtener el ID del usuario: " + e.getMessage());
+      throw new ErrorConsultaDB(
+          "Error al obtener el ID del usuario: " + e.getMessage());
     }
   }
 

@@ -15,8 +15,8 @@ import com.api_videojuego.utils.EncriptarPassword;
 
 public class CrearUsuarioGamerService {
 
-  CrearUsuarioDB crearUsuarioGenericoDB;
-  CrearUsuarioGamerDB crearUsuarioDB;
+  private CrearUsuarioDB crearUsuarioGenericoDB;
+  private CrearUsuarioGamerDB crearUsuarioDB;
   private static final Integer ROL_USUARIO = 3;
 
   public CrearUsuarioGamerService() {
@@ -25,7 +25,8 @@ public class CrearUsuarioGamerService {
 
   }
 
-  public void crearUsuarioGamer(CrearUsuarioGamerDTO crearUsuarioDTO) throws Exception {
+  public void crearUsuarioGamer(CrearUsuarioGamerDTO crearUsuarioDTO)
+      throws Exception {
 
     try {
 
@@ -37,33 +38,35 @@ public class CrearUsuarioGamerService {
       // * Verificamos el tamaño y tipo del avatar */
 
       if (crearUsuarioDTO.getAvatarGamerSize() > ConfiguracionAvatar.AVATAR_SIZE
-          && !ConfiguracionAvatar.AVATAR_TYPES.contains(crearUsuarioDTO.getAvatarGamerType())) {
+          || !ConfiguracionAvatar.AVATAR_TYPES
+              .contains(crearUsuarioDTO.getAvatarGamerType())) {
         throw new AvatarExcepcion("Avatar invalido");
       }
 
       // * Verificamos que el usuario no exista antes de registrarlo */
-      boolean existeUsuario = crearUsuarioGenericoDB.existeUsuario(crearUsuarioDTO.getCorreoUsuario());
+      boolean existeUsuario = crearUsuarioGenericoDB
+          .existeUsuario(crearUsuarioDTO.getCorreoUsuario());
 
       if (existeUsuario) {
-        throw new UsuarioYaRegistrado(
-            "El usuario con el correo " + crearUsuarioDTO.getCorreoUsuario() + " ya está registrado.");
+        throw new UsuarioYaRegistrado("El usuario con el correo "
+            + crearUsuarioDTO.getCorreoUsuario() + " ya está registrado.");
       }
 
       // *Encriptamos la contraseña */
 
       EncriptarPassword encriptarPassword = new EncriptarPassword();
       String passwordEncriptada = encriptarPassword.encriptarPassword(
-          crearUsuarioDTO.getPassword(),
-          crearUsuarioDTO.getCorreoUsuario());
+          crearUsuarioDTO.getPassword(), crearUsuarioDTO.getCorreoUsuario());
       crearUsuarioDTO.setPassword(passwordEncriptada);
 
       // *Registramos el usuario generico */
       registrarUsuarioGenerico(crearUsuarioDTO, ROL_USUARIO);
 
       // * Obtenemos el Id del usuario generico */
-      Integer idUsuario = obtenerIdUsuarioPorCorreo(crearUsuarioDTO.getCorreoUsuario());
+      Integer idUsuario = obtenerIdUsuarioPorCorreo(
+          crearUsuarioDTO.getCorreoUsuario());
 
-      // * Registramos el usuario administrador */
+      // * Registramos el usuario gamer */
       registrarUsuarioGamer(crearUsuarioDTO, idUsuario);
 
     } catch (UsuarioYaRegistrado e) {
@@ -79,25 +82,24 @@ public class CrearUsuarioGamerService {
     }
   }
 
-  public void registrarUsuarioGenerico(CrearUsuarioGamerDTO crearUsuarioDTO, Integer idRol) throws Exception {
+  public void registrarUsuarioGenerico(CrearUsuarioGamerDTO crearUsuarioDTO,
+      Integer idRol) throws Exception {
 
-    crearUsuarioGenericoDB.registrarUsuario(
-        idRol,
-        crearUsuarioDTO.getCorreoUsuario(),
-        crearUsuarioDTO.getPassword(),
+    crearUsuarioGenericoDB.registrarUsuario(idRol,
+        crearUsuarioDTO.getCorreoUsuario(), crearUsuarioDTO.getPassword(),
         crearUsuarioDTO.getFechaNacimiento(),
-        crearUsuarioDTO.getNumeroTelefonico(),
-        crearUsuarioDTO.getPais(),
+        crearUsuarioDTO.getNumeroTelefonico(), crearUsuarioDTO.getPais(),
         crearUsuarioDTO.getAvatarPart().getValueAs(InputStream.class));
 
   }
 
-  public Integer obtenerIdUsuarioPorCorreo(String correoUsuario) throws Exception {
+  public Integer obtenerIdUsuarioPorCorreo(String correoUsuario)
+      throws Exception {
     return crearUsuarioGenericoDB.obtenerIdUsuarioPorCorreo(correoUsuario);
   }
 
-  public void registrarUsuarioGamer(CrearUsuarioGamerDTO crearUsuarioDTO, Integer idUsuario)
-      throws Exception {
+  public void registrarUsuarioGamer(CrearUsuarioGamerDTO crearUsuarioDTO,
+      Integer idUsuario) throws Exception {
 
     crearUsuarioDB.registrarUsuarioGamer(idUsuario,
         crearUsuarioDTO.getNickname());
