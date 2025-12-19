@@ -1,4 +1,4 @@
-package com.api_videojuego.resources.endpoints.administrador;
+package com.api_videojuego.resources.endpoints.administrador.categoria;
 
 import com.api_videojuego.dto.categoria.CrearCategoriaDTO;
 import com.api_videojuego.dto.categoria.EditarCategoriaDTO;

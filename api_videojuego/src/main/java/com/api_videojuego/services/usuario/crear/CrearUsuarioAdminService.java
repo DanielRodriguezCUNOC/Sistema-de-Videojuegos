@@ -25,7 +25,8 @@ public class CrearUsuarioAdminService {
 
   }
 
-  public void crearUsuarioAdmin(CrearUsuarioAdminDTO crearUsuarioDTO) throws Exception {
+  public void crearUsuarioAdmin(CrearUsuarioAdminDTO crearUsuarioDTO)
+      throws Exception {
 
     try {
 
@@ -37,31 +38,33 @@ public class CrearUsuarioAdminService {
       // * Verificamos el tamaño y tipo del avatar */
 
       if (crearUsuarioDTO.getAvatarAdminSize() > ConfiguracionAvatar.AVATAR_SIZE
-          && !ConfiguracionAvatar.AVATAR_TYPES.contains(crearUsuarioDTO.getAvatarAdminType())) {
+          || !ConfiguracionAvatar.AVATAR_TYPES
+              .contains(crearUsuarioDTO.getAvatarAdminType())) {
         throw new AvatarExcepcion("Avatar invalido");
       }
 
       // * Verificamos que el usuario no exista antes de registrarlo */
-      boolean existeUsuario = crearUsuarioGenericoDB.existeUsuario(crearUsuarioDTO.getCorreoUsuario());
+      boolean existeUsuario = crearUsuarioGenericoDB
+          .existeUsuario(crearUsuarioDTO.getCorreoUsuario());
 
       if (existeUsuario) {
-        throw new UsuarioYaRegistrado(
-            "El usuario con el correo " + crearUsuarioDTO.getCorreoUsuario() + " ya está registrado.");
+        throw new UsuarioYaRegistrado("El usuario con el correo "
+            + crearUsuarioDTO.getCorreoUsuario() + " ya está registrado.");
       }
 
       // *Encriptamos la contraseña */
 
       EncriptarPassword encriptarPassword = new EncriptarPassword();
       String passwordEncriptada = encriptarPassword.encriptarPassword(
-          crearUsuarioDTO.getPassword(),
-          crearUsuarioDTO.getCorreoUsuario());
+          crearUsuarioDTO.getPassword(), crearUsuarioDTO.getCorreoUsuario());
       crearUsuarioDTO.setPassword(passwordEncriptada);
 
       // *Registramos el usuario generico */
       registrarUsuarioGenerico(crearUsuarioDTO, ROL_USUARIO);
 
       // * Obtenemos el Id del usuario generico */
-      Integer idUsuario = obtenerIdUsuarioPorCorreo(crearUsuarioDTO.getCorreoUsuario());
+      Integer idUsuario = obtenerIdUsuarioPorCorreo(
+          crearUsuarioDTO.getCorreoUsuario());
 
       // * Registramos el usuario administrador */
       registrarUsuarioAdministrador(crearUsuarioDTO, idUsuario);
@@ -79,28 +82,27 @@ public class CrearUsuarioAdminService {
     }
   }
 
-  public void registrarUsuarioGenerico(CrearUsuarioAdminDTO crearUsuarioDTO, Integer idRol) throws Exception {
+  public void registrarUsuarioGenerico(CrearUsuarioAdminDTO crearUsuarioDTO,
+      Integer idRol) throws Exception {
 
-    crearUsuarioGenericoDB.registrarUsuario(
-        idRol,
-        crearUsuarioDTO.getCorreoUsuario(),
-        crearUsuarioDTO.getPassword(),
+    crearUsuarioGenericoDB.registrarUsuario(idRol,
+        crearUsuarioDTO.getCorreoUsuario(), crearUsuarioDTO.getPassword(),
         crearUsuarioDTO.getFechaNacimiento(),
-        crearUsuarioDTO.getNumeroTelefonico(),
-        crearUsuarioDTO.getPais(),
+        crearUsuarioDTO.getNumeroTelefonico(), crearUsuarioDTO.getPais(),
         crearUsuarioDTO.getAvatarPart().getValueAs(InputStream.class));
 
   }
 
-  public Integer obtenerIdUsuarioPorCorreo(String correoUsuario) throws Exception {
+  public Integer obtenerIdUsuarioPorCorreo(String correoUsuario)
+      throws Exception {
     return crearUsuarioGenericoDB.obtenerIdUsuarioPorCorreo(correoUsuario);
   }
 
-  public void registrarUsuarioAdministrador(CrearUsuarioAdminDTO crearUsuarioDTO, Integer idUsuario)
+  public void registrarUsuarioAdministrador(
+      CrearUsuarioAdminDTO crearUsuarioDTO, Integer idUsuario)
       throws Exception {
 
-    crearUsuarioDB.registrarUsuarioAdmin(
-        crearUsuarioDTO.getNombreCompleto(),
+    crearUsuarioDB.registrarUsuarioAdmin(crearUsuarioDTO.getNombreCompleto(),
         idUsuario);
   }
 
