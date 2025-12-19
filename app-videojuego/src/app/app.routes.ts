@@ -8,6 +8,9 @@ import { EmpresaModuleComponent } from '../components/usuario-empresa/empresa-mo
 import { AdminModuleComponent } from '../components/usuario-admin/admin-module.component/admin-module.component';
 import { LoginPageComponent } from '../pages/login/login-page.component/login-page.component';
 import { LoginComponent } from '../components/login/login.component/login.component';
+import { CrearUsuarioAdminComponent } from '../components/usuario/crear/crear-usuario-admin.component/crear-usuario-admin.component';
+import { GestionarCategoriaComponent } from '../components/usuario-admin/categoria/gestionar-categoria.component/gestionar-categoria.component';
+import { CrearUsuarioEmpresaComponent } from '../components/usuario/crear/crear-usuario-empresa.component/crear-usuario-empresa.component';
 
 export const routes: Routes = [
   {
@@ -74,6 +77,10 @@ export const routes: Routes = [
         redirectTo: 'empresa-module',
         pathMatch: 'full',
       },
+      {
+        path: 'registrar-usuario-empresa',
+        component: CrearUsuarioEmpresaComponent,
+      },
     ],
   },
   {
@@ -88,6 +95,18 @@ export const routes: Routes = [
         path: '',
         redirectTo: 'admin-module',
         pathMatch: 'full',
+      },
+      {
+        path: 'crear-administrador',
+        component: CrearUsuarioAdminComponent,
+      },
+      {
+        path: 'gestionar-categorias',
+        component: GestionarCategoriaComponent,
+      },
+      {
+        path: 'gestionar-comisiones',
+        //component:,
       },
     ],
   },

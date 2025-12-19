@@ -5,14 +5,14 @@
       <span class="email">{{ correoUsuario }}</span>
     </div>
 
-    <button class="logout-btn">Cerrar Sesión</button>
+    <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
   </header>
 
   <main class="content">
     <section class="cards-grid">
-      <div class="card card--blue">
-        <h3>Gestión</h3>
-        <p>Administración general del sistema</p>
+      <div class="card card--blue" routerLink="/user-admin/gestionar-categorias">
+        <h3>Gestionar Categorias</h3>
+        <p>Administración de categorías del sistema</p>
       </div>
 
       <div class="card card--green">
@@ -20,14 +20,19 @@
         <p>Listado y control de juegos</p>
       </div>
 
-      <div class="card card--purple">
+      <div class="card card--purple" routerLink="/user-admin/gestionar-comisiones">
         <h3>Comisiones</h3>
         <p>Control de ingresos y porcentajes</p>
       </div>
 
-      <div class="card card--orange">
+      <div class="card card--orange" routerLink="/user-admin/reportes">
         <h3>Reportes</h3>
         <p>Estadísticas y reportes generales</p>
+      </div>
+
+      <div class="card card--blue" routerLink="/user-admin/crear-administrador">
+        <h3>Crear Administrador</h3>
+        <p>Creación de nuevos administradores</p>
       </div>
 
       <div class="card card--pink">
