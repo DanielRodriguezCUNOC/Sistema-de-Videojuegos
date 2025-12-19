@@ -1,1 +1,37 @@
-<p>gestionar-comision-global.component works!</p>
+<div class="dashboard">
+  <header class="topbar">
+    <div class="user-info">
+      <h2 style="color: #ebeef2; margin: 0">Comisión Global del Sistema</h2>
+    </div>
+    <button class="logout-btn" (click)="regresar()">Regresar</button>
+  </header>
+
+  <main class="content">
+    <div class="comision-card">
+      <div class="card-header">
+        <h3>Comisión Actual</h3>
+        <div class="percentage-display">
+          <span class="percentage">{{ comisionGlobal }}%</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="description">
+          Esta es la comisión global que se aplica a todas las transacciones del sistema
+        </p>
+
+        <div class="stats">
+          <div class="stat-item">
+            <span class="stat-label">Última actualización:</span>
+            <span class="stat-value">{{ fechaActualizacion }}</span>
+          </div>
+        </div>
+
+        <button class="btn-edit" (click)="editarComision()">
+          <i class="edit-icon">✏️</i>
+          Editar Comisión
+        </button>
+      </div>
+    </div>
+  </main>
+</div>

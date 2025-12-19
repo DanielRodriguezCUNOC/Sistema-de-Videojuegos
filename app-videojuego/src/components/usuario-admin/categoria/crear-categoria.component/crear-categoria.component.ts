@@ -25,7 +25,7 @@ export class CrearCategoriaComponent implements OnInit {
     private service: CrudCategoriaService
   ) {
     this.crearForm = this.formBuilder.group({
-      categoria: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      categoria: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     });
   }
 

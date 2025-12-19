@@ -11,6 +11,13 @@ import { LoginComponent } from '../components/login/login.component/login.compon
 import { CrearUsuarioAdminComponent } from '../components/usuario/crear/crear-usuario-admin.component/crear-usuario-admin.component';
 import { GestionarCategoriaComponent } from '../components/usuario-admin/categoria/gestionar-categoria.component/gestionar-categoria.component';
 import { CrearUsuarioEmpresaComponent } from '../components/usuario/crear/crear-usuario-empresa.component/crear-usuario-empresa.component';
+import { GestionarComisionComponent } from '../components/usuario-admin/comision/gestionar-comision.component/gestionar-comision.component';
+import { CrearEmpresaComponent } from '../components/usuario-admin/empresa/crear-empresa.component/crear-empresa.component';
+import { GestionarComisionGlobalComponent } from '../components/usuario-admin/comision/gestionar-comision-global.component/gestionar-comision-global.component';
+import { CrearComisionComponent } from '../components/usuario-admin/comision/crear-comision.component/crear-comision.component';
+import { CrearComisionEspecificaComponent } from '../components/usuario-admin/comision/crear-comision-especifica.component/crear-comision-especifica.component';
+import { EditarComisionComponent } from '../components/usuario-admin/comision/editar-comision.component/editar-comision.component';
+import { EditarComisionEspecificaComponent } from '../components/usuario-admin/comision/editar-comision-especifica.component/editar-comision-especifica.component';
 
 export const routes: Routes = [
   {
@@ -106,7 +113,35 @@ export const routes: Routes = [
       },
       {
         path: 'gestionar-comisiones',
-        //component:,
+        component: GestionarComisionComponent,
+      },
+      {
+        path: 'crear-empresa',
+        component: CrearEmpresaComponent,
+      },
+      {
+        path: 'comision-global',
+        component: GestionarComisionGlobalComponent,
+      },
+      {
+        path: 'comision-especifica',
+        component: GestionarComisionComponent,
+      },
+      {
+        path: 'crear-comision-global',
+        component: CrearComisionComponent,
+      },
+      {
+        path: 'crear-comision-especifica',
+        component: CrearComisionEspecificaComponent,
+      },
+      {
+        path: 'editar-comision-global',
+        component: EditarComisionComponent,
+      },
+      {
+        path: 'editar-comision-especifica',
+        component: EditarComisionEspecificaComponent,
       },
     ],
   },

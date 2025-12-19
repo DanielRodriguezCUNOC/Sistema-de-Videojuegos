@@ -73,9 +73,10 @@ export class LoginComponent {
 
   private obtenerError(status: number): string {
     const errorMessages: Record<number, string> = {
+      400: 'Datos inválidos. Por favor, verifique la información ingresada.',
       401: 'Credenciales inválidas. Por favor, inténtelo de nuevo.',
-      0: 'Error de conexión. Por favor, verifique su conexión a Internet.',
       500: 'Error interno del servidor. Por favor, inténtelo más tarde.',
+      0: 'Error de conexión. Por favor, verifique su conexión a Internet.',
     };
     return errorMessages[status] || 'Error inesperado';
   }
