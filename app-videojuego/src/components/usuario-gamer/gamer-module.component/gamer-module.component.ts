@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { NavbarUsuarioComponent } from '../navbar-usuario.component/navbar-usuario.component';
 import { ListaRapidaJuegoCompradoDTO } from '../../../models/dtos/usuario/lista-rapida-juego-comprado-dto';
-import { CurrencyPipe } from '@angular/common';
-import { RouterLinkActive, RouterModule } from '@angular/router';
+import { NavbarUsuarioComponent } from '../../usuario/navbar-usuario.component/navbar-usuario.component';
 import { FooterComponent } from '../../share/footer.component/footer.component';
+import { CurrencyPipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-modulo-usuario.component',
-  imports: [NavbarUsuarioComponent, CurrencyPipe, RouterModule, FooterComponent],
-  templateUrl: './modulo-usuario.component.html',
-  styleUrl: './modulo-usuario.component.scss',
+  selector: 'app-gamer-module',
+  imports: [NavbarUsuarioComponent, FooterComponent, CurrencyPipe, RouterModule],
+  templateUrl: './gamer-module.component.html',
+  styleUrl: './gamer-module.component.scss',
 })
-export class ModuloUsuarioComponent {
+export class GamerModuleComponent {
   juegosComprados: ListaRapidaJuegoCompradoDTO[] = [];
   juegosCarousel: ListaRapidaJuegoCompradoDTO[] = [];
   indiceCarrusel = 0;

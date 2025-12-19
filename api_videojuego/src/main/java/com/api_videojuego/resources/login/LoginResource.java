@@ -25,43 +25,37 @@ public class LoginResource {
     LoginService loginService = new LoginService();
 
     try {
-      LoginResponseDTO response = loginService.autenticarUsuario(loginRequestDTO);
+      LoginResponseDTO response = loginService
+          .autenticarUsuario(loginRequestDTO);
       String jsonResponse = loginService.crearRespuestaJSON(response);
 
-      return Response.status(Response.Status.OK)
-          .entity(jsonResponse)
-          .header("Content-Type", "application/json")
-          .build();
+      return Response.status(Response.Status.OK).entity(jsonResponse)
+          .header("Content-Type", "application/json").build();
 
     } catch (CredencialesInvalidas e) {
       return Response.status(Response.Status.UNAUTHORIZED)
           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
 
     } catch (DatosInvalidos e) {
       return Response.status(Response.Status.BAD_REQUEST)
           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
 
     } catch (ErrorEncriptacion e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
           .entity("{\"error\": \"Error de encriptación\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
 
     } catch (ErrorConsultaDB e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
           .entity("{\"error\": \"Error en la base de datos\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
 
     } catch (Exception e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
           .entity("{\"error\": \"Error interno del servidor\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
     }
   }
 }

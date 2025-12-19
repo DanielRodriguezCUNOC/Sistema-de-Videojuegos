@@ -20,7 +20,8 @@ public class LoginService {
     this.loginDB = new LoginDB();
   }
 
-  public LoginResponseDTO autenticarUsuario(LoginRequestDTO loginDTO) throws Exception {
+  public LoginResponseDTO autenticarUsuario(LoginRequestDTO loginDTO)
+      throws Exception {
 
     try {
       // * Validar datos de entrada
@@ -31,13 +32,11 @@ public class LoginService {
       // * Encriptar la contraseña
       EncriptarPassword encriptarPassword = new EncriptarPassword();
       String passwordEncriptada = encriptarPassword.encriptarPassword(
-          loginDTO.getPassword(),
-          loginDTO.getCorreoUsuario());
+          loginDTO.getPassword(), loginDTO.getCorreoUsuario());
 
       // * Validar credenciales
-      boolean credencialesValidas = loginDB.validarCredenciales(
-          loginDTO.getCorreoUsuario(),
-          passwordEncriptada);
+      boolean credencialesValidas = loginDB
+          .validarCredenciales(loginDTO.getCorreoUsuario(), passwordEncriptada);
 
       if (!credencialesValidas) {
         throw new CredencialesInvalidas("Correo o contraseña incorrectos");
@@ -75,23 +74,32 @@ public class LoginService {
   }
 
   // * Creamos la repuesta JSON */
-  public String crearRespuestaJSON(LoginResponseDTO loginResponseDTO) throws Exception {
+  public String crearRespuestaJSON(LoginResponseDTO loginResponseDTO)
+      throws Exception {
     try {
 
       // * Convertir InputStream a Base64 */
-      String avatarBase64 = convertirInputStreamABase64(loginResponseDTO.getAvatar());
+      String avatarBase64 = convertirInputStreamABase64(
+          loginResponseDTO.getAvatar());
 
       // * Creamos un StringBuilder para construir la respuesta JSON */
       StringBuilder jsonBuilder = new StringBuilder();
 
+      // * Agregar los campos al JSON */
       jsonBuilder.append("{");
-      jsonBuilder.append("\"correoUsuario\":\"").append(loginResponseDTO.getCorreoUsuario()).append("\",");
-      jsonBuilder.append("\"idRol\":").append(loginResponseDTO.getIdRol()).append(",");
+      // *Agregar el id del usuario */
+      jsonBuilder.append("\"idUsuario\":\"")
+          .append(loginResponseDTO.getIdUsuario()).append("\",");
+      // *Agregar el rol del usuario */
+      jsonBuilder.append("\"idRol\":").append(loginResponseDTO.getIdRol())
+          .append(",");
+      // *Agregar el avatar del usuario */
       jsonBuilder.append("\"avatar\":");
 
       if (avatarBase64 != null) {
         jsonBuilder.append("\"").append(avatarBase64).append("\"");
-      } else {
+      }
+      else {
         jsonBuilder.append("null");
       }
 
