@@ -93,6 +93,10 @@ public class LoginService {
       // *Agregar el rol del usuario */
       jsonBuilder.append("\"idRol\":").append(loginResponseDTO.getIdRol())
           .append(",");
+      // *Agregar el correo del usuario */
+      jsonBuilder.append("\"correoUsuario\":\"")
+          .append(loginResponseDTO.getCorreoUsuario()).append("\",");
+
       // *Agregar el avatar del usuario */
       jsonBuilder.append("\"avatar\":");
 
