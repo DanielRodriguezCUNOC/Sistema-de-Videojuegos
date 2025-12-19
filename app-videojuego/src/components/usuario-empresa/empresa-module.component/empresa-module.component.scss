@@ -1,0 +1,143 @@
+
+$blue: #2563eb;
+$green: #16a34a;
+$purple: #7c3aed;
+$orange: #ea580c;
+$pink: #db2777;
+$bg: #f7f8fa;
+$card-bg: #11212f;
+$text-primary: #e5f0ff;
+$text-secondary: #e3e8f3;
+$accent: #2563eb;
+$border-radius: 14px;
+
+
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: $card-bg;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .email {
+    font-size: 0.95rem;
+    color: $text-secondary;
+  }
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: $text-primary;
+
+  &:hover {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #b91c1c;
+  }
+}
+
+.content {
+  padding: 2rem;
+  flex: 1;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.6rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+
+  h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    background: currentColor;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.card--blue {
+  color: $blue;
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+}
+
+.card--green {
+  color: $green;
+  background: linear-gradient(135deg, #ecfdf5, #ffffff);
+}
+
+.card--purple {
+  color: $purple;
+  background: linear-gradient(135deg, #f5f3ff, #ffffff);
+}
+
+.card--orange {
+  color: $orange;
+  background: linear-gradient(135deg, #fff7ed, #ffffff);
+}
+
+.card--pink {
+  color: $pink;
+  background: linear-gradient(135deg, #fdf2f8, #ffffff);
+}

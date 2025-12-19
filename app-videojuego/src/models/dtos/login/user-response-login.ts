@@ -1,5 +1,6 @@
 export interface UserResponseLoginDTO {
   idUsuario: number;
   idRol: number;
-  avatar: string;
+  correoUsuario: string;
+  avatar: string | null;
 }
