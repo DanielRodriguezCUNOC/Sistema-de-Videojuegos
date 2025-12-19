@@ -1,0 +1,55 @@
+<div class="dashboard">
+  <div class="topbar">
+    <h1 class="page-title">Editar Categoría</h1>
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Modificar Categoría</h2>
+        <p>
+          ID: <span class="category-id">{{ categoriaId }}</span>
+        </p>
+      </div>
+
+      <form [formGroup]="editarForm" (ngSubmit)="onSubmit()" class="edit-form">
+        <div class="form-group">
+          <label for="categoria" class="form-label">
+            Nombre de Categoría
+            <span class="required">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="categoria"
+            formControlName="categoria"
+            class="form-input"
+            placeholder="Ingrese el nombre de la categoría"
+            maxlength="20"
+          />
+
+          <div class="input-info">
+            <small class="char-count"> {{ categoria?.value?.length || 0 }}/20 caracteres </small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="regresar()">Cancelar</button>
+
+          <button type="submit" class="btn btn-primary">Actualizar Categoría</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

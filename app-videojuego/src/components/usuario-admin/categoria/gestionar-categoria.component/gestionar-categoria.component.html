@@ -1,0 +1,75 @@
+<div class="dashboard">
+  <div class="topbar">
+    <h1 class="page-title">Gestión de Categorías</h1>
+    <button class="create-btn" routerLink="/admin-user/crear-categoria">
+      <i class="fas fa-plus"></i>
+      Crear Categoría
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="table-container">
+      <div class="table-header">
+        <h2>Lista de Categorías</h2>
+        <span class="total-count">Total: {{ categorias.length || 0 }}</span>
+      </div>
+
+      @if(categorias && categorias.length > 0) {
+
+      <div class="table-wrapper">
+        <table class="categories-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre de Categoría</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(categoria of categorias; track categoria.idCategoria) {
+            <tr class="table-row">
+              <td class="id-cell">{{ categoria.idCategoria }}</td>
+              <td class="category-cell">{{ categoria.categoria }}</td>
+              <td class="actions-cell">
+                <button
+                  class="action-btn edit-btn"
+                  (click)="editarCategoria(categoria.idCategoria, categoria.categoria)"
+                  title="Editar categoría"
+                >
+                  <i class="fas fa-edit"></i>
+                  Editar
+                </button>
+                <button
+                  class="action-btn delete-btn"
+                  (click)="eliminarCategoria(categoria.idCategoria)"
+                  title="Eliminar categoría"
+                >
+                  <i class="fas fa-trash"></i>
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }@else{
+      <div class="no-data">
+        <i class="fas fa-folder-open"></i>
+        <h3>No hay categorías registradas</h3>
+        <p>Comienza creando tu primera categoría</p>
+        <button class="create-btn" routerLink="/admin-user/crear-categoria">
+          <i class="fas fa-plus"></i>
+          Crear Primera Categoría
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

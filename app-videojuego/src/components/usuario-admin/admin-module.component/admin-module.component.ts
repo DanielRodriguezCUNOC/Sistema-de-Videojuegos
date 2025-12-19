@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MasterLoginService } from '../../../services/login/masterlogin';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../share/footer.component/footer.component';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-module',
-  imports: [CommonModule, FooterComponent],
+  imports: [CommonModule, FooterComponent, RouterLink],
   templateUrl: './admin-module.component.html',
   styleUrl: './admin-module.component.scss',
 })

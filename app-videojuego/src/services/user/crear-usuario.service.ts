@@ -11,11 +11,12 @@ import { CrearUsuarioEmpresaDTO } from '../../models/dtos/usuario/crear/crear-us
 })
 export class CrearUsuarioService {
   //* LLamamos a la API para crear un usuario
-  private apiURL = `${environment.apiBaseUrl}/usuario/crear-usuario-gamer`;
+  private apiURL = `${environment.apiBaseUrl}/usuario`;
 
   constructor(private http: HttpClient) {}
 
   crearUsuarioGamer(datosUsuario: CrearUsuarioGamerDTO): Observable<any> {
+    const url = `${environment.apiBaseUrl}/usuario/gamer`;
     const formData = new FormData();
     formData.append('correoUsuario', datosUsuario.correoUsuario);
     formData.append('nickname', datosUsuario.nickname);
@@ -27,10 +28,11 @@ export class CrearUsuarioService {
       formData.append('avatar', datosUsuario.avatar);
     }
 
-    return this.http.post(this.apiURL, formData);
+    return this.http.post(url, formData);
   }
 
   crearUsuarioAdmin(datosUsuario: CrearUsuarioAdminDTO): Observable<any> {
+    const url = `${environment.apiBaseUrl}/usuario/admin`;
     const formData = new FormData();
     formData.append('correoUsuario', datosUsuario.correoUsuario);
     formData.append('nombreCompleto', datosUsuario.nombreCompleto);
@@ -42,10 +44,11 @@ export class CrearUsuarioService {
       formData.append('avatar', datosUsuario.avatar);
     }
 
-    return this.http.post(this.apiURL, formData);
+    return this.http.post(url, formData);
   }
 
   crearUsuarioEmpresa(datosUsuario: CrearUsuarioEmpresaDTO): Observable<any> {
+    const url = `${environment.apiBaseUrl}/usuario/empresa`;
     const formData = new FormData();
     formData.append('correoUsuario', datosUsuario.correoUsuario);
     formData.append('nombreCompleto', datosUsuario.nombreCompleto);
@@ -57,6 +60,6 @@ export class CrearUsuarioService {
       formData.append('avatar', datosUsuario.avatar);
     }
 
-    return this.http.post(this.apiURL, formData);
+    return this.http.post(url, formData);
   }
 }
