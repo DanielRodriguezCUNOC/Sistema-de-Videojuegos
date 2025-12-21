@@ -34,10 +34,15 @@ public class CRUDCategoriaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT id_categoria, categoria FROM categoria";
+
 		ListaCategoriaDTO listaCategoriaDTO = new ListaCategoriaDTO();
+
 		try (PreparedStatement ps = conn.prepareStatement(query);) {
+
 			ResultSet rs = ps.executeQuery();
+
 			while (rs.next()) {
+
 				Integer idCategoria = rs.getInt("id_categoria");
 				String categoria = rs.getString("categoria");
 				listaCategoriaDTO.agregarCategoria(idCategoria, categoria);

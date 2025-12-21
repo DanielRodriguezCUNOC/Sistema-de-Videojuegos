@@ -1,20 +1,36 @@
 package com.api_videojuego.dto.administrador.comision;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 public class ObtenerComisionGlobalDTO {
-	private Double comisionGlobal;
+	private Integer id;
+	private BigDecimal comision;
+	private LocalDate fechaCreacion;
 
-	public ObtenerComisionGlobalDTO() {
+	// * Getters and Setters */
+
+	public Integer getId() {
+		return id;
 	}
 
-	public ObtenerComisionGlobalDTO(Double comisionGlobal) {
-		this.comisionGlobal = comisionGlobal;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Double getComisionGlobal() {
-		return comisionGlobal;
+	public BigDecimal getComision() {
+		return comision;
 	}
 
-	public void setComisionGlobal(Double comisionGlobal) {
-		this.comisionGlobal = comisionGlobal;
+	public void setComision(BigDecimal comision) {
+		this.comision = comision;
+	}
+
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 }
