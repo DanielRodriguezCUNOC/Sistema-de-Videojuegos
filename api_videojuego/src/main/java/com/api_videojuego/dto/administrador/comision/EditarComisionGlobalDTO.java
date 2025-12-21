@@ -1,21 +1,34 @@
 package com.api_videojuego.dto.administrador.comision;
 
+import java.math.BigDecimal;
+
 import jakarta.ws.rs.FormParam;
 
 public class EditarComisionGlobalDTO {
-	@FormParam("comisionGlobal")
-	private Double comisionGlobal;
+	@FormParam("id")
+	private Integer id;
+	@FormParam("comision")
+	private BigDecimal comision;
 
-	public Double getComisionGlobal() {
-		return comisionGlobal;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setComisionGlobal(Double comisionGlobal) {
-		this.comisionGlobal = comisionGlobal;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public BigDecimal getComision() {
+		return comision;
+	}
+
+	public void setComision(BigDecimal comision) {
+		this.comision = comision;
 	}
 
 	public boolean esValida() {
-		return comisionGlobal != null && comisionGlobal >= 0
-				&& comisionGlobal <= 100;
+		return comision != null && comision.compareTo(BigDecimal.ZERO) >= 0
+				&& comision.compareTo(new BigDecimal("100")) <= 0 && id != null
+				&& id > 0;
 	}
 }
