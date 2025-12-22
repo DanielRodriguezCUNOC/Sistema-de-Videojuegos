@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.dto.administrador.comision.ComisionEspecificaRequestDTO;
+import com.api_videojuego.dto.administrador.comision.ComisionEspecificaResponseDTO;
 import com.api_videojuego.dto.administrador.comision.EditarComisionEspecificaDTO;
 import com.api_videojuego.dto.administrador.comision.ListaComisionEspecificaDTO;
 import com.api_videojuego.excepciones.ErrorActualizarRegistro;
@@ -55,8 +56,8 @@ public class ComisionEspecificaDB {
 		return false;
 	}
 
-	public ListaComisionEspecificaDTO listaComisionEspecifica() throws Exception {
-		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+	public ListaComisionEspecificaDTO listaComisionEspecifica(Connection conn)
+			throws Exception {
 
 		String query = "SELECT ce.id, ce.comision_especifica, ed.nombre_empresa "
 				+ "FROM comision_especifica ce "
@@ -121,4 +122,20 @@ public class ComisionEspecificaDB {
 		}
 		return null;
 	}
+
+	public void cambiarComisionEspecifica(ComisionEspecificaResponseDTO comision,
+			LocalDate fechaActual, Connection conn) throws Exception {
+
+		String query = "UPDATE comision_especifica SET comision_especifica = ?, fecha_actualizacion = ? WHERE id = ?";
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setBigDecimal(1, comision.getComisionEspecifica());
+			ps.setObject(2, fechaActual);
+			ps.setInt(3, comision.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new ErrorActualizarRegistro(
+					"Error al actualizar la comision especifica: " + e.getMessage());
+		}
+	}
+
 }

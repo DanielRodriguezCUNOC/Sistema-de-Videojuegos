@@ -17,8 +17,7 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 public class ComisionGlobalDB {
 
 	public void actualizarComisionGlobal(EditarComisionGlobalDTO comision,
-			LocalDate fechaActual) throws Exception {
-		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+			LocalDate fechaActual, Connection conn) throws Exception {
 
 		String query = "UPDATE comision_global SET comision = ?, fecha_creacion = ? WHERE id = ?";
 
