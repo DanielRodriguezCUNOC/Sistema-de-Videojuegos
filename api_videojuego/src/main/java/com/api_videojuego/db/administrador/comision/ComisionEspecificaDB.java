@@ -66,7 +66,6 @@ public class ComisionEspecificaDB {
 		ListaComisionEspecificaDTO comisiones = new ListaComisionEspecificaDTO();
 
 		try (PreparedStatement ps = conn.prepareStatement(query)) {
-
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
