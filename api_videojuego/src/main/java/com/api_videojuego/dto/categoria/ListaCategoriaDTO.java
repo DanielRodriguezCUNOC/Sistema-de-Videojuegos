@@ -4,25 +4,25 @@ import java.util.List;
 
 public class ListaCategoriaDTO {
 
-	private List<CategoriaDTO> categorias;
+	private List<CategoriaResponseDTO> categorias;
 
 	public ListaCategoriaDTO() {
 	}
 
-	public ListaCategoriaDTO(List<CategoriaDTO> categorias) {
+	public ListaCategoriaDTO(List<CategoriaResponseDTO> categorias) {
 		this.categorias = categorias;
 	}
 
 	// * Getters and Setters */
-	public List<CategoriaDTO> getCategorias() {
+	public List<CategoriaResponseDTO> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(List<CategoriaDTO> categorias) {
+	public void setCategorias(List<CategoriaResponseDTO> categorias) {
 		this.categorias = categorias;
 	}
 
 	public void agregarCategoria(Integer idCategoria, String categoria) {
-		this.categorias.add(new CategoriaDTO(idCategoria, categoria));
+		this.categorias.add(new CategoriaResponseDTO(idCategoria, categoria));
 	}
 }

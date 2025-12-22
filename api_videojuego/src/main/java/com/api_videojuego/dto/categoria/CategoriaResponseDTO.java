@@ -1,14 +1,14 @@
 package com.api_videojuego.dto.categoria;
 
-public class CategoriaDTO {
+public class CategoriaResponseDTO {
 
 	private Integer idCategoria;
 	private String categoria;
 
-	public CategoriaDTO() {
+	public CategoriaResponseDTO() {
 	}
 
-	public CategoriaDTO(Integer idCategoria, String categoria) {
+	public CategoriaResponseDTO(Integer idCategoria, String categoria) {
 		this.idCategoria = idCategoria;
 		this.categoria = categoria;
 	}
