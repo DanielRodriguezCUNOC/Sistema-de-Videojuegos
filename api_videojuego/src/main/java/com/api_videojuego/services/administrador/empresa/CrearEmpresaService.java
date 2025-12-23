@@ -9,6 +9,8 @@ import com.api_videojuego.dto.administrador.empresa.CrearEmpresaDTO;
 import com.api_videojuego.dto.usuario.crear.CrearUsuarioEmpresaDTO;
 import com.api_videojuego.excepciones.DatoYaExiste;
 import com.api_videojuego.excepciones.DatosInvalidos;
+import com.api_videojuego.excepciones.ErrorConsultaDB;
+import com.api_videojuego.excepciones.ErrorEncriptacion;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 import com.api_videojuego.excepciones.UsuarioYaRegistrado;
 import com.api_videojuego.utils.ConfiguracionAvatar;
@@ -28,7 +30,9 @@ public class CrearEmpresaService {
 		this.usuarioGenericoDB = new CrearUsuarioDB();
 	}
 
-	public void crearEmpresa(CrearEmpresaDTO crearEmpresaDTO) throws Exception {
+	public void crearEmpresa(CrearEmpresaDTO crearEmpresaDTO)
+			throws DatoYaExiste, DatosInvalidos, UsuarioYaRegistrado, ErrorInsertarDB,
+			ErrorConsultaDB, ErrorEncriptacion {
 		try {
 
 			// *Validar datos del frontend */
@@ -101,27 +105,25 @@ public class CrearEmpresaService {
 			throw e;
 		} catch (ErrorInsertarDB e) {
 			throw e;
-		} catch (Exception e) {
-			throw new Exception("Error interno del servidor: " + e.getMessage());
 		}
 	}
 
 	private String encriptarPassword(String password, String correoUsuario)
-			throws Exception {
+			throws ErrorEncriptacion {
 		EncriptarPassword encriptarPassword = new EncriptarPassword();
 		return encriptarPassword.encriptarPassword(password, correoUsuario);
 	}
 
 	private void registrarUsuarioEmpresa(
 			CrearUsuarioEmpresaDTO crearUsuarioEmpresaDTO, Integer idUsuario)
-			throws Exception {
+			throws ErrorInsertarDB {
 		usuarioEmpresaDB.registrarUsuarioEmpresa(
 				crearUsuarioEmpresaDTO.getNombreCompleto(), idUsuario,
 				crearUsuarioEmpresaDTO.getIdEmpresa());
 	}
 
 	private void crearUsuarioGenerico(CrearUsuarioEmpresaDTO usuario)
-			throws Exception {
+			throws ErrorInsertarDB {
 
 		usuarioGenericoDB.registrarUsuario(ROL_USUARIO, usuario.getCorreoUsuario(),
 				usuario.getPassword(), usuario.getFechaNacimiento(),

@@ -6,7 +6,9 @@ import com.api_videojuego.dto.categoria.EditarCategoriaDTO;
 import com.api_videojuego.dto.categoria.ListaCategoriaDTO;
 import com.api_videojuego.excepciones.DatoYaExiste;
 import com.api_videojuego.excepciones.DatosInvalidos;
+import com.api_videojuego.excepciones.ErrorActualizarRegistro;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
+import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class CRUDCategoriaService {
@@ -18,7 +20,7 @@ public class CRUDCategoriaService {
 	}
 
 	public void crearCategoria(CrearCategoriaDTO crearCategoriaDTO)
-			throws Exception {
+			throws DatoYaExiste, DatosInvalidos, ErrorInsertarDB, ErrorConsultaDB {
 		try {
 			if (!crearCategoriaDTO.esCategoriaValida()) {
 				throw new DatosInvalidos("Los datos ingresados no son válidos");
@@ -40,23 +42,19 @@ public class CRUDCategoriaService {
 			throw e;
 		} catch (ErrorConsultaDB e) {
 			throw e;
-		} catch (Exception e) {
-			throw new Exception("Error interno del servidor: " + e.getMessage());
 		}
 	}
 
-	public ListaCategoriaDTO obtenerCategorias() throws Exception {
+	public ListaCategoriaDTO obtenerCategorias() throws ErrorConsultaDB {
 		try {
 			return crudCategoriaDB.obtenerCategorias();
 		} catch (ErrorConsultaDB e) {
 			throw e;
-		} catch (Exception e) {
-			throw new Exception("Error interno del servidor: " + e.getMessage());
 		}
 	}
 
 	public void editarCategoria(EditarCategoriaDTO editarCategoriaDTO)
-			throws Exception {
+			throws DatosInvalidos, ErrorActualizarRegistro {
 		try {
 			if (!editarCategoriaDTO.esCategoriaValida()) {
 				throw new DatosInvalidos("Los datos ingresados no son válidos");
@@ -66,14 +64,13 @@ public class CRUDCategoriaService {
 
 		} catch (DatosInvalidos e) {
 			throw e;
-		} catch (ErrorInsertarDB e) {
+		} catch (ErrorActualizarRegistro e) {
 			throw e;
-		} catch (Exception e) {
-			throw new Exception("Error interno del servidor: " + e.getMessage());
 		}
 	}
 
-	public void eliminarCategoria(Integer idCategoria) throws Exception {
+	public void eliminarCategoria(Integer idCategoria)
+			throws DatosInvalidos, ErrorEliminarRegistro {
 		try {
 			if (idCategoria == null || idCategoria <= 0) {
 				throw new DatosInvalidos("ID de categoría inválido");
@@ -83,10 +80,8 @@ public class CRUDCategoriaService {
 
 		} catch (DatosInvalidos e) {
 			throw e;
-		} catch (ErrorInsertarDB e) {
+		} catch (ErrorEliminarRegistro e) {
 			throw e;
-		} catch (Exception e) {
-			throw new Exception("Error interno del servidor: " + e.getMessage());
 		}
 	}
 }

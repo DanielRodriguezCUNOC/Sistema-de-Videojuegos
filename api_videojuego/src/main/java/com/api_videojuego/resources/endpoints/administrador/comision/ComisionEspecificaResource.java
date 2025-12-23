@@ -25,10 +25,12 @@ public class ComisionEspecificaResource {
 
 	@Path("/registrar-comision")
 	@POST
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registrarComisionEspecifica(
-			@BeanParam ComisionEspecificaRequestDTO comision) {
+			ComisionEspecificaRequestDTO comision) {
+
 		ComisionEspecificaService comisionService = new ComisionEspecificaService();
+
 		try {
 			comisionService.registrarComisionEspecifica(comision);
 			return Response.status(Response.Status.CREATED)
@@ -51,10 +53,6 @@ public class ComisionEspecificaResource {
 					.entity("{\"mensaje\": \"Error al consultar la base de datos\"}")
 					.header("Content-Type", "application/json").build();
 
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"mensaje\": \"Error del servidor, intentelo mas tarde\"}")
-					.header("Content-Type", "application/json").build();
 		}
 	}
 
@@ -83,10 +81,6 @@ public class ComisionEspecificaResource {
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity("{\"mensaje\": \"Error al actualizar el registro\"}")
 					.header("Content-Type", "application/json").build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"mensaje\": \"Error del servidor, intentelo mas tarde\"}")
-					.header("Content-Type", "application/json").build();
 		}
 	}
 
@@ -103,10 +97,6 @@ public class ComisionEspecificaResource {
 		} catch (ErrorConsultaDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity("{\"mensaje\": \"Error al consultar la base de datos\"}")
-					.header("Content-Type", "application/json").build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"mensaje\": \"Error del servidor, intentelo mas tarde\"}")
 					.header("Content-Type", "application/json").build();
 		}
 	}

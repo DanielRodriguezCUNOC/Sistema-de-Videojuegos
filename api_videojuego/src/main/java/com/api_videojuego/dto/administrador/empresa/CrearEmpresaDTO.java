@@ -1,7 +1,5 @@
 package com.api_videojuego.dto.administrador.empresa;
 
-import java.time.LocalDate;
-
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -20,7 +18,7 @@ public class CrearEmpresaDTO {
 	@FormDataParam("password")
 	private String password;
 	@FormDataParam("fechaNacimiento")
-	private LocalDate fechaNacimiento;
+	private String fechaNacimiento;
 	@FormDataParam("numeroTelefonico")
 	private String numeroTelefonico;
 	@FormDataParam("pais")
@@ -54,11 +52,11 @@ public class CrearEmpresaDTO {
 		this.password = password;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

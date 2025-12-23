@@ -1,5 +1,6 @@
 package com.api_videojuego.db.usuario.cartera;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ public class CarteraDigitalDB {
 
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, idUsuario);
-			ps.setBigDecimal(2, null);
+			ps.setBigDecimal(2, BigDecimal.valueOf(0.00));
 			ps.executeUpdate();
 
 		} catch (SQLException e) {

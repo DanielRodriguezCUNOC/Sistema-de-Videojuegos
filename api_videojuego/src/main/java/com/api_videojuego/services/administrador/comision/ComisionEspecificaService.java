@@ -23,7 +23,7 @@ public class ComisionEspecificaService {
 	}
 
 	public void actualizarComisionEspecifica(EditarComisionEspecificaDTO comision)
-			throws Exception {
+			throws DatosInvalidos, ErrorConsultaDB, ErrorActualizarRegistro {
 		try {
 			// * Validamos que los datos sean correctos */
 			if (!comision.esComisionValida()) {
@@ -42,12 +42,11 @@ public class ComisionEspecificaService {
 			throw e;
 		} catch (ErrorActualizarRegistro e) {
 			throw e;
-		} catch (Exception e) {
 		}
 	}
 
 	public void registrarComisionEspecifica(ComisionEspecificaRequestDTO comision)
-			throws Exception {
+			throws DatosInvalidos, DatoYaExiste, ErrorConsultaDB, ErrorInsertarDB {
 		try {
 			// * Validamos que los datos sean correctos */
 			if (!comision.esComisionValida()) {
@@ -74,7 +73,6 @@ public class ComisionEspecificaService {
 			throw e;
 		} catch (ErrorInsertarDB e) {
 			throw e;
-		} catch (Exception e) {
 		}
 	}
 
@@ -83,12 +81,12 @@ public class ComisionEspecificaService {
 	}
 
 	private Integer obtenerIdEmpresaPorNombre(String nombreEmpresa)
-			throws Exception {
+			throws DatosInvalidos, ErrorConsultaDB {
 		return comisionDB.obtenerIdEmpresaporNombre(nombreEmpresa);
 	}
 
 	public ListaComisionEspecificaDTO obtenerComisionesEspecificas()
-			throws Exception {
+			throws ErrorConsultaDB {
 		Connection conn = null;
 		try {
 			conn = DBConnectionSingleton.getInstance().getConnection();
@@ -96,9 +94,7 @@ public class ComisionEspecificaService {
 					.listaComisionEspecifica(conn);
 		} catch (ErrorConsultaDB e) {
 			throw e;
-		} catch (Exception e) {
 		}
-		return null;
 	}
 
 }

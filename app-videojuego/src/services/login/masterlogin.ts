@@ -41,14 +41,7 @@ export class MasterLoginService {
   }
 
   private isValidUser(user: any): user is UserResponseLoginDTO {
-    return (
-      user &&
-      typeof user.idRol === 'number' &&
-      user.idRol > 0 &&
-      typeof user.idUsuario === 'number' && // Cambio: validar idUsuario en lugar de correo
-      user.idUsuario > 0 &&
-      (user.avatar === null || typeof user.avatar === 'string')
-    );
+    return user && user.idRol > 0 && user.correoUsuario;
   }
 
   private clearInvalidData(): void {
@@ -97,7 +90,7 @@ export class MasterLoginService {
   /**
    * Convierte el avatar Base64 a una URL utilizable en src de img
    */
-  getAvatarUrl(): string {
+  /*getAvatarUrl(): string {
     const user = this.getCurrentUser();
     if (user?.avatar) {
       if (user.avatar.startsWith('data:image/')) {
@@ -105,7 +98,7 @@ export class MasterLoginService {
       }
     }
     return '';
-  }
+  }*/
 
   /**
    * Obtiene el correo del usuario o un valor por defecto

@@ -5,12 +5,13 @@ import com.api_videojuego.dto.categoria.EditarCategoriaDTO;
 import com.api_videojuego.dto.categoria.ListaCategoriaDTO;
 import com.api_videojuego.excepciones.DatoYaExiste;
 import com.api_videojuego.excepciones.DatosInvalidos;
+import com.api_videojuego.excepciones.ErrorActualizarRegistro;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
+import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 import com.api_videojuego.services.administrador.categoria.CRUDCategoriaService;
 
 import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -27,9 +28,8 @@ public class CategoriaResource {
 	// * Función crearCategoria */
 	@Path("/crear-categoria")
 	@POST
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response crearCategoria(
-			@BeanParam CrearCategoriaDTO crearCategoriaDTO) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response crearCategoria(CrearCategoriaDTO crearCategoriaDTO) {
 
 		CRUDCategoriaService service = new CRUDCategoriaService();
 
@@ -60,10 +60,6 @@ public class CategoriaResource {
 					.entity("{\"error\": \"Error al consultar la base de datos\"}")
 					.header("Content-Type", "application/json").build();
 
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Error interno del servidor\"}")
-					.header("Content-Type", "application/json").build();
 		}
 	}
 
@@ -84,19 +80,14 @@ public class CategoriaResource {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity("{\"error\": \"Error al consultar la base de datos\"}")
 					.header("Content-Type", "application/json").build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Error interno del servidor\"}")
-					.header("Content-Type", "application/json").build();
 		}
 	}
 
 	// * Funcion editarCategoria */
 	@Path("/editar-categoria")
 	@PUT
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response editarCategoria(
-			@BeanParam EditarCategoriaDTO editarCategoriaDTO) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response editarCategoria(EditarCategoriaDTO editarCategoriaDTO) {
 		CRUDCategoriaService service = new CRUDCategoriaService();
 		try {
 			service.editarCategoria(editarCategoriaDTO);
@@ -110,13 +101,9 @@ public class CategoriaResource {
 					.entity("{\"error\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 
-		} catch (ErrorInsertarDB e) {
+		} catch (ErrorActualizarRegistro e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Error al insertar en la base de datos\"}")
-					.header("Content-Type", "application/json").build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Error interno del servidor\"}")
+					.entity("{\"error\": \"Error al actualizar en la base de datos\"}")
 					.header("Content-Type", "application/json").build();
 		}
 	}
@@ -138,15 +125,11 @@ public class CategoriaResource {
 					.entity("{\"error\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 
-		} catch (ErrorInsertarDB e) {
+		} catch (ErrorEliminarRegistro e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity("{\"error\": \"Error al eliminar en la base de datos\"}")
 					.header("Content-Type", "application/json").build();
 
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Error interno del servidor\"}")
-					.header("Content-Type", "application/json").build();
 		}
 	}
 

@@ -12,7 +12,8 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class CrearEmpresaDB {
 
-	public boolean existeEmpresaPorNombre(String nombreEmpresa) throws Exception {
+	public boolean existeEmpresaPorNombre(String nombreEmpresa)
+			throws ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT COUNT(*) AS count FROM empresa_desarrolladora WHERE nombre_empresa = ?";
@@ -31,7 +32,7 @@ public class CrearEmpresaDB {
 	}
 
 	public Integer registrarEmpresa(String nombreEmpresa, String descripcion,
-			String estadoComentario) throws Exception {
+			String estadoComentario) throws ErrorInsertarDB, ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "INSERT INTO empresa_desarrolladora (nombre_empresa, descripcion, estado_comentario) VALUES (?, ?, ?)";

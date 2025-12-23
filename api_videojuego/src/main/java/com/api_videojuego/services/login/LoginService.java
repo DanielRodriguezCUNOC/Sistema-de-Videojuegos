@@ -59,7 +59,6 @@ public class LoginService {
   }
 
   // *Convertir InputStream a Bytes */
-
   private String convertirInputStreamABase64(InputStream inputStream) {
     if (inputStream == null) {
       return null;
@@ -73,45 +72,4 @@ public class LoginService {
     }
   }
 
-  // * Creamos la repuesta JSON */
-  public String crearRespuestaJSON(LoginResponseDTO loginResponseDTO)
-      throws Exception {
-    try {
-
-      // * Convertir InputStream a Base64 */
-      String avatarBase64 = convertirInputStreamABase64(
-          loginResponseDTO.getAvatar());
-
-      // * Creamos un StringBuilder para construir la respuesta JSON */
-      StringBuilder jsonBuilder = new StringBuilder();
-
-      // * Agregar los campos al JSON */
-      jsonBuilder.append("{");
-      // *Agregar el id del usuario */
-      jsonBuilder.append("\"idUsuario\":\"")
-          .append(loginResponseDTO.getIdUsuario()).append("\",");
-      // *Agregar el rol del usuario */
-      jsonBuilder.append("\"idRol\":").append(loginResponseDTO.getIdRol())
-          .append(",");
-      // *Agregar el correo del usuario */
-      jsonBuilder.append("\"correoUsuario\":\"")
-          .append(loginResponseDTO.getCorreoUsuario()).append("\",");
-
-      // *Agregar el avatar del usuario */
-      jsonBuilder.append("\"avatar\":");
-
-      if (avatarBase64 != null) {
-        jsonBuilder.append("\"").append(avatarBase64).append("\"");
-      }
-      else {
-        jsonBuilder.append("null");
-      }
-
-      jsonBuilder.append("}");
-      return jsonBuilder.toString();
-
-    } catch (Exception e) {
-      throw new Exception("Error al crear respuesta JSON: " + e.getMessage());
-    }
-  }
 }

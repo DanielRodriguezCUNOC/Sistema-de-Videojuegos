@@ -8,10 +8,10 @@ import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEncriptacion;
 import com.api_videojuego.services.login.LoginService;
 
-import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -19,43 +19,37 @@ import jakarta.ws.rs.core.Response;
 public class LoginResource {
 
   @POST
-  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  public Response login(@BeanParam LoginRequestDTO loginRequestDTO) {
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response login(LoginRequestDTO loginRequestDTO) {
 
     LoginService loginService = new LoginService();
 
     try {
       LoginResponseDTO response = loginService
           .autenticarUsuario(loginRequestDTO);
-      String jsonResponse = loginService.crearRespuestaJSON(response);
 
-      return Response.status(Response.Status.OK).entity(jsonResponse)
-          .header("Content-Type", "application/json").build();
+      return Response.ok(response).build();
 
     } catch (CredencialesInvalidas e) {
       return Response.status(Response.Status.UNAUTHORIZED)
-          .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json").build();
+          .entity("{\"error\": \"" + e.getMessage() + "\"}").build();
 
     } catch (DatosInvalidos e) {
       return Response.status(Response.Status.BAD_REQUEST)
-          .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json").build();
+          .entity("{\"error\": \"" + e.getMessage() + "\"}").build();
 
     } catch (ErrorEncriptacion e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-          .entity("{\"error\": \"Error de encriptación\"}")
-          .header("Content-Type", "application/json").build();
+          .entity("{\"error\": \"Error de encriptación\"}").build();
 
     } catch (ErrorConsultaDB e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-          .entity("{\"error\": \"Error en la base de datos\"}")
-          .header("Content-Type", "application/json").build();
+          .entity("{\"error\": \"Error en la base de datos\"}").build();
 
     } catch (Exception e) {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-          .entity("{\"error\": \"Error interno del servidor\"}")
-          .header("Content-Type", "application/json").build();
+          .entity("{\"error\": \"Error interno del servidor\"}").build();
     }
   }
 }

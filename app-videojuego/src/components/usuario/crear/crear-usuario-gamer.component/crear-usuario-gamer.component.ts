@@ -5,7 +5,7 @@ import { CrearUsuarioGamerDTO } from '../../../../models/dtos/usuario/crear/crea
 import { CrearUsuarioService } from '../../../../services/user/crear-usuario.service';
 
 @Component({
-  selector: 'app-crear-usuario-gamer.component',
+  selector: 'app-crear-usuario-gamer',
   imports: [ReactiveFormsModule, SharePopupComponent],
   templateUrl: './crear-usuario-gamer.component.html',
   styleUrl: './crear-usuario-gamer.component.scss',
@@ -42,11 +42,11 @@ export class CrearUsuarioGamerComponent {
   submit(): void {
     if (this.nuevoRegistroUsuario.valid) {
       const datosUsuario: CrearUsuarioGamerDTO = {
-        correoUsuario: this.nuevoRegistroUsuario.value.correo_usuario,
+        correoUsuario: this.nuevoRegistroUsuario.value.correoUsuario,
         nickname: this.nuevoRegistroUsuario.value.nickname,
         password: this.nuevoRegistroUsuario.value.password,
-        fechaNacimiento: new Date(this.nuevoRegistroUsuario.value.fecha_nacimiento),
-        numeroTelefonico: this.nuevoRegistroUsuario.value.numero_telefonico,
+        fechaNacimiento: new Date(this.nuevoRegistroUsuario.value.fechaNacimiento),
+        numeroTelefonico: this.nuevoRegistroUsuario.value.numeroTelefonico,
         pais: this.nuevoRegistroUsuario.value.pais,
         avatar: this.selectedFile,
       };

@@ -9,13 +9,15 @@ import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.dto.categoria.CrearCategoriaDTO;
 import com.api_videojuego.dto.categoria.EditarCategoriaDTO;
 import com.api_videojuego.dto.categoria.ListaCategoriaDTO;
+import com.api_videojuego.excepciones.ErrorActualizarRegistro;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
+import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class CRUDCategoriaDB {
 
 	public void crearCategoria(CrearCategoriaDTO crearCategoriaDTO)
-			throws Exception {
+			throws ErrorInsertarDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "INSERT INTO categoria (categoria) VALUES (?)";
@@ -30,7 +32,7 @@ public class CRUDCategoriaDB {
 		}
 	}
 
-	public ListaCategoriaDTO obtenerCategorias() throws Exception {
+	public ListaCategoriaDTO obtenerCategorias() throws ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT id_categoria, categoria FROM categoria";
@@ -56,7 +58,7 @@ public class CRUDCategoriaDB {
 	}
 
 	public void editarCategoria(EditarCategoriaDTO editarCategoriaDTO)
-			throws Exception {
+			throws ErrorActualizarRegistro {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "UPDATE categoria SET categoria = ? WHERE id_categoria = ?";
@@ -67,13 +69,14 @@ public class CRUDCategoriaDB {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new ErrorInsertarDB(
+			throw new ErrorActualizarRegistro(
 					"Error al editar la categoria en la base de datos");
 		}
 
 	}
 
-	public void eliminarCategoria(Integer idCategoria) throws Exception {
+	public void eliminarCategoria(Integer idCategoria)
+			throws ErrorEliminarRegistro {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "DELETE FROM categoria WHERE id_categoria = ?";
@@ -83,12 +86,12 @@ public class CRUDCategoriaDB {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new ErrorInsertarDB(
+			throw new ErrorEliminarRegistro(
 					"Error al eliminar la categoria en la base de datos");
 		}
 	}
 
-	public boolean categoriaExiste(String categoria) throws Exception {
+	public boolean categoriaExiste(String categoria) throws ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT COUNT(*) FROM categoria WHERE categoria = ?";
