@@ -1,15 +1,15 @@
 <form [formGroup]="nuevoRegistroUsuario" (submit)="submit()">
   <div class="row g-3">
     <div class="col-sm-6">
-      <label for="correo_usuario" class="form-label">Correo Electrónico</label>
+      <label for="correoUsuario" class="form-label">Correo Electrónico</label>
       <input
         type="email"
         class="form-control"
-        name="correo_usuario"
-        id="correo_usuario"
+        name="correoUsuario"
+        id="correoUsuario"
         autocomplete="off"
         placeholder="Tu Correo Electrónico"
-        formControlName="correo_usuario"
+        formControlName="correoUsuario"
       />
     </div>
 
@@ -40,26 +40,26 @@
     </div>
 
     <div class="col-sm-6">
-      <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+      <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
       <input
         type="date"
         class="form-control"
-        name="fecha_nacimiento"
-        id="fecha_nacimiento"
-        formControlName="fecha_nacimiento"
+        name="fechaNacimiento"
+        id="fechaNacimiento"
+        formControlName="fechaNacimiento"
       />
     </div>
 
     <div class="col-sm-6">
-      <label for="numero_telefonico" class="form-label">Teléfono</label>
+      <label for="numeroTelefonico" class="form-label">Teléfono</label>
       <input
         type="tel"
         class="form-control"
-        name="numero_telefonico"
-        id="numero_telefonico"
+        name="numeroTelefonico"
+        id="numeroTelefonico"
         autocomplete="off"
         placeholder="12345678"
-        formControlName="numero_telefonico"
+        formControlName="numeroTelefonico"
         maxlength="8"
       />
     </div>

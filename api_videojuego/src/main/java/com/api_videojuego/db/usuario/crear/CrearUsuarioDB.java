@@ -2,10 +2,10 @@ package com.api_videojuego.db.usuario.crear;
 
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
@@ -13,7 +13,7 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class CrearUsuarioDB {
 
-  public boolean existeUsuario(String correo_usuario) throws Exception {
+  public boolean existeUsuario(String correo_usuario) throws ErrorConsultaDB {
 
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -41,19 +41,19 @@ public class CrearUsuarioDB {
   }
 
   public void registrarUsuario(Integer idRol, String correoUsuario,
-      String password, LocalDate fechaNacimiento, String numeroTelefonico,
-      String pais, InputStream avatarStream) throws Exception {
+      String password, String fechaNacimiento, String numeroTelefonico,
+      String pais, InputStream avatarStream) throws ErrorInsertarDB {
 
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-    String query = "INSERT INTO usuario (id_rol, correo_usuario, password, fecha_nacimiento, numero_telefonico, pais, avatar) VALUES (?, ?, ?, ?, ?, ?)";
+    String query = "INSERT INTO usuario (id_rol, correo_usuario, password, fecha_nacimiento, numero_telefonico, pais, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (PreparedStatement ps = conn.prepareStatement(query)) {
 
       ps.setInt(1, idRol);
       ps.setString(2, correoUsuario);
       ps.setString(3, password);
-      ps.setObject(4, fechaNacimiento);
+      ps.setDate(4, Date.valueOf(fechaNacimiento));
       ps.setString(5, numeroTelefonico);
       ps.setString(6, pais);
       ps.setBlob(7, avatarStream);
@@ -68,7 +68,7 @@ public class CrearUsuarioDB {
   }
 
   public Integer obtenerIdUsuarioPorCorreo(String correoUsuario)
-      throws Exception {
+      throws ErrorConsultaDB {
 
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -84,7 +84,7 @@ public class CrearUsuarioDB {
         return rs.getInt("id_usuario");
       }
       else {
-        throw new Exception(
+        throw new ErrorConsultaDB(
             "Usuario no encontrado con el correo: " + correoUsuario);
       }
 

@@ -14,10 +14,4 @@ export class PageLayoutComponent {
   currentUser: any;
 
   constructor(private loginService: LoginService) {}
-
-  ngOnInit(): void {
-    this.currentUser = this.loginService.currentUser;
-
-    this.isSysAdmin = this.currentUser?.idRol === 1;
-  }
 }

@@ -2,13 +2,9 @@ package com.api_videojuego.dto.administrador.comision;
 
 import java.math.BigDecimal;
 
-import jakarta.ws.rs.FormParam;
-
 public class ComisionEspecificaRequestDTO {
 
-	@FormParam("nombreEmpresa")
 	private String nombreEmpresa;
-	@FormParam("comisionEspecifica")
 	private BigDecimal comisionEspecifica;
 
 	// * Getters and Setters */

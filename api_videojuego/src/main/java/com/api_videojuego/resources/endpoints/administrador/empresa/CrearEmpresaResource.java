@@ -64,10 +64,6 @@ public class CrearEmpresaResource {
 					.entity("{\"error\": \"Error al consultar la base de datos\"}")
 					.header("Content-Type", "application/json").build();
 
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Error al crear la empresa\"}")
-					.header("Content-Type", "application/json").build();
 		}
 	}
 }

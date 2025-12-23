@@ -1,16 +1,15 @@
 package com.api_videojuego.dto.login;
 
-import jakarta.ws.rs.FormParam;
-
 public class LoginRequestDTO {
 
-  @FormParam("correoUsuario")
   private String correoUsuario;
 
-  @FormParam("password")
   private String password;
 
-  // Getters and Setters
+  public LoginRequestDTO() {
+  }
+
+  // * Getters and Setters */
   public String getCorreoUsuario() {
     return correoUsuario;
   }
@@ -28,8 +27,8 @@ public class LoginRequestDTO {
   }
 
   public boolean loginValido() {
-    return correoUsuario != null && !correoUsuario.isBlank() &&
-        password != null && !password.isBlank();
+    return correoUsuario != null && !correoUsuario.isBlank() && password != null
+        && !password.isBlank();
   }
 
 }

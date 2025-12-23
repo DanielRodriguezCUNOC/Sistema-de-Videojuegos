@@ -15,7 +15,13 @@
     </properties>
     
     <dependencies>
-    <!-- Jakarta EE API Dependency -->
+         <!-- Conector de Mysql-->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.5.0</version>
+        </dependency>
+            <!-- Jakarta EE API Dependency -->
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>

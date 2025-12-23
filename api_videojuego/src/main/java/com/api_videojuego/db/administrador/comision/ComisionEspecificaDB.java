@@ -19,7 +19,7 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 public class ComisionEspecificaDB {
 
 	public void actualizarComisionEspecifica(EditarComisionEspecificaDTO comision,
-			LocalDate fechaActual) throws Exception {
+			LocalDate fechaActual) throws ErrorActualizarRegistro {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "UPDATE comision_especifica SET comision_especifica = ?, fecha_creacion = ? WHERE id = ?";
@@ -34,7 +34,8 @@ public class ComisionEspecificaDB {
 		}
 	}
 
-	public boolean existeComisionEspecifica(Integer idEmpresa) throws Exception {
+	public boolean existeComisionEspecifica(Integer idEmpresa)
+			throws ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT COUNT(*) AS count FROM comision_especifica WHERE id_empresa = ?";
@@ -57,7 +58,7 @@ public class ComisionEspecificaDB {
 	}
 
 	public ListaComisionEspecificaDTO listaComisionEspecifica(Connection conn)
-			throws Exception {
+			throws ErrorConsultaDB {
 
 		String query = "SELECT ce.id, ce.comision_especifica, ed.nombre_empresa "
 				+ "FROM comision_especifica ce "
@@ -84,7 +85,7 @@ public class ComisionEspecificaDB {
 	}
 
 	public void registrarComisionEspecifica(ComisionEspecificaRequestDTO comision,
-			LocalDate fechaActual, Integer idEmpresa) throws Exception {
+			LocalDate fechaActual, Integer idEmpresa) throws ErrorInsertarDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "INSERT INTO comision_especifica (id_empresa, comision_especifica, fecha_actualizacion) "
@@ -102,7 +103,7 @@ public class ComisionEspecificaDB {
 	}
 
 	public Integer obtenerIdEmpresaporNombre(String nombreEmpresa)
-			throws Exception {
+			throws ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT id_empresa FROM empresa_desarrolladora WHERE nombre_empresa = ?";
@@ -123,7 +124,7 @@ public class ComisionEspecificaDB {
 	}
 
 	public void cambiarComisionEspecifica(ComisionEspecificaResponseDTO comision,
-			LocalDate fechaActual, Connection conn) throws Exception {
+			LocalDate fechaActual, Connection conn) throws ErrorActualizarRegistro {
 
 		String query = "UPDATE comision_especifica SET comision_especifica = ?, fecha_actualizacion = ? WHERE id = ?";
 		try (PreparedStatement ps = conn.prepareStatement(query)) {

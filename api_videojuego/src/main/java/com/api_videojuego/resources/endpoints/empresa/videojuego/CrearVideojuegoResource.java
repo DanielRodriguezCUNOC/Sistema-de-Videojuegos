@@ -33,10 +33,6 @@ public class CrearVideojuegoResource {
 					"{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 
-		} catch (Exception e) {
-			return Response.status(Response.Status.BAD_REQUEST)
-					.entity("{\"error\": \"" + e.getMessage() + "\"}")
-					.header("Content-Type", "application/json").build();
 		}
 
 	}

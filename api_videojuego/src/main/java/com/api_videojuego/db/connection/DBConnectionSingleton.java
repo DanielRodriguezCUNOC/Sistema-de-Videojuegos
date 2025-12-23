@@ -12,7 +12,8 @@ public class DBConnectionSingleton {
   private static final String SCHEMA = "videojuegodb";
   private static final String USER_NAME = "root";
   private static final String PASSWORD = "P@boomi80";
-  private static final String URL = "jdbc:mysql://" + IP + ":" + PUERTO + "/" + SCHEMA;
+  private static final String URL = "jdbc:mysql://" + IP + ":" + PUERTO + "/"
+      + SCHEMA;
   private static DBConnectionSingleton instance;
 
   private DataSource datasource;
@@ -47,15 +48,17 @@ public class DBConnectionSingleton {
       datasource.setPoolProperties(p);
 
     } catch (ClassNotFoundException e) {
-      System.getLogger(DBConnectionSingleton.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
+      System.getLogger(DBConnectionSingleton.class.getName())
+          .log(System.Logger.Level.ERROR, (String) null, e);
     }
   }
 
-  public Connection getConnection() throws Exception {
+  public Connection getConnection() {
     try {
       return datasource.getConnection();
     } catch (SQLException e) {
-      System.getLogger(DBConnectionSingleton.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
+      System.getLogger(DBConnectionSingleton.class.getName())
+          .log(System.Logger.Level.ERROR, (String) null, e);
     }
     return null;
   }

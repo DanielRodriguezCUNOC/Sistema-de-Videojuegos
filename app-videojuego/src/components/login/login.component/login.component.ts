@@ -5,6 +5,8 @@ import { LoginService } from '../../../services/login/login.service';
 import { UserRequestLoginDTO } from '../../../models/dtos/login/user-request-login';
 import { SharePopupComponent } from '../../../shared/share-popup.component/share-popup.component';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
+import { UserResponseLoginDTO } from '../../../models/dtos/login/user-response-login';
+import { MasterLoginService } from '../../../services/login/masterlogin';
 
 @Component({
   selector: 'app-login.component',
@@ -22,8 +24,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
-    private router: Router,
-    private redireccionarService: RedireccionarService
+    private redireccionarService: RedireccionarService,
+    private masterLogin: MasterLoginService
   ) {
     this.loginForm = this.fb.group({
       usuario: ['', Validators.required],
@@ -43,10 +45,14 @@ export class LoginComponent {
       correoUsuario: this.loginForm.value.usuario,
       password: this.loginForm.value.password,
     };
+    console.log('Datos de login enviados:', usuario);
 
-    this.loginService.autenticacionBackend(usuario.correoUsuario, usuario.password).subscribe({
-      next: (user) => {
+    this.loginService.autenticacionBackend(usuario).subscribe({
+      next: (user: UserResponseLoginDTO) => {
         this.mostrarPopup('Inicio de sesión exitoso', 'success');
+
+        this.masterLogin.setLogin(user);
+
         //*Redirigir al dashboard del usuario segun su rol
         setTimeout(() => {
           this.redireccionarService.redireccionarSegunRol(user.idRol).catch(() => {

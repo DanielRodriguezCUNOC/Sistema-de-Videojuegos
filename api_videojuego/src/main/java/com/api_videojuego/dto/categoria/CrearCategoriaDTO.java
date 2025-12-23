@@ -1,10 +1,7 @@
 package com.api_videojuego.dto.categoria;
 
-import org.glassfish.jersey.media.multipart.FormDataParam;
-
 public class CrearCategoriaDTO {
 
-	@FormDataParam("categoria")
 	private String categoria;
 
 	// * Getters and Setters */

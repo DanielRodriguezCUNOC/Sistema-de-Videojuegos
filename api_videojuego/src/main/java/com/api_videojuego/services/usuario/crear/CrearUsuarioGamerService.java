@@ -33,6 +33,24 @@ public class CrearUsuarioGamerService {
 
     try {
 
+      System.out.println("Verificando avatar...");
+      if (crearUsuarioDTO.getAvatarPart() == null) {
+        System.out.println("El avatar es nulo.");
+      }
+      else {
+        System.out
+            .println("Avatar size: " + crearUsuarioDTO.getAvatarGamerSize());
+        System.out
+            .println("Avatar type: " + crearUsuarioDTO.getAvatarGamerType());
+      }
+
+      System.out.println("Correo: " + crearUsuarioDTO.getCorreoUsuario()
+          + ", Nickname: " + crearUsuarioDTO.getNickname() + ", Fecha: "
+          + crearUsuarioDTO.getFechaNacimiento() + ", Telefono: "
+          + crearUsuarioDTO.getNumeroTelefonico() + ", Pais: "
+          + crearUsuarioDTO.getPais() + ", Password: "
+          + crearUsuarioDTO.getPassword());
+
       // * Validamos los datos del usuario */
       if (!crearUsuarioDTO.usuarioGamerValido()) {
         throw new DatosInvalidos("Datos de usuario inválidos.");

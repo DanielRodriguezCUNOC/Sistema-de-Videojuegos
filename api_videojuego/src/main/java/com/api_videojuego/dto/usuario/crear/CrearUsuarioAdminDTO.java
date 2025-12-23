@@ -1,7 +1,5 @@
 package com.api_videojuego.dto.usuario.crear;
 
-import java.time.LocalDate;
-
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -13,7 +11,7 @@ public class CrearUsuarioAdminDTO {
   @FormDataParam("password")
   private String password;
   @FormDataParam("fechaNacimiento")
-  private LocalDate fechaNacimiento;
+  private String fechaNacimiento;
   @FormDataParam("numeroTelefonico")
   private String numeroTelefonico;
   @FormDataParam("pais")
@@ -47,11 +45,11 @@ public class CrearUsuarioAdminDTO {
     this.password = password;
   }
 
-  public LocalDate getFechaNacimiento() {
+  public String getFechaNacimiento() {
     return fechaNacimiento;
   }
 
-  public void setFechaNacimiento(LocalDate fechaNacimiento) {
+  public void setFechaNacimiento(String fechaNacimiento) {
     this.fechaNacimiento = fechaNacimiento;
   }
 
@@ -80,12 +78,10 @@ public class CrearUsuarioAdminDTO {
   }
 
   public boolean usuarioAdminValido() {
-    return correoUsuario != null && !correoUsuario.isBlank() &&
-        password != null && !password.isBlank() &&
-        fechaNacimiento != null &&
-        numeroTelefonico != null && !numeroTelefonico.isBlank() &&
-        pais != null && !pais.isBlank() &&
-        avatarPart != null;
+    return correoUsuario != null && !correoUsuario.isBlank() && password != null
+        && !password.isBlank() && fechaNacimiento != null
+        && numeroTelefonico != null && !numeroTelefonico.isBlank()
+        && pais != null && !pais.isBlank() && avatarPart != null;
   }
 
   public long getAvatarAdminSize() {
@@ -93,7 +89,8 @@ public class CrearUsuarioAdminDTO {
       long size = avatarPart.getContentDisposition().getSize();
       if (size == -1) {
         return size = avatarPart.getValueAs(byte[].class).length;
-      } else {
+      }
+      else {
         return size;
       }
     } catch (Exception e) {
