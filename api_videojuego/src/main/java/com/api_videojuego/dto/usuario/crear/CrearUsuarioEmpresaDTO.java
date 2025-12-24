@@ -8,8 +8,6 @@ public class CrearUsuarioEmpresaDTO {
   private String correoUsuario;
   @FormDataParam("nombreCompleto")
   private String nombreCompleto;
-  @FormDataParam("idEmpresa")
-  private Integer idEmpresa;
   @FormDataParam("password")
   private String password;
   @FormDataParam("fechaNacimiento")
@@ -37,14 +35,6 @@ public class CrearUsuarioEmpresaDTO {
 
   public void setNombreCompleto(String nombreCompleto) {
     this.nombreCompleto = nombreCompleto;
-  }
-
-  public Integer getIdEmpresa() {
-    return idEmpresa;
-  }
-
-  public void setIdEmpresa(Integer idEmpresa) {
-    this.idEmpresa = idEmpresa;
   }
 
   public String getPassword() {
@@ -91,7 +81,7 @@ public class CrearUsuarioEmpresaDTO {
     return correoUsuario != null && !correoUsuario.isBlank() && password != null
         && !password.isBlank() && fechaNacimiento != null
         && numeroTelefonico != null && !numeroTelefonico.isBlank()
-        && pais != null && !pais.isBlank() && avatarPart != null;
+        && pais != null && !pais.isBlank();
   }
 
   public long getAvatarEmpresaSize() {

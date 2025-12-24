@@ -9,7 +9,8 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class CrearUsuarioGamerDB {
 
-  public void registrarUsuarioGamer(Integer idUsuario, String nickname) throws Exception {
+  public void registrarUsuarioGamer(Integer idUsuario, String nickname)
+      throws ErrorInsertarDB {
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
     String query = "INSERT INTO usuario_gamer(id_usuario, nickname) VALUES (?, ?)";

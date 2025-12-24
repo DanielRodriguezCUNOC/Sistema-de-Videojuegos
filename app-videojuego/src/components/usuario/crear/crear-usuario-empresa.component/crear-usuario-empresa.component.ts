@@ -5,7 +5,7 @@ import { CrearUsuarioService } from '../../../../services/user/crear-usuario.ser
 import { CrearUsuarioEmpresaDTO } from '../../../../models/dtos/usuario/crear/crear-usuario-empresa';
 
 @Component({
-  selector: 'app-crear-usuario-empresa.component',
+  selector: 'app-crear-usuario-empresa',
   imports: [ReactiveFormsModule, SharePopupComponent],
   templateUrl: './crear-usuario-empresa.component.html',
   styleUrl: './crear-usuario-empresa.component.scss',

@@ -16,7 +16,7 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   //* Método para autenticar al usuario con el backend
-  autenticacionBackend(usuario: UserRequestLoginDTO) {
+  autenticacionBackend(usuario: FormData) {
     return this.http.post<UserResponseLoginDTO>(this.apiUrl, usuario);
   }
 }

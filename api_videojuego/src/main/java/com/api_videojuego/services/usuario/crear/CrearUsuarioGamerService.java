@@ -1,5 +1,6 @@
 package com.api_videojuego.services.usuario.crear;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.api_videojuego.db.usuario.cartera.CarteraDigitalDB;
@@ -12,6 +13,7 @@ import com.api_videojuego.excepciones.ErrorEncriptacion;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 import com.api_videojuego.excepciones.UsuarioYaRegistrado;
 import com.api_videojuego.utils.ConfiguracionAvatar;
+import com.api_videojuego.utils.ConvertirImagen;
 import com.api_videojuego.utils.EncriptarPassword;
 
 public class CrearUsuarioGamerService {
@@ -19,12 +21,14 @@ public class CrearUsuarioGamerService {
   private CrearUsuarioDB crearUsuarioGenericoDB;
   private CrearUsuarioGamerDB crearUsuarioDB;
   private CarteraDigitalDB carteraDigitalDB;
+  private ConvertirImagen convertirImagen;
   private static final Integer ROL_USUARIO = 3;
 
   public CrearUsuarioGamerService() {
     crearUsuarioGenericoDB = new CrearUsuarioDB();
     crearUsuarioDB = new CrearUsuarioGamerDB();
     carteraDigitalDB = new CarteraDigitalDB();
+    convertirImagen = new ConvertirImagen();
 
   }
 
@@ -32,24 +36,6 @@ public class CrearUsuarioGamerService {
       throws Exception {
 
     try {
-
-      System.out.println("Verificando avatar...");
-      if (crearUsuarioDTO.getAvatarPart() == null) {
-        System.out.println("El avatar es nulo.");
-      }
-      else {
-        System.out
-            .println("Avatar size: " + crearUsuarioDTO.getAvatarGamerSize());
-        System.out
-            .println("Avatar type: " + crearUsuarioDTO.getAvatarGamerType());
-      }
-
-      System.out.println("Correo: " + crearUsuarioDTO.getCorreoUsuario()
-          + ", Nickname: " + crearUsuarioDTO.getNickname() + ", Fecha: "
-          + crearUsuarioDTO.getFechaNacimiento() + ", Telefono: "
-          + crearUsuarioDTO.getNumeroTelefonico() + ", Pais: "
-          + crearUsuarioDTO.getPais() + ", Password: "
-          + crearUsuarioDTO.getPassword());
 
       // * Validamos los datos del usuario */
       if (!crearUsuarioDTO.usuarioGamerValido()) {
@@ -109,11 +95,28 @@ public class CrearUsuarioGamerService {
   private void registrarUsuarioGenerico(CrearUsuarioGamerDTO crearUsuarioDTO,
       Integer idRol) throws Exception {
 
+    byte[] avatarBytes = null;
+
+    if (crearUsuarioDTO.getAvatarPart() != null) {
+
+      try (InputStream avatarStream = crearUsuarioDTO.getAvatarPart()
+          .getValueAs(InputStream.class)) {
+
+        avatarBytes = avatarStream.readAllBytes();
+
+      } catch (IOException e) {
+        avatarBytes = convertirImagen.obtenerAvatarDefault();
+      }
+    }
+    else {
+      avatarBytes = convertirImagen.obtenerAvatarDefault();
+    }
+
     crearUsuarioGenericoDB.registrarUsuario(idRol,
         crearUsuarioDTO.getCorreoUsuario(), crearUsuarioDTO.getPassword(),
         crearUsuarioDTO.getFechaNacimiento(),
         crearUsuarioDTO.getNumeroTelefonico(), crearUsuarioDTO.getPais(),
-        crearUsuarioDTO.getAvatarPart().getValueAs(InputStream.class));
+        avatarBytes);
 
   }
 

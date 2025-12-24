@@ -12,7 +12,7 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 public class CarteraDigitalDB {
 
 	public void crearCarteraDigital(CrearUsuarioGamerDTO crearUsuarioDTO,
-			Integer idUsuario) throws Exception {
+			Integer idUsuario) throws ErrorInsertarDB {
 
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 

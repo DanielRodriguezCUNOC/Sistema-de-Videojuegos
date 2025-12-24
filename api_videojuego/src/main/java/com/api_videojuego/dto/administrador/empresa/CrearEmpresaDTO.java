@@ -116,6 +116,7 @@ public class CrearEmpresaDTO {
 				&& nombreCompleto != null && !nombreCompleto.isEmpty()
 				&& password != null && !password.isEmpty() && fechaNacimiento != null
 				&& numeroTelefonico != null && !numeroTelefonico.isEmpty()
-				&& pais != null && !pais.isEmpty() && avatarPart != null;
+				&& pais != null && !pais.isEmpty();
 	}
+
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
-import { CrearEmpresaDto } from '../../../../models/dtos/empresa/crear-empresa-dto';
+import { CrearEmpresaDto } from '../../../../models/dtos/administrador/empresa/crear-empresa-dto';
 import { CrearEmpresaService } from '../../../../services/admin/empresa/crear-empresa.service';
 
 @Component({

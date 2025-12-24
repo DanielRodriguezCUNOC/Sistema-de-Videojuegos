@@ -1,5 +1,6 @@
 package com.api_videojuego.services.usuario.crear;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.api_videojuego.db.usuario.crear.CrearUsuarioAdminDB;
@@ -11,17 +12,20 @@ import com.api_videojuego.excepciones.ErrorEncriptacion;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 import com.api_videojuego.excepciones.UsuarioYaRegistrado;
 import com.api_videojuego.utils.ConfiguracionAvatar;
+import com.api_videojuego.utils.ConvertirImagen;
 import com.api_videojuego.utils.EncriptarPassword;
 
 public class CrearUsuarioAdminService {
 
   CrearUsuarioDB crearUsuarioGenericoDB;
   CrearUsuarioAdminDB crearUsuarioDB;
+  ConvertirImagen convertirImagen;
   private static final Integer ROL_USUARIO = 1;
 
   public CrearUsuarioAdminService() {
     crearUsuarioGenericoDB = new CrearUsuarioDB();
     crearUsuarioDB = new CrearUsuarioAdminDB();
+    convertirImagen = new ConvertirImagen();
 
   }
 
@@ -85,11 +89,24 @@ public class CrearUsuarioAdminService {
   public void registrarUsuarioGenerico(CrearUsuarioAdminDTO crearUsuarioDTO,
       Integer idRol) throws Exception {
 
+    byte[] avatarBytes = null;
+    if (crearUsuarioDTO.getAvatarPart() != null) {
+      try (InputStream avatarStream = crearUsuarioDTO.getAvatarPart()
+          .getValueAs(InputStream.class)) {
+        avatarBytes = avatarStream.readAllBytes();
+      } catch (IOException e) {
+        avatarBytes = convertirImagen.obtenerAvatarDefault();
+      }
+    }
+    else {
+      avatarBytes = convertirImagen.obtenerAvatarDefault();
+    }
+
     crearUsuarioGenericoDB.registrarUsuario(idRol,
         crearUsuarioDTO.getCorreoUsuario(), crearUsuarioDTO.getPassword(),
         crearUsuarioDTO.getFechaNacimiento(),
         crearUsuarioDTO.getNumeroTelefonico(), crearUsuarioDTO.getPais(),
-        crearUsuarioDTO.getAvatarPart().getValueAs(InputStream.class));
+        avatarBytes);
 
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ListaRapidaJuegoCompradoDTO } from '../../../models/dtos/usuario/lista-rapida-juego-comprado-dto';
+import { ListaRapidaJuegoCompradoDTO } from '../../../models/dtos/empresa/imagen/lista-rapida-juego-comprado-dto';
 import { NavbarUsuarioComponent } from '../../usuario/navbar-usuario.component/navbar-usuario.component';
 import { FooterComponent } from '../../share/footer.component/footer.component';
 import { CurrencyPipe } from '@angular/common';

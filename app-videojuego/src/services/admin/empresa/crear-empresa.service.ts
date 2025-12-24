@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CrearEmpresaDto } from '../../../models/dtos/empresa/crear-empresa-dto';
+import { CrearEmpresaDto } from '../../../models/dtos/administrador/empresa/crear-empresa-dto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';

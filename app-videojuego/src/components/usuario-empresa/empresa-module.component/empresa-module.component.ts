@@ -4,10 +4,11 @@ import { FooterComponent } from '../../share/footer.component/footer.component';
 import { MasterLoginService } from '../../../services/login/masterlogin';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
 import { Subscription } from 'rxjs';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-empresa-module',
-  imports: [CommonModule, FooterComponent],
+  imports: [CommonModule, FooterComponent, RouterLinkActive, RouterLink],
   templateUrl: './empresa-module.component.html',
   styleUrl: './empresa-module.component.scss',
 })

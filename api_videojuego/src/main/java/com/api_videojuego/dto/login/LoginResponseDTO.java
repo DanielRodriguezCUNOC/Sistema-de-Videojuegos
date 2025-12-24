@@ -1,21 +1,16 @@
 package com.api_videojuego.dto.login;
 
-import java.io.InputStream;
-
 public class LoginResponseDTO {
 
   private String idUsuario;
   private Integer idRol;
-  private String correoUsuario;
 
   public LoginResponseDTO() {
   }
 
-  public LoginResponseDTO(String idUsuario, Integer idRol, String correoUsuario,
-      InputStream avatar) {
+  public LoginResponseDTO(String idUsuario, Integer idRol) {
     this.idUsuario = idUsuario;
     this.idRol = idRol;
-    this.correoUsuario = correoUsuario;
   }
 
   // * Getters and Setters */
@@ -33,14 +28,6 @@ public class LoginResponseDTO {
 
   public void setIdRol(Integer idRol) {
     this.idRol = idRol;
-  }
-
-  public String getCorreoUsuario() {
-    return correoUsuario;
-  }
-
-  public void setCorreoUsuario(String correoUsuario) {
-    this.correoUsuario = correoUsuario;
   }
 
 }

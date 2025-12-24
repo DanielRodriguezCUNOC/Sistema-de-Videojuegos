@@ -1,8 +1,5 @@
 package com.api_videojuego.services.login;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
 import com.api_videojuego.db.login.LoginDB;
 import com.api_videojuego.dto.login.LoginRequestDTO;
 import com.api_videojuego.dto.login.LoginResponseDTO;
@@ -55,20 +52,6 @@ public class LoginService {
       throw e;
     } catch (Exception e) {
       throw new Exception("Error interno del servidor: " + e.getMessage());
-    }
-  }
-
-  // *Convertir InputStream a Bytes */
-  private String convertirInputStreamABase64(InputStream inputStream) {
-    if (inputStream == null) {
-      return null;
-    }
-
-    try {
-      byte[] avatarBytes = inputStream.readAllBytes();
-      return Base64.getEncoder().encodeToString(avatarBytes);
-    } catch (IOException e) {
-      return null;
     }
   }
 

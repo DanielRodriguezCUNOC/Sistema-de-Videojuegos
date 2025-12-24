@@ -9,6 +9,11 @@ public class LoginRequestDTO {
   public LoginRequestDTO() {
   }
 
+  public LoginRequestDTO(String correoUsuario, String password) {
+    this.correoUsuario = correoUsuario;
+    this.password = password;
+  }
+
   // * Getters and Setters */
   public String getCorreoUsuario() {
     return correoUsuario;

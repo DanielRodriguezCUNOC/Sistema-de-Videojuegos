@@ -9,7 +9,8 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class CrearUsuarioAdminDB {
 
-  public void registrarUsuarioAdmin(String nombreCompleto, Integer idUsuario) throws Exception {
+  public void registrarUsuarioAdmin(String nombreCompleto, Integer idUsuario)
+      throws ErrorInsertarDB {
 
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -23,7 +24,8 @@ public class CrearUsuarioAdminDB {
       ps.executeUpdate();
 
     } catch (SQLException e) {
-      throw new ErrorInsertarDB("Error al registrar el administrador en la base de datos: " + e.getMessage());
+      throw new ErrorInsertarDB(
+          "Error al registrar el administrador en la base de datos");
     }
 
   }

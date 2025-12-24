@@ -1,6 +1,9 @@
 package com.api_videojuego.resources.endpoints.empresa.videojuego;
 
 import com.api_videojuego.dto.empresa.videojuego.VideojuegoRequestDTO;
+import com.api_videojuego.excepciones.DatoYaExiste;
+import com.api_videojuego.excepciones.DatosInvalidos;
+import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 import com.api_videojuego.services.empresa.videojuego.CrearVideojuegoService;
 
@@ -31,6 +34,21 @@ public class CrearVideojuegoResource {
 		} catch (ErrorInsertarDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
 					"{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
+					.header("Content-Type", "application/json").build();
+
+		} catch (ErrorConsultaDB e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
+					"{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
+					.header("Content-Type", "application/json").build();
+
+		} catch (DatoYaExiste e) {
+			return Response.status(Response.Status.CONFLICT)
+					.entity("{\"error\": \"" + e.getMessage() + "\"}")
+					.header("Content-Type", "application/json").build();
+
+		} catch (DatosInvalidos e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity("{\"error\": \"Error inesperado: " + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 
 		}

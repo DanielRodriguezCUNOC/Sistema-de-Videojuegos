@@ -1,6 +1,5 @@
 package com.api_videojuego.dto.empresa.videojuego;
 
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -13,14 +12,14 @@ public class VideojuegoResponseDTO {
 	private BigDecimal precio;
 	private String recursosMinimos;
 	private boolean estado;
-	private InputStream imagenUrl;
+	private byte[] imagenBytes;
 
 	public VideojuegoResponseDTO() {
 	}
 
 	public VideojuegoResponseDTO(Integer idVideojuego, String titulo,
 			String descripcion, LocalDate fechaLanzamiento, BigDecimal precio,
-			String recursosMinimos, boolean estado, InputStream imagenUrl) {
+			String recursosMinimos, boolean estado, byte[] imagenBytes) {
 		this.idVideojuego = idVideojuego;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -28,7 +27,7 @@ public class VideojuegoResponseDTO {
 		this.precio = precio;
 		this.recursosMinimos = recursosMinimos;
 		this.estado = estado;
-		this.imagenUrl = imagenUrl;
+		this.imagenBytes = imagenBytes;
 	}
 
 	// * Getters and Setters */
@@ -89,12 +88,12 @@ public class VideojuegoResponseDTO {
 		this.estado = estado;
 	}
 
-	public InputStream getImagenUrl() {
-		return imagenUrl;
+	public byte[] getImagenBytes() {
+		return imagenBytes;
 	}
 
-	public void setImagenUrl(InputStream imagenUrl) {
-		this.imagenUrl = imagenUrl;
+	public void setImagenBytes(byte[] imagenBytes) {
+		this.imagenBytes = imagenBytes;
 	}
 
 }
