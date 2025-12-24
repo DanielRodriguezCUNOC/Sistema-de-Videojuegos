@@ -1,6 +1,5 @@
 package com.api_videojuego.db.login;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +13,7 @@ import com.api_videojuego.excepciones.ErrorConsultaDB;
 public class LoginDB {
 
   public boolean validarCredenciales(String correoUsuario,
-      String passwordEncriptada) throws Exception {
+      String passwordEncriptada) throws ErrorConsultaDB {
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
     String query = "SELECT password FROM usuario WHERE correo_usuario = ?";
@@ -35,10 +34,10 @@ public class LoginDB {
   }
 
   public LoginResponseDTO obtenerDatosUsuario(String correoUsuario)
-      throws Exception {
+      throws CredencialesInvalidas, ErrorConsultaDB {
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-    String query = "SELECT id_usuario, id_rol, correo_usuario, avatar FROM usuario WHERE correo_usuario = ?";
+    String query = "SELECT id_usuario, id_rol FROM usuario WHERE correo_usuario = ?";
 
     try (PreparedStatement ps = conn.prepareStatement(query)) {
       ps.setString(1, correoUsuario);
@@ -47,11 +46,8 @@ public class LoginDB {
         if (rs.next()) {
           String idUsuario = rs.getString("id_usuario");
           Integer idRol = rs.getInt("id_rol");
-          String correoUsuarioDB = rs.getString("correo_usuario");
-          InputStream avatar = rs.getBinaryStream("avatar");
 
-          return new LoginResponseDTO(idUsuario, idRol, correoUsuarioDB,
-              avatar);
+          return new LoginResponseDTO(idUsuario, idRol);
         }
         else {
           throw new CredencialesInvalidas("Usuario no encontrado");

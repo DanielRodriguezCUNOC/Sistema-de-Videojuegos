@@ -5,7 +5,7 @@ import { CrearUsuarioAdminDTO } from '../../../../models/dtos/usuario/crear/crea
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
 
 @Component({
-  selector: 'app-crear-usuario-admin.component',
+  selector: 'app-crear-usuario-admin',
   imports: [ReactiveFormsModule, SharePopupComponent],
   templateUrl: './crear-usuario-admin.component.html',
   styleUrl: './crear-usuario-admin.component.scss',

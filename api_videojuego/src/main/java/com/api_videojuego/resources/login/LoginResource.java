@@ -1,5 +1,7 @@
 package com.api_videojuego.resources.login;
 
+import org.glassfish.jersey.media.multipart.FormDataParam;
+
 import com.api_videojuego.dto.login.LoginRequestDTO;
 import com.api_videojuego.dto.login.LoginResponseDTO;
 import com.api_videojuego.excepciones.CredencialesInvalidas;
@@ -19,15 +21,16 @@ import jakarta.ws.rs.core.Response;
 public class LoginResource {
 
   @POST
-  @Consumes(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.MULTIPART_FORM_DATA)
   @Produces(MediaType.APPLICATION_JSON)
-  public Response login(LoginRequestDTO loginRequestDTO) {
+  public Response login(@FormDataParam("usuario") String correoUsuario,
+      @FormDataParam("password") String pass) {
 
     LoginService loginService = new LoginService();
 
     try {
       LoginResponseDTO response = loginService
-          .autenticarUsuario(loginRequestDTO);
+          .autenticarUsuario(new LoginRequestDTO(correoUsuario, pass));
 
       return Response.ok(response).build();
 

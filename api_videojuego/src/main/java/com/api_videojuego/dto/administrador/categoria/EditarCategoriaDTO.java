@@ -1,4 +1,4 @@
-package com.api_videojuego.dto.categoria;
+package com.api_videojuego.dto.administrador.categoria;
 
 import org.glassfish.jersey.media.multipart.FormDataParam;
 

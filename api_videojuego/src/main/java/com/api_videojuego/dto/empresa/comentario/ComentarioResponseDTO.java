@@ -1,4 +1,4 @@
-package com.api_videojuego.dto.empresa.videojuego.comentario;
+package com.api_videojuego.dto.empresa.comentario;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

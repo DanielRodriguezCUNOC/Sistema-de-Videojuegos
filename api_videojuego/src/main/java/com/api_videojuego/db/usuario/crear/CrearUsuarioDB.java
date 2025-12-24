@@ -1,6 +1,5 @@
 package com.api_videojuego.db.usuario.crear;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -42,7 +41,7 @@ public class CrearUsuarioDB {
 
   public void registrarUsuario(Integer idRol, String correoUsuario,
       String password, String fechaNacimiento, String numeroTelefonico,
-      String pais, InputStream avatarStream) throws ErrorInsertarDB {
+      String pais, byte[] avatarBytes) throws ErrorInsertarDB {
 
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
@@ -56,13 +55,12 @@ public class CrearUsuarioDB {
       ps.setDate(4, Date.valueOf(fechaNacimiento));
       ps.setString(5, numeroTelefonico);
       ps.setString(6, pais);
-      ps.setBlob(7, avatarStream);
+      ps.setBytes(7, avatarBytes);
       ps.executeUpdate();
 
     } catch (SQLException e) {
       throw new ErrorInsertarDB(
-          "Error al registrar el usuario en la base de datos: "
-              + e.getMessage());
+          "Error al registrar el usuario en la base de datos");
     }
 
   }
@@ -89,8 +87,7 @@ public class CrearUsuarioDB {
       }
 
     } catch (SQLException e) {
-      throw new ErrorConsultaDB(
-          "Error al obtener el ID del usuario: " + e.getMessage());
+      throw new ErrorConsultaDB("Error al obtener el ID del usuario");
     }
   }
 

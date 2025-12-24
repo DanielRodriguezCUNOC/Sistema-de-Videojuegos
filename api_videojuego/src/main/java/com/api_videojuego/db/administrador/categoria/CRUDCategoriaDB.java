@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
-import com.api_videojuego.dto.categoria.CrearCategoriaDTO;
-import com.api_videojuego.dto.categoria.EditarCategoriaDTO;
-import com.api_videojuego.dto.categoria.ListaCategoriaDTO;
+import com.api_videojuego.dto.administrador.categoria.CrearCategoriaDTO;
+import com.api_videojuego.dto.administrador.categoria.EditarCategoriaDTO;
+import com.api_videojuego.dto.administrador.categoria.ListaCategoriaDTO;
 import com.api_videojuego.excepciones.ErrorActualizarRegistro;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEliminarRegistro;

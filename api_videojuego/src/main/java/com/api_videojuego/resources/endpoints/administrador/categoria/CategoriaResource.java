@@ -1,8 +1,8 @@
 package com.api_videojuego.resources.endpoints.administrador.categoria;
 
-import com.api_videojuego.dto.categoria.CrearCategoriaDTO;
-import com.api_videojuego.dto.categoria.EditarCategoriaDTO;
-import com.api_videojuego.dto.categoria.ListaCategoriaDTO;
+import com.api_videojuego.dto.administrador.categoria.CrearCategoriaDTO;
+import com.api_videojuego.dto.administrador.categoria.EditarCategoriaDTO;
+import com.api_videojuego.dto.administrador.categoria.ListaCategoriaDTO;
 import com.api_videojuego.excepciones.DatoYaExiste;
 import com.api_videojuego.excepciones.DatosInvalidos;
 import com.api_videojuego.excepciones.ErrorActualizarRegistro;

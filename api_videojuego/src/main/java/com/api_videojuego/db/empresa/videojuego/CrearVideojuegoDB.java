@@ -14,7 +14,8 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class CrearVideojuegoDB {
 
-	public boolean existeVideojuegoPorTitulo(String titulo) throws Exception {
+	public boolean existeVideojuegoPorTitulo(String titulo)
+			throws ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT COUNT(*) AS cantidad FROM videojuego WHERE titulo = ?";
@@ -37,38 +38,49 @@ public class CrearVideojuegoDB {
 		return false;
 	}
 
-	public boolean registrarVideojuego(VideojuegoRequestDTO videojuego,
-			Integer idEmpresa) throws Exception {
+	public Integer registrarVideojuego(VideojuegoRequestDTO videojuego)
+			throws ErrorInsertarDB, ErrorConsultaDB {
 
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		try {
+
+			// * Iniciamos la transacción */
 			conn.setAutoCommit(false);
+
 			SolicitudCategoriaDB solicitudCategoriaDB = new SolicitudCategoriaDB();
 
 			VideojuegoDesarrolladoraDB videojuegoDesarrolladoraDB = new VideojuegoDesarrolladoraDB();
 
 			ClasificacionVideojuegoDB clasificacionVideojuegoDB = new ClasificacionVideojuegoDB();
 
+			// * Registramos el videojuego y obtenemos su ID */
 			Integer idVideojuego = crearVideojuego(videojuego.getTitulo(),
 					videojuego.getDescripcion(), videojuego.getFechaLanzamiento(),
-					videojuego.getPrecio(), videojuego.getRecursosMinimos(), false, conn);
+					videojuego.getPrecio(), videojuego.getRecursosMinimos(), conn);
 
+			// * Generamos la solicitud de categoria */
 			Integer idSolicitudCategoria = solicitudCategoriaDB
 					.generarSolicitudCategoria(idVideojuego,
 							videojuego.getIdUsuarioEmpresa(), videojuego.getCategorias(),
 							conn);
 
+			// * Registramos la relacion entre el videojuego y la desarrolladora */
 			Integer idVideojuegoDesarrolladora = videojuegoDesarrolladoraDB
-					.registrarVideojuegoDesarrolladora(idVideojuego, idEmpresa, conn);
+					.registrarVideojuegoDesarrolladora(idVideojuego, conn);
 
+			// * Registramos la clasificacion del videojuego */
 			Integer idClasificacion = clasificacionVideojuegoDB
 					.registrarClasificacionVideojuego(idVideojuego,
 							videojuego.getClasificacion(), conn);
 
 			if (idVideojuego > 0 && idSolicitudCategoria > 0
 					&& idVideojuegoDesarrolladora > 0 && idClasificacion > 0) {
+
+				// * Confirmamos la transacción */
 				conn.commit();
+
+				return idVideojuego;
 			}
 			else {
 				conn.rollback();
@@ -79,23 +91,23 @@ public class CrearVideojuegoDB {
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
+				throw new ErrorInsertarDB(
+						"Error al registrar el videojuego en la base de datos.");
 			} catch (SQLException ex) {
+				throw new ErrorInsertarDB(
+						"Error al registrar el videojuego en la base de datos.");
 			}
-			throw e;
 		} finally {
 			try {
 				conn.setAutoCommit(true);
 			} catch (SQLException e) {
-				// TODO: handle exception
 			}
 		}
-
-		return true;
 	}
 
 	public Integer crearVideojuego(String titulo, String descripcion,
 			String fechaLanzamiento, String precio, String recursosMinimos,
-			boolean estado, Connection conexion) throws Exception {
+			Connection conexion) throws ErrorInsertarDB, ErrorConsultaDB {
 		Connection conn = conexion;
 
 		String query = "INSERT INTO videojuego (titulo, descripcion, fecha_lanzamiento, precio, recursos_minimos, estado) VALUES (?, ?, ?, ?, ?, ?)";
@@ -107,7 +119,7 @@ public class CrearVideojuegoDB {
 			ps.setDate(3, Date.valueOf(fechaLanzamiento));
 			ps.setBigDecimal(4, new BigDecimal(precio));
 			ps.setString(5, recursosMinimos);
-			ps.setBoolean(6, estado);
+			ps.setBoolean(6, false);
 
 			int rowsAffected = ps.executeUpdate();
 

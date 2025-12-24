@@ -41,11 +41,9 @@ export class LoginComponent {
     this.isLoading = true;
     this.popupMostrar = false;
 
-    const usuario: UserRequestLoginDTO = {
-      correoUsuario: this.loginForm.value.usuario,
-      password: this.loginForm.value.password,
-    };
-    console.log('Datos de login enviados:', usuario);
+    const usuario: FormData = new FormData();
+    usuario.append('usuario', this.loginForm.value.usuario);
+    usuario.append('password', this.loginForm.value.password);
 
     this.loginService.autenticacionBackend(usuario).subscribe({
       next: (user: UserResponseLoginDTO) => {

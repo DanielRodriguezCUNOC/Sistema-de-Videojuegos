@@ -18,7 +18,8 @@ import com.api_videojuego.excepciones.ErrorConsultaDB;
 
 public class ComisionGlobalDB {
 
-	public boolean existeComisionGlobal(Integer id) throws Exception {
+	public boolean existeComisionGlobal(Integer id)
+			throws ErrorActualizarRegistro {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT COUNT(*) AS count FROM comision_global WHERE id = ?";
@@ -40,7 +41,8 @@ public class ComisionGlobalDB {
 		return false;
 	}
 
-	public ObtenerComisionGlobalDTO obtenerComisionGlobal() throws Exception {
+	public ObtenerComisionGlobalDTO obtenerComisionGlobal()
+			throws ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT id, comision, fecha_creacion FROM comision_global LIMIT 1";
@@ -62,7 +64,7 @@ public class ComisionGlobalDB {
 	}
 
 	public void actualizarComisionGlobal(EditarComisionGlobalDTO comision,
-			LocalDate fechaActual) throws Exception {
+			LocalDate fechaActual) throws ErrorActualizarRegistro, ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 		ComisionEspecificaDB comisionEspecificaDB = new ComisionEspecificaDB();
 

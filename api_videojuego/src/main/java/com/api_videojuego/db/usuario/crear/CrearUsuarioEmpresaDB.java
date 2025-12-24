@@ -26,8 +26,7 @@ public class CrearUsuarioEmpresaDB {
 
     } catch (SQLException e) {
       throw new ErrorInsertarDB(
-          "Error al registrar el administrador en la base de datos: "
-              + e.getMessage());
+          "Error al registrar el administrador en la base de datos");
     }
 
   }

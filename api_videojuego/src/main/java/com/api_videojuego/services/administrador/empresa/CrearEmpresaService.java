@@ -1,5 +1,6 @@
 package com.api_videojuego.services.administrador.empresa;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.api_videojuego.db.administrador.empresa.CrearEmpresaDB;
@@ -12,8 +13,10 @@ import com.api_videojuego.excepciones.DatosInvalidos;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEncriptacion;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
+import com.api_videojuego.excepciones.ExcepcionInesperada;
 import com.api_videojuego.excepciones.UsuarioYaRegistrado;
 import com.api_videojuego.utils.ConfiguracionAvatar;
+import com.api_videojuego.utils.ConvertirImagen;
 import com.api_videojuego.utils.EncriptarPassword;
 
 public class CrearEmpresaService {
@@ -21,6 +24,7 @@ public class CrearEmpresaService {
 	private CrearEmpresaDB crearEmpresaDB;
 	private CrearUsuarioEmpresaDB usuarioEmpresaDB;
 	private CrearUsuarioDB usuarioGenericoDB;
+	private ConvertirImagen convertirImagen;
 
 	private static final Integer ROL_USUARIO = 2;
 
@@ -28,11 +32,12 @@ public class CrearEmpresaService {
 		this.crearEmpresaDB = new CrearEmpresaDB();
 		this.usuarioEmpresaDB = new CrearUsuarioEmpresaDB();
 		this.usuarioGenericoDB = new CrearUsuarioDB();
+		this.convertirImagen = new ConvertirImagen();
 	}
 
 	public void crearEmpresa(CrearEmpresaDTO crearEmpresaDTO)
 			throws DatoYaExiste, DatosInvalidos, UsuarioYaRegistrado, ErrorInsertarDB,
-			ErrorConsultaDB, ErrorEncriptacion {
+			ErrorConsultaDB, ErrorEncriptacion, ExcepcionInesperada {
 		try {
 
 			// *Validar datos del frontend */
@@ -64,7 +69,6 @@ public class CrearEmpresaService {
 				throw new DatosInvalidos("Datos de usuario inválidos.");
 			}
 
-			// * Verificar el avatar
 			if (crearUsuarioEmpresaDTO
 					.getAvatarEmpresaSize() > ConfiguracionAvatar.AVATAR_SIZE
 					|| !ConfiguracionAvatar.AVATAR_TYPES
@@ -95,7 +99,8 @@ public class CrearEmpresaService {
 					.obtenerIdUsuarioPorCorreo(crearUsuarioEmpresaDTO.getCorreoUsuario());
 
 			// * Registramos el usuario empresa */
-			registrarUsuarioEmpresa(crearUsuarioEmpresaDTO, idUsuario);
+			registrarUsuarioEmpresa(crearUsuarioEmpresaDTO.getNombreCompleto(),
+					idUsuario, idEmpresa);
 
 		} catch (DatoYaExiste e) {
 			throw e;
@@ -114,21 +119,36 @@ public class CrearEmpresaService {
 		return encriptarPassword.encriptarPassword(password, correoUsuario);
 	}
 
-	private void registrarUsuarioEmpresa(
-			CrearUsuarioEmpresaDTO crearUsuarioEmpresaDTO, Integer idUsuario)
-			throws ErrorInsertarDB {
-		usuarioEmpresaDB.registrarUsuarioEmpresa(
-				crearUsuarioEmpresaDTO.getNombreCompleto(), idUsuario,
-				crearUsuarioEmpresaDTO.getIdEmpresa());
+	private void registrarUsuarioEmpresa(String nombreCompleto, Integer idUsuario,
+			Integer idEmpresa) throws ErrorInsertarDB {
+		usuarioEmpresaDB.registrarUsuarioEmpresa(nombreCompleto, idUsuario,
+				idEmpresa);
 	}
 
 	private void crearUsuarioGenerico(CrearUsuarioEmpresaDTO usuario)
-			throws ErrorInsertarDB {
+			throws ExcepcionInesperada, ErrorInsertarDB {
+
+		// * Procesar el avatar */
+		byte[] avatarBytes = null;
+
+		if (usuario.getAvatarPart() != null) {
+
+			try (InputStream avatarStream = usuario.getAvatarPart()
+					.getValueAs(InputStream.class)) {
+
+				avatarBytes = avatarStream.readAllBytes();
+
+			} catch (IOException e) {
+				avatarBytes = convertirImagen.obtenerAvatarDefault();
+			}
+		}
+		else {
+			avatarBytes = convertirImagen.obtenerAvatarDefault();
+		}
 
 		usuarioGenericoDB.registrarUsuario(ROL_USUARIO, usuario.getCorreoUsuario(),
 				usuario.getPassword(), usuario.getFechaNacimiento(),
-				usuario.getNumeroTelefonico(), usuario.getPais(),
-				usuario.getAvatarPart().getEntityAs(InputStream.class));
+				usuario.getNumeroTelefonico(), usuario.getPais(), avatarBytes);
 
 	}
 
@@ -145,7 +165,7 @@ public class CrearEmpresaService {
 				.setNumeroTelefonico(crearEmpresaDTO.getNumeroTelefonico());
 		crearUsuarioEmpresaDTO.setPais(crearEmpresaDTO.getPais());
 		crearUsuarioEmpresaDTO.setAvatarPart(crearEmpresaDTO.getAvatarPart());
-		crearUsuarioEmpresaDTO.setIdEmpresa(idEmpresa);
 		return crearUsuarioEmpresaDTO;
 	}
+
 }

@@ -82,8 +82,8 @@ public class CrearUsuarioGamerDTO {
     return correoUsuario != null && !correoUsuario.isBlank() && password != null
         && !password.isBlank() && fechaNacimiento != null
         && numeroTelefonico != null && !numeroTelefonico.isBlank()
-        && pais != null && !pais.isBlank() && avatarPart != null
-        && nickname != null && !nickname.isBlank();
+        && pais != null && !pais.isBlank() && nickname != null
+        && !nickname.isBlank();
   }
 
   public long getAvatarGamerSize() {

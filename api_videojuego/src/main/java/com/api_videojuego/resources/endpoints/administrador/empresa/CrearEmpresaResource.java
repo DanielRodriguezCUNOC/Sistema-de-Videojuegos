@@ -6,6 +6,7 @@ import com.api_videojuego.excepciones.DatosInvalidos;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEncriptacion;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
+import com.api_videojuego.excepciones.ExcepcionInesperada;
 import com.api_videojuego.excepciones.UsuarioYaRegistrado;
 import com.api_videojuego.services.administrador.empresa.CrearEmpresaService;
 
@@ -64,6 +65,10 @@ public class CrearEmpresaResource {
 					.entity("{\"error\": \"Error al consultar la base de datos\"}")
 					.header("Content-Type", "application/json").build();
 
+		} catch (ExcepcionInesperada e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity("{\"error\": \"Ha ocurrido un error inesperado\"}")
+					.header("Content-Type", "application/json").build();
 		}
 	}
 }

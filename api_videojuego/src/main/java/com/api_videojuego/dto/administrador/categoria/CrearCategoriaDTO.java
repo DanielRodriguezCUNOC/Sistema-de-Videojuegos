@@ -1,15 +1,8 @@
-package com.api_videojuego.dto.categoria;
+package com.api_videojuego.dto.administrador.categoria;
 
-public class CategoriaRequestDTO {
+public class CrearCategoriaDTO {
 
 	private String categoria;
-
-	public CategoriaRequestDTO() {
-	}
-
-	public CategoriaRequestDTO(String categoria) {
-		this.categoria = categoria;
-	}
 
 	// * Getters and Setters */
 	public String getCategoria() {
@@ -19,4 +12,9 @@ public class CategoriaRequestDTO {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
+
+	public boolean esCategoriaValida() {
+		return categoria != null && !categoria.trim().isEmpty();
+	}
+
 }
