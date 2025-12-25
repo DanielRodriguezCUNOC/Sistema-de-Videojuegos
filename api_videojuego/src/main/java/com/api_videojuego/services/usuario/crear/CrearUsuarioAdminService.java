@@ -3,8 +3,8 @@ package com.api_videojuego.services.usuario.crear;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.api_videojuego.db.usuario.crear.CrearUsuarioAdminDB;
-import com.api_videojuego.db.usuario.crear.CrearUsuarioDB;
+import com.api_videojuego.db.gamer.crear.CrearUsuarioAdminDB;
+import com.api_videojuego.db.gamer.crear.CrearUsuarioDB;
 import com.api_videojuego.dto.usuario.crear.CrearUsuarioAdminDTO;
 import com.api_videojuego.excepciones.AvatarExcepcion;
 import com.api_videojuego.excepciones.DatosInvalidos;

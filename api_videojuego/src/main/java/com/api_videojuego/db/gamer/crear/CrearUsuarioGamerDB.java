@@ -1,4 +1,4 @@
-package com.api_videojuego.db.usuario.crear;
+package com.api_videojuego.db.gamer.crear;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,27 +7,21 @@ import java.sql.SQLException;
 import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 
-public class CrearUsuarioAdminDB {
+public class CrearUsuarioGamerDB {
 
-  public void registrarUsuarioAdmin(String nombreCompleto, Integer idUsuario)
+  public void registrarUsuarioGamer(Integer idUsuario, String nickname)
       throws ErrorInsertarDB {
-
     Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-    String query = "INSERT INTO administrador_sistema(id_usuario,nombre_completo) VALUES (?, ?)";
+    String query = "INSERT INTO usuario_gamer(id_usuario, nickname) VALUES (?, ?)";
 
     try (PreparedStatement ps = conn.prepareStatement(query)) {
 
       ps.setInt(1, idUsuario);
-      ps.setString(2, nombreCompleto);
-
+      ps.setString(2, nickname);
       ps.executeUpdate();
-
     } catch (SQLException e) {
-      throw new ErrorInsertarDB(
-          "Error al registrar el administrador en la base de datos");
+      throw new ErrorInsertarDB("Error al registrar en la base de datos");
     }
-
   }
-
 }

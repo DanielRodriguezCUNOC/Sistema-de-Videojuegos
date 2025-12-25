@@ -3,9 +3,9 @@ package com.api_videojuego.services.usuario.crear;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.api_videojuego.db.usuario.cartera.CarteraDigitalDB;
-import com.api_videojuego.db.usuario.crear.CrearUsuarioDB;
-import com.api_videojuego.db.usuario.crear.CrearUsuarioGamerDB;
+import com.api_videojuego.db.gamer.cartera.CarteraDigitalDB;
+import com.api_videojuego.db.gamer.crear.CrearUsuarioDB;
+import com.api_videojuego.db.gamer.crear.CrearUsuarioGamerDB;
 import com.api_videojuego.dto.usuario.crear.CrearUsuarioGamerDTO;
 import com.api_videojuego.excepciones.AvatarExcepcion;
 import com.api_videojuego.excepciones.DatosInvalidos;
