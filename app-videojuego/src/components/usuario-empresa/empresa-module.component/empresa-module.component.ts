@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FooterComponent } from '../../share/footer.component/footer.component';
-import { MasterLoginService } from '../../../services/login/masterlogin';
+import { MasterLoginService } from '../../../services/login/masterlogin.service';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
 import { Subscription } from 'rxjs';
 import { RouterLink, RouterLinkActive } from '@angular/router';

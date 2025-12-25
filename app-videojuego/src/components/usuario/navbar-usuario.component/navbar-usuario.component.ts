@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { MasterLoginService } from '../../../services/login/masterlogin';
+import { MasterLoginService } from '../../../services/login/masterlogin.service';
 
 @Component({
   selector: 'app-navbar-usuario',

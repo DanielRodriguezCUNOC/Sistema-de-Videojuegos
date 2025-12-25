@@ -1,4 +1,4 @@
-export interface CategoriaDTO {
+export interface CategoriaResponseDTO {
   idCategoria: number;
   categoria: string;
 }

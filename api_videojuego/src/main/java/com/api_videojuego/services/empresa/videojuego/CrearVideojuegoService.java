@@ -9,7 +9,6 @@ import com.api_videojuego.excepciones.DatoYaExiste;
 import com.api_videojuego.excepciones.DatosInvalidos;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
-import com.api_videojuego.utils.ConvertirImagen;
 
 public class CrearVideojuegoService {
 
@@ -17,12 +16,9 @@ public class CrearVideojuegoService {
 
 	private ImagenJuegoDB imagenJuegoDB;
 
-	private ConvertirImagen convertirImagen;
-
 	public CrearVideojuegoService() {
 		this.crearVideojuegoDB = new CrearVideojuegoDB();
 		this.imagenJuegoDB = new ImagenJuegoDB();
-		this.convertirImagen = new ConvertirImagen();
 	}
 
 	public void crearVideojuego(VideojuegoRequestDTO videojuego)

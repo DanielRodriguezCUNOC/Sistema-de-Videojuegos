@@ -18,7 +18,7 @@ public class ComisionGlobalService {
 	}
 
 	public void actualizarComisionGlobal(EditarComisionGlobalDTO comision)
-			throws Exception {
+			throws DatosInvalidos, ErrorConsultaDB, ErrorActualizarRegistro {
 		try {
 			// * Verificar que comision global sea valida */
 			if (!comision.esValida()) {
@@ -40,19 +40,15 @@ public class ComisionGlobalService {
 			throw e;
 		} catch (ErrorActualizarRegistro e) {
 			throw e;
-		} catch (Exception e) {
-			throw new Exception("Error interno del servidor: " + e.getMessage());
 		}
 	}
 
-	public ObtenerComisionGlobalDTO obtenerComisionGlobal() throws Exception {
+	public ObtenerComisionGlobalDTO obtenerComisionGlobal()
+			throws ErrorConsultaDB {
 		try {
 			return comisionDB.obtenerComisionGlobal();
 		} catch (ErrorConsultaDB e) {
 			throw e;
-		} catch (Exception e) {
-			throw new Exception("Error interno del servidor");
-
 		}
 	}
 

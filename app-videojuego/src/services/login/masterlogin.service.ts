@@ -101,17 +101,6 @@ export class MasterLoginService {
   }*/
 
   /**
-   * Obtiene el correo del usuario o un valor por defecto
-   */
-  getUserDisplayCorreo(): string {
-    const user = this.getCurrentUser();
-    if (user?.correoUsuario) {
-      return `Usuario #${user.correoUsuario}`;
-    }
-    return 'Usuario';
-  }
-
-  /**
    * Obtiene el ID del usuario
    */
   getUserId(): number | null {

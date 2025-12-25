@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
-import { CategoriaDTO } from '../../../../models/dtos/categoria/categoria-dto';
+import { CategoriaResponseDTO } from '../../../../models/dtos/categoria/categoria-response-dto';
 import { ListaCategoriaDTO } from '../../../../models/dtos/categoria/lista-categoria-dto';
 import { CrudCategoriaService } from '../../../../services/admin/categoria/crud-categoria.service';
 
@@ -12,7 +12,7 @@ import { CrudCategoriaService } from '../../../../services/admin/categoria/crud-
   styleUrl: './gestionar-categoria.component.scss',
 })
 export class GestionarCategoriaComponent implements OnInit {
-  categorias: CategoriaDTO[] = [];
+  categorias: CategoriaResponseDTO[] = [];
   infoMessage: string | null = null;
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
