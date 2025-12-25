@@ -1,4 +1,4 @@
-package com.api_videojuego.db.usuario.cartera;
+package com.api_videojuego.db.gamer.cartera;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

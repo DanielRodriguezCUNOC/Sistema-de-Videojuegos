@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.api_videojuego.db.administrador.empresa.CrearEmpresaDB;
-import com.api_videojuego.db.usuario.crear.CrearUsuarioDB;
-import com.api_videojuego.db.usuario.crear.CrearUsuarioEmpresaDB;
+import com.api_videojuego.db.gamer.crear.CrearUsuarioDB;
+import com.api_videojuego.db.gamer.crear.CrearUsuarioEmpresaDB;
 import com.api_videojuego.dto.administrador.empresa.CrearEmpresaDTO;
 import com.api_videojuego.dto.usuario.crear.CrearUsuarioEmpresaDTO;
 import com.api_videojuego.excepciones.DatoYaExiste;

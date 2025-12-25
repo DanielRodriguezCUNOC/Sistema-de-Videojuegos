@@ -44,13 +44,10 @@ export class AdminModuleComponent implements OnInit {
     this.redireccionarService.redirectToHome();
   }
 
-  /**
+  /*
    * Carga los datos del usuario actual
    */
-  private cargarDatosUsuario(): void {
-    // this.avatarUrl = this.masterLoginService.getAvatarUrl();
-    this.correoUsuario = this.masterLoginService.getUserDisplayCorreo();
-  }
+  private cargarDatosUsuario(): void {}
 
   private subscribirseACambiosUsuario(): void {
     this.subscripcion = this.masterLoginService.currentUser$.subscribe((user) => {

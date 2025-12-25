@@ -1,4 +1,4 @@
-package com.api_videojuego.db.usuario.crear;
+package com.api_videojuego.db.gamer.crear;
 
 import java.sql.Connection;
 import java.sql.Date;
