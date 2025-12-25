@@ -28,11 +28,11 @@
         </ul>
       </li>
       <li><span>Estadísticas</span></li>
-      <li><button class="btnLogout" (click)="logOut()">Cerrar Sesión</button></li>
+      <li><button class="btnLogout" (click)="logout()">Cerrar Sesión</button></li>
     </ul>
     <ul class="nav-menu" routerLink="/perfil-usuario">
       <li class="nav-profile">
-        <img class="profile-img" [src]="userAvatar" alt="" (error)="onAvatarError($event)" />
+        <img class="profile-img" [src]="avatarUrl" alt="Avatar" />
         <span>Ver Perfil</span>
       </li>
     </ul>

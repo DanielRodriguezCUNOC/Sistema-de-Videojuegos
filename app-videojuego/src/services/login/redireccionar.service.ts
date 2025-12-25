@@ -20,10 +20,6 @@ export class RedireccionarService {
     return this.router.navigateByUrl(ruta);
   }
 
-  getRouteByRole(roleId: number): string {
-    return this.RUTA_ROL[roleId as keyof typeof this.RUTA_ROL] || this.RUTA_INICIO;
-  }
-
   redirectToLogin(): Promise<boolean> {
     return this.router.navigateByUrl(this.RUTA_INICIO);
   }

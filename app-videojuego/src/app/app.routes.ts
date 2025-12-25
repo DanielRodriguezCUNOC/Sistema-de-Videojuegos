@@ -18,7 +18,7 @@ import { CrearComisionComponent } from '../components/usuario-admin/comision/cre
 import { CrearComisionEspecificaComponent } from '../components/usuario-admin/comision/crear-comision-especifica.component/crear-comision-especifica.component';
 import { EditarComisionComponent } from '../components/usuario-admin/comision/editar-comision.component/editar-comision.component';
 import { EditarComisionEspecificaComponent } from '../components/usuario-admin/comision/editar-comision-especifica.component/editar-comision-especifica.component';
-import { CrearVideojuegoComponent } from '../components/usuario-empresa/crear-videojuego.component/crear-videojuego.component';
+import { CrearVideojuegoComponent } from '../components/usuario-empresa/crear/crear-videojuego.component/crear-videojuego.component';
 
 export const routes: Routes = [
   {
