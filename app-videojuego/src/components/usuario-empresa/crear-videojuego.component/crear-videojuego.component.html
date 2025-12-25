@@ -1,0 +1,123 @@
+<form [formGroup]="nuevoVideojuego" (submit)="submit()">
+  <div class="row g-3">
+    <div class="col-sm-6">
+      <label for="titulo" class="form-label">Título del Videojuego</label>
+      <input
+        type="text"
+        class="form-control"
+        name="titulo"
+        id="titulo"
+        autocomplete="off"
+        placeholder="Ej: The Legend of Zelda"
+        formControlName="titulo"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="precio" class="form-label">Precio (Q.)</label>
+      <input
+        type="number"
+        class="form-control"
+        name="precio"
+        id="precio"
+        autocomplete="off"
+        placeholder="199.99"
+        formControlName="precio"
+        step="0.01"
+        min="0"
+      />
+    </div>
+
+    <div class="col-12">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea
+        class="form-control"
+        name="descripcion"
+        id="descripcion"
+        rows="4"
+        placeholder="Describe el videojuego, su historia, características principales..."
+        formControlName="descripcion"
+      ></textarea>
+    </div>
+
+    <div class="col-sm-6">
+      <label for="fechaLanzamiento" class="form-label">Fecha de Lanzamiento</label>
+      <input
+        type="date"
+        class="form-control"
+        name="fechaLanzamiento"
+        id="fechaLanzamiento"
+        formControlName="fechaLanzamiento"
+      />
+    </div>
+
+    <div class="col-sm-6">
+      <label for="clasificacion" class="form-label">Clasificación</label>
+      <select
+        class="form-control"
+        name="clasificacion"
+        id="clasificacion"
+        formControlName="clasificacion"
+      >
+        <option value="" disabled>Selecciona una clasificación</option>
+        <option value="E">E - Everyone (Todos)</option>
+        <option value="E10+">E10+ - Everyone 10+ (Todos 10+)</option>
+        <option value="T">T - Teen (Adolescentes)</option>
+        <option value="M">M - Mature (Maduro)</option>
+        <option value="AO">AO - Adults Only (Solo Adultos)</option>
+      </select>
+    </div>
+
+    <div class="col-12">
+      <label for="recursosMinimos" class="form-label">Recursos Mínimos</label>
+      <textarea
+        class="form-control"
+        name="recursosMinimos"
+        id="recursosMinimos"
+        rows="3"
+        placeholder="Ej: CPU: Intel i5-8400, RAM: 8GB, GPU: GTX 1060, Storage: 50GB"
+        formControlName="recursosMinimos"
+      ></textarea>
+    </div>
+
+    <div class="col-12">
+      <label for="categorias" class="form-label">Categorías</label>
+      <div class="categorias-container">
+        <div class="categoria-item" *ngFor="let categoria of categoriasDisponibles">
+          <input
+            type="checkbox"
+            [id]="'categoria-' + categoria.id"
+            [value]="categoria.id"
+            (change)="onCategoriaChange($event, categoria.id)"
+          />
+          <label [for]="'categoria-' + categoria.id">{{ categoria.nombre }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <label for="imagen" class="form-label">Imagen del Videojuego</label>
+      <input
+        type="file"
+        class="form-control"
+        name="imagen"
+        id="imagen"
+        (change)="onFileSelected($event)"
+        accept="image/png, image/jpeg, image/jpg"
+      />
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!nuevoVideojuego.valid">
+        Registrar Videojuego
+      </button>
+    </div>
+  </div>
+</form>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

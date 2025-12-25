@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { MasterLoginService } from '../../../services/login/masterlogin';
+import { MasterLoginService } from '../../../services/login/masterlogin.service';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../share/footer.component/footer.component';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';

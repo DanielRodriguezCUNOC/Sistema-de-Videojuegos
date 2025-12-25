@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { CrearUsuarioGamerDTO } from '../../models/dtos/usuario/crear/crear-usuario-gamer';
 import { CrearUsuarioAdminDTO } from '../../models/dtos/usuario/crear/crear-usuario-admin';
 import { CrearUsuarioEmpresaDTO } from '../../models/dtos/usuario/crear/crear-usuario-empresa';
+import { FormatoFecha } from '../../utils/formato-fecha';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ import { CrearUsuarioEmpresaDTO } from '../../models/dtos/usuario/crear/crear-us
 export class CrearUsuarioService {
   //* LLamamos a la API para crear un usuario
   private apiURL = `${environment.apiBaseUrl}/usuario`;
+  private formatearFecha = new FormatoFecha();
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +23,10 @@ export class CrearUsuarioService {
     formData.append('correoUsuario', datosUsuario.correoUsuario);
     formData.append('nickname', datosUsuario.nickname);
     formData.append('password', datosUsuario.password);
-    formData.append('fechaNacimiento', this.formatDateToYYYYMMDD(datosUsuario.fechaNacimiento));
+    formData.append(
+      'fechaNacimiento',
+      this.formatearFecha.formatDateToYYYYMMDD(datosUsuario.fechaNacimiento)
+    );
     formData.append('numeroTelefonico', datosUsuario.numeroTelefonico);
     formData.append('pais', datosUsuario.pais);
     if (datosUsuario.avatar) {
@@ -37,7 +42,10 @@ export class CrearUsuarioService {
     formData.append('correoUsuario', datosUsuario.correoUsuario);
     formData.append('nombreCompleto', datosUsuario.nombreCompleto);
     formData.append('password', datosUsuario.password);
-    formData.append('fechaNacimiento', this.formatDateToYYYYMMDD(datosUsuario.fechaNacimiento));
+    formData.append(
+      'fechaNacimiento',
+      this.formatearFecha.formatDateToYYYYMMDD(datosUsuario.fechaNacimiento)
+    );
     formData.append('numeroTelefonico', datosUsuario.numeroTelefonico);
     formData.append('pais', datosUsuario.pais);
     if (datosUsuario.avatar) {
@@ -53,7 +61,10 @@ export class CrearUsuarioService {
     formData.append('correoUsuario', datosUsuario.correoUsuario);
     formData.append('nombreCompleto', datosUsuario.nombreCompleto);
     formData.append('password', datosUsuario.password);
-    formData.append('fechaNacimiento', this.formatDateToYYYYMMDD(datosUsuario.fechaNacimiento));
+    formData.append(
+      'fechaNacimiento',
+      this.formatearFecha.formatDateToYYYYMMDD(datosUsuario.fechaNacimiento)
+    );
     formData.append('numeroTelefonico', datosUsuario.numeroTelefonico);
     formData.append('pais', datosUsuario.pais);
     if (datosUsuario.avatar) {
@@ -61,12 +72,5 @@ export class CrearUsuarioService {
     }
 
     return this.http.post(url, formData);
-  }
-
-  private formatDateToYYYYMMDD(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
   }
 }

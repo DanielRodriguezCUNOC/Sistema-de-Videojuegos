@@ -6,7 +6,7 @@ import { UserRequestLoginDTO } from '../../../models/dtos/login/user-request-log
 import { SharePopupComponent } from '../../../shared/share-popup.component/share-popup.component';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
 import { UserResponseLoginDTO } from '../../../models/dtos/login/user-response-login';
-import { MasterLoginService } from '../../../services/login/masterlogin';
+import { MasterLoginService } from '../../../services/login/masterlogin.service';
 
 @Component({
   selector: 'app-login.component',

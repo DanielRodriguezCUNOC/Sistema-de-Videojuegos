@@ -18,7 +18,8 @@ public class LoginService {
   }
 
   public LoginResponseDTO autenticarUsuario(LoginRequestDTO loginDTO)
-      throws Exception {
+      throws CredencialesInvalidas, DatosInvalidos, ErrorEncriptacion,
+      ErrorConsultaDB {
 
     try {
       // * Validar datos de entrada
@@ -50,8 +51,6 @@ public class LoginService {
       throw e;
     } catch (ErrorConsultaDB e) {
       throw e;
-    } catch (Exception e) {
-      throw new Exception("Error interno del servidor: " + e.getMessage());
     }
   }
 

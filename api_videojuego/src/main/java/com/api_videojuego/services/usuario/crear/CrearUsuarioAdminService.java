@@ -8,8 +8,10 @@ import com.api_videojuego.db.usuario.crear.CrearUsuarioDB;
 import com.api_videojuego.dto.usuario.crear.CrearUsuarioAdminDTO;
 import com.api_videojuego.excepciones.AvatarExcepcion;
 import com.api_videojuego.excepciones.DatosInvalidos;
+import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEncriptacion;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
+import com.api_videojuego.excepciones.ExcepcionInesperada;
 import com.api_videojuego.excepciones.UsuarioYaRegistrado;
 import com.api_videojuego.utils.ConfiguracionAvatar;
 import com.api_videojuego.utils.ConvertirImagen;
@@ -30,7 +32,9 @@ public class CrearUsuarioAdminService {
   }
 
   public void crearUsuarioAdmin(CrearUsuarioAdminDTO crearUsuarioDTO)
-      throws Exception {
+      throws UsuarioYaRegistrado, DatosInvalidos, ErrorEncriptacion,
+      ErrorConsultaDB, ErrorInsertarDB, AvatarExcepcion, ExcepcionInesperada,
+      IOException {
 
     try {
 
@@ -77,7 +81,7 @@ public class CrearUsuarioAdminService {
       throw e;
 
     } catch (ErrorInsertarDB e) {
-      throw new Exception("Error al crear el usuario: " + e.getMessage());
+      throw e;
     } catch (DatosInvalidos e) {
       throw e;
     } catch (ErrorEncriptacion e) {
@@ -87,7 +91,7 @@ public class CrearUsuarioAdminService {
   }
 
   public void registrarUsuarioGenerico(CrearUsuarioAdminDTO crearUsuarioDTO,
-      Integer idRol) throws Exception {
+      Integer idRol) throws IOException, ErrorInsertarDB, ExcepcionInesperada {
 
     byte[] avatarBytes = null;
     if (crearUsuarioDTO.getAvatarPart() != null) {
@@ -111,13 +115,13 @@ public class CrearUsuarioAdminService {
   }
 
   public Integer obtenerIdUsuarioPorCorreo(String correoUsuario)
-      throws Exception {
+      throws ErrorConsultaDB {
     return crearUsuarioGenericoDB.obtenerIdUsuarioPorCorreo(correoUsuario);
   }
 
   public void registrarUsuarioAdministrador(
       CrearUsuarioAdminDTO crearUsuarioDTO, Integer idUsuario)
-      throws Exception {
+      throws ErrorInsertarDB {
 
     crearUsuarioDB.registrarUsuarioAdmin(crearUsuarioDTO.getNombreCompleto(),
         idUsuario);

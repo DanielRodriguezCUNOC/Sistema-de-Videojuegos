@@ -1,5 +1,5 @@
-import { CategoriaDTO } from './categoria-dto';
+import { CategoriaResponseDTO } from './categoria-response-dto';
 
 export interface ListaCategoriaDTO {
-  categorias: CategoriaDTO[];
+  categorias: CategoriaResponseDTO[];
 }

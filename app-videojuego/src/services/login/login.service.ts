@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, catchError, throwError } from 'rxjs';
 import { environment } from '../../environment/environment';
 import { UserResponseLoginDTO } from '../../models/dtos/login/user-response-login';
-import { MasterLoginService } from './masterlogin';
+import { MasterLoginService } from './masterlogin.service';
 import { UserRequestLoginDTO } from '../../models/dtos/login/user-request-login';
 
 @Injectable({
