@@ -40,9 +40,10 @@ public class UsuarioEmpresaDB {
 
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-		String query = "SELECT ue.nombre_completo, u.avatar "
+		String query = "SELECT ue.nombre_completo, u.avatar, e.nombre_empresa "
 				+ "FROM usuario_empresa AS ue "
 				+ "JOIN usuario AS u ON ue.id_usuario = u.id_usuario "
+				+ "JOIN empresa_desarrolladora AS e ON ue.id_empresa = e.id_empresa "
 				+ "WHERE ue.id_usuario = ?";
 
 		try (PreparedStatement ps = conn.prepareStatement(query)) {
@@ -55,6 +56,7 @@ public class UsuarioEmpresaDB {
 				UsuarioEmpresaResponseDTO empresaDTO = new UsuarioEmpresaResponseDTO();
 				empresaDTO.setNombreCompleto(rs.getString("nombre_completo"));
 				empresaDTO.setAvatar(rs.getBytes("avatar"));
+				empresaDTO.setNombreEmpresa(rs.getString("nombre_empresa"));
 
 				return empresaDTO;
 			}
