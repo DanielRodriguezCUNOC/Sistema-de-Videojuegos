@@ -1,4 +1,4 @@
-export interface UsuarioGamerResponseDto {
+export interface UsuarioGamerResponseDTO {
   nickname: string;
-  avatar: File;
+  avatar: string;
 }

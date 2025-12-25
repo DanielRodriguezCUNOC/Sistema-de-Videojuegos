@@ -1,22 +1,20 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MasterLoginService } from '../../../services/login/masterlogin.service';
-import { UsuarioAdministradorResponseDTO } from '../../../models/dtos/usuario/response/usuario-administrador-response-dto';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
-import { UsuarioResponseService } from '../../../services/user/usuario-response.service';
-import { UsuarioGamerResponseDTO } from '../../../models/dtos/usuario/response/usuario-gamer-response-dto';
 import { Subscription } from 'rxjs';
+import { UsuarioResponseService } from '../../../services/user/usuario-response.service';
+import { UsuarioAdministradorResponseDTO } from '../../../models/dtos/usuario/response/usuario-administrador-response-dto';
 
 @Component({
-  selector: 'app-navbar-usuario',
-  imports: [RouterLink],
-  templateUrl: './navbar-usuario.component.html',
-  styleUrl: './navbar-usuario.component.scss',
+  selector: 'app-navbar-usuario-admin',
+  imports: [CommonModule],
+  templateUrl: './navbar-usuario-admin.component.html',
+  styleUrl: './navbar-usuario-admin.component.scss',
 })
-export class NavbarUsuarioComponent implements OnInit {
-  avatarUrl = '';
-  nickname = '';
+export class NavbarUsuarioAdminComponent implements OnInit {
+  nombreCompleto: string = '';
+  avatarUrl: string = '';
 
   private subscripcion?: Subscription;
 
@@ -41,9 +39,9 @@ export class NavbarUsuarioComponent implements OnInit {
    */
   private cargarDatosUsuario(): void {
     this.usuarioResponseService
-      .obtenerUsuarioGamerResponse(this.masterLoginService.getUserId())
-      .subscribe((usuario: UsuarioGamerResponseDTO) => {
-        this.nickname = usuario.nickname;
+      .obtenerUsuarioAdminResponse(this.masterLoginService.getUserId())
+      .subscribe((usuario: UsuarioAdministradorResponseDTO) => {
+        this.nombreCompleto = usuario.nombreCompleto;
 
         this.avatarUrl = usuario.avatar ? this.createImageDataUrl(usuario.avatar) : '';
       });

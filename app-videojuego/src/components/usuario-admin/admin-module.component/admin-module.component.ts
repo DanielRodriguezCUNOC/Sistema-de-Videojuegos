@@ -1,34 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { MasterLoginService } from '../../../services/login/masterlogin.service';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../share/footer.component/footer.component';
-import { RedireccionarService } from '../../../services/login/redireccionar.service';
-import { Subscription } from 'rxjs';
+import { NavbarUsuarioAdminComponent } from '../navbar-usuario-admin.component/navbar-usuario-admin.component';
 
 @Component({
   selector: 'app-admin-module',
-  imports: [CommonModule, FooterComponent, RouterLink],
+  imports: [CommonModule, FooterComponent, RouterLink, NavbarUsuarioAdminComponent],
   templateUrl: './admin-module.component.html',
   styleUrl: './admin-module.component.scss',
 })
-export class AdminModuleComponent implements OnInit {
+export class AdminModuleComponent {
   activeSection: string = 'dashboard';
   activeSubsection: string = '';
-  avatarUrl: string = '';
-  correoUsuario: string = '';
-
-  private subscripcion?: Subscription;
-
-  constructor(
-    private masterLoginService: MasterLoginService,
-    private redireccionarService: RedireccionarService
-  ) {}
-
-  ngOnInit() {
-    this.cargarDatosUsuario();
-    this.subscribirseACambiosUsuario();
-  }
 
   setActiveSection(section: string): void {
     this.activeSection = section;
@@ -37,23 +21,5 @@ export class AdminModuleComponent implements OnInit {
 
   setActiveSubsection(subsection: string): void {
     this.activeSubsection = subsection;
-  }
-
-  logout(): void {
-    this.masterLoginService.setLogout();
-    this.redireccionarService.redirectToHome();
-  }
-
-  /*
-   * Carga los datos del usuario actual
-   */
-  private cargarDatosUsuario(): void {}
-
-  private subscribirseACambiosUsuario(): void {
-    this.subscripcion = this.masterLoginService.currentUser$.subscribe((user) => {
-      if (user) {
-        this.cargarDatosUsuario();
-      }
-    });
   }
 }

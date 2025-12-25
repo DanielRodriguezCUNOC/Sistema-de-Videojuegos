@@ -1,22 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { MasterLoginService } from '../../../services/login/masterlogin.service';
-import { UsuarioAdministradorResponseDTO } from '../../../models/dtos/usuario/response/usuario-administrador-response-dto';
-import { RedireccionarService } from '../../../services/login/redireccionar.service';
-import { UsuarioResponseService } from '../../../services/user/usuario-response.service';
-import { UsuarioGamerResponseDTO } from '../../../models/dtos/usuario/response/usuario-gamer-response-dto';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { UsuarioEmpresaResponseDTO } from '../../../../models/dtos/usuario/response/usuario-empresa-response-dto-';
+import { MasterLoginService } from '../../../../services/login/masterlogin.service';
+import { RedireccionarService } from '../../../../services/login/redireccionar.service';
+import { UsuarioResponseService } from '../../../../services/user/usuario-response.service';
 
 @Component({
-  selector: 'app-navbar-usuario',
-  imports: [RouterLink],
-  templateUrl: './navbar-usuario.component.html',
-  styleUrl: './navbar-usuario.component.scss',
+  selector: 'app-navbar-usuario-empresa',
+  imports: [],
+  templateUrl: './navbar-usuario-empresa.component.html',
+  styleUrl: './navbar-usuario-empresa.component.scss',
 })
-export class NavbarUsuarioComponent implements OnInit {
-  avatarUrl = '';
-  nickname = '';
+export class NavbarUsuarioEmpresaComponent implements OnInit {
+  nombreCompleto: string = '';
+  nombreEmpresa: string = '';
+  avatarUrl: string = '';
 
   private subscripcion?: Subscription;
 
@@ -41,9 +39,9 @@ export class NavbarUsuarioComponent implements OnInit {
    */
   private cargarDatosUsuario(): void {
     this.usuarioResponseService
-      .obtenerUsuarioGamerResponse(this.masterLoginService.getUserId())
-      .subscribe((usuario: UsuarioGamerResponseDTO) => {
-        this.nickname = usuario.nickname;
+      .obtenerUsuarioEmpresaResponse(this.masterLoginService.getUserId())
+      .subscribe((usuario: UsuarioEmpresaResponseDTO) => {
+        this.nombreCompleto = usuario.nombreCompleto;
 
         this.avatarUrl = usuario.avatar ? this.createImageDataUrl(usuario.avatar) : '';
       });

@@ -14,18 +14,6 @@
         <a class="btn-register" routerLink="/crear-cuenta" routerLinkActive="active">Registrarse</a>
         }
       </div>
-
-      @if(isLoggedIn){
-      <div class="nav-profile">
-        <input type="checkbox" id="profile-toggle" class="profile-toggle" />
-        <label for="profile-toggle" class="profile-label">
-          <i class="icon-user"></i> Mi Cuenta
-        </label>
-        <ul class="profile-dropdown">
-          <li><button (click)="logout()">Cerrar sesión</button></li>
-        </ul>
-      </div>
-      }
     </div>
   </div>
 </nav>

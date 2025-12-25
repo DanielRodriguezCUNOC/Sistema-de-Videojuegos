@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SharePopupComponent } from '../../../shared/share-popup.component/share-popup.component';
-import { CrearVideojuegoService } from '../../../services/empresa/crear-videojuego.service';
-import { VideojuegoRequestDto } from '../../../models/dtos/empresa/videojuego/videojuego-request-dto';
+import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
+import { CrearVideojuegoService } from '../../../../services/empresa/crear-videojuego.service';
+import { VideojuegoRequestDto } from '../../../../models/dtos/empresa/videojuego/videojuego-request-dto';
 
 interface Categoria {
   id: string;

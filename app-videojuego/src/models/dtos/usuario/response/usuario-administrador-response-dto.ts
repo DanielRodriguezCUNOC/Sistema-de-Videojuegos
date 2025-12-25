@@ -1,4 +1,5 @@
 export interface UsuarioAdministradorResponseDTO {
   nombreCompleto: string;
-  avatar: File;
+  //* Formato de imagen en base64 */
+  avatar: string;
 }
