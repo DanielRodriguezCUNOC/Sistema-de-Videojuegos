@@ -44,7 +44,7 @@ public class LoginDB {
 
       try (ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {
-          String idUsuario = rs.getString("id_usuario");
+          Integer idUsuario = rs.getInt("id_usuario");
           Integer idRol = rs.getInt("id_rol");
 
           return new LoginResponseDTO(idUsuario, idRol);

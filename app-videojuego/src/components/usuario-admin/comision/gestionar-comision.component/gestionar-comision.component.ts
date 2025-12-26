@@ -20,6 +20,6 @@ export class GestionarComisionComponent {
   }
 
   regresar(): void {
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/user-admin']);
   }
 }

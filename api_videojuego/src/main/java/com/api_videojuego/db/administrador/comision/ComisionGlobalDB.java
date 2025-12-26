@@ -54,7 +54,7 @@ public class ComisionGlobalDB {
 				ObtenerComisionGlobalDTO comision = new ObtenerComisionGlobalDTO();
 				comision.setId(rs.getInt("id"));
 				comision.setComision(BigDecimal.valueOf(rs.getDouble("comision")));
-				comision.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
+				comision.setFechaCreacion(rs.getDate("fecha_creacion"));
 				return comision;
 			}
 		} catch (SQLException e) {

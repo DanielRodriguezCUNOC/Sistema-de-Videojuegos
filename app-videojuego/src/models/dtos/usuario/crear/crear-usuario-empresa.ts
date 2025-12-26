@@ -1,4 +1,5 @@
 export interface CrearUsuarioEmpresaDTO {
+  idUsuarioCreador: number;
   correoUsuario: string;
   nombreCompleto: string;
   password: string;

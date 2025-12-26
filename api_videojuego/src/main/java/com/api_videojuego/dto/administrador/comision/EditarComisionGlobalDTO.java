@@ -2,12 +2,8 @@ package com.api_videojuego.dto.administrador.comision;
 
 import java.math.BigDecimal;
 
-import jakarta.ws.rs.FormParam;
-
 public class EditarComisionGlobalDTO {
-	@FormParam("id")
 	private Integer id;
-	@FormParam("comision")
 	private BigDecimal comision;
 
 	public Integer getId() {

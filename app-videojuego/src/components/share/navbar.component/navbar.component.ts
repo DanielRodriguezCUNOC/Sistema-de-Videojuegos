@@ -19,9 +19,4 @@ export class NavbarComponent {
   readDataLoggedIn() {
     this.isLoggedIn = this.masterLoginService.isLoggedIn();
   }
-
-  logout() {
-    this.masterLoginService.setLogout();
-    this.router.navigateByUrl('/login');
-  }
 }

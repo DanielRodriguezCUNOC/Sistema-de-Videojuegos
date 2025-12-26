@@ -4,6 +4,7 @@ $green: #16a34a;
 $purple: #7c3aed;
 $orange: #ea580c;
 $pink: #db2777;
+$gray: #6b7280;
 $card-bg: #11212f;
 $text-primary: #ebeef2;
 $text-secondary: #e3e8f3;
@@ -30,21 +31,24 @@ $border-radius: 14px;
   gap: 0.75rem;
 }
 
-.logout-btn {
-  background: transparent;
-  border: 1px solid #e5e7eb;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: $text-primary;
+  .back-btn {
+    background: linear-gradient(135deg, $gray, #9ca3af);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: $border-radius;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
 
-  &:hover {
-    background: #fee2e2;
-    border-color: #fecaca;
-    color: #b91c1c;
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(107, 114, 128, 0.3);
+    }
   }
-}
 
 .content {
   padding: 2rem;
@@ -115,4 +119,9 @@ $border-radius: 14px;
 .card--orange {
   color: $orange;
   background: linear-gradient(135deg, #fff7ed, #ffffff);
+}
+
+h2{
+  color: $text-primary;
+  margin: 0;
 }

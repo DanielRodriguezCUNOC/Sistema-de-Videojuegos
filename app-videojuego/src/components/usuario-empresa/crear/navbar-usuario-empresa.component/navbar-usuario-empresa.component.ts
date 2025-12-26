@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UsuarioEmpresaResponseDTO } from '../../../../models/dtos/usuario/response/usuario-empresa-response-dto-';
 import { MasterLoginService } from '../../../../services/login/masterlogin.service';
@@ -21,7 +21,8 @@ export class NavbarUsuarioEmpresaComponent implements OnInit {
   constructor(
     private masterLoginService: MasterLoginService,
     private redireccionarService: RedireccionarService,
-    private usuarioResponseService: UsuarioResponseService
+    private usuarioResponseService: UsuarioResponseService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -38,13 +39,24 @@ export class NavbarUsuarioEmpresaComponent implements OnInit {
    * Carga los datos del usuario actual
    */
   private cargarDatosUsuario(): void {
-    this.usuarioResponseService
-      .obtenerUsuarioEmpresaResponse(this.masterLoginService.getUserId())
-      .subscribe((usuario: UsuarioEmpresaResponseDTO) => {
-        this.nombreCompleto = usuario.nombreCompleto;
+    const userId = this.masterLoginService.getUserId();
 
-        this.avatarUrl = usuario.avatar ? this.createImageDataUrl(usuario.avatar) : '';
-      });
+    if (!userId) {
+      console.log('NavbarUsuarioEmpresa: No hay userId disponible');
+      return;
+    }
+
+    this.usuarioResponseService.obtenerUsuarioEmpresaResponse(userId).subscribe({
+      next: (usuario: UsuarioEmpresaResponseDTO) => {
+        this.nombreCompleto = usuario.nombreCompleto;
+        this.nombreEmpresa = usuario.nombreEmpresa;
+        this.avatarUrl = this.createImageDataUrl(usuario.avatar);
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('NavbarUsuarioEmpresa: Error al obtener datos del usuario:', error);
+      },
+    });
   }
 
   /*

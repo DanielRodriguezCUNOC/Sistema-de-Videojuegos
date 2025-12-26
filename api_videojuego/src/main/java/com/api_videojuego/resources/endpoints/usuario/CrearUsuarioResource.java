@@ -22,7 +22,8 @@ public class CrearUsuarioResource {
   @POST
   @Path("/crear-usuario-gamer")
   @Consumes(MediaType.MULTIPART_FORM_DATA)
-  public Response crearUsuario(@BeanParam CrearUsuarioGamerDTO crearUsuarioDTO) {
+  public Response crearUsuario(
+      @BeanParam CrearUsuarioGamerDTO crearUsuarioDTO) {
 
     CrearUsuarioGamerService service = new CrearUsuarioGamerService();
 
@@ -31,25 +32,21 @@ public class CrearUsuarioResource {
 
       return Response.status(Response.Status.CREATED)
           .entity("{\"mensaje\": \"Usuario creado exitosamente\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
     } catch (UsuarioYaRegistrado e) {
       return Response.status(Response.Status.CONFLICT)
           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
 
     } catch (ErrorInsertarDB e) {
-      return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-          .entity("{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
+          "{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
+          .header("Content-Type", "application/json").build();
 
     } catch (Exception e) {
       return Response.status(Response.Status.BAD_REQUEST)
           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
     }
 
   }
@@ -57,7 +54,8 @@ public class CrearUsuarioResource {
   @POST
   @Path("/crear-usuario-empresa")
   @Consumes(MediaType.MULTIPART_FORM_DATA)
-  public Response crearUsuarioEmpresa(@BeanParam CrearUsuarioEmpresaDTO crearUsuarioDTO) {
+  public Response crearUsuarioEmpresa(
+      @BeanParam CrearUsuarioEmpresaDTO crearUsuarioDTO) {
 
     CrearUsuarioEmpresaService service = new CrearUsuarioEmpresaService();
 
@@ -66,25 +64,21 @@ public class CrearUsuarioResource {
 
       return Response.status(Response.Status.CREATED)
           .entity("{\"mensaje\": \"Usuario creado exitosamente\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
     } catch (UsuarioYaRegistrado e) {
       return Response.status(Response.Status.CONFLICT)
           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
 
     } catch (ErrorInsertarDB e) {
-      return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-          .entity("{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
+          "{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
+          .header("Content-Type", "application/json").build();
 
     } catch (Exception e) {
       return Response.status(Response.Status.BAD_REQUEST)
           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
     }
 
   }
@@ -92,7 +86,8 @@ public class CrearUsuarioResource {
   @POST
   @Path("/crear-usuario-admin")
   @Consumes(MediaType.MULTIPART_FORM_DATA)
-  public Response crearUsuarioAdmin(@BeanParam CrearUsuarioAdminDTO crearUsuarioDTO) {
+  public Response crearUsuarioAdmin(
+      @BeanParam CrearUsuarioAdminDTO crearUsuarioDTO) {
 
     CrearUsuarioAdminService service = new CrearUsuarioAdminService();
 
@@ -101,25 +96,21 @@ public class CrearUsuarioResource {
 
       return Response.status(Response.Status.CREATED)
           .entity("{\"mensaje\": \"Usuario creado exitosamente\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
     } catch (UsuarioYaRegistrado e) {
       return Response.status(Response.Status.CONFLICT)
           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
 
     } catch (ErrorInsertarDB e) {
-      return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-          .entity("{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
+          "{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
+          .header("Content-Type", "application/json").build();
 
     } catch (Exception e) {
       return Response.status(Response.Status.BAD_REQUEST)
           .entity("{\"error\": \"" + e.getMessage() + "\"}")
-          .header("Content-Type", "application/json")
-          .build();
+          .header("Content-Type", "application/json").build();
     }
 
   }

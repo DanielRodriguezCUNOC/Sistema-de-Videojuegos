@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
 import { CrearUsuarioService } from '../../../../services/user/crear-usuario.service';
 import { CrearUsuarioEmpresaDTO } from '../../../../models/dtos/usuario/crear/crear-usuario-empresa';
+import { MasterLoginService } from '../../../../services/login/masterlogin.service';
 
 @Component({
   selector: 'app-crear-usuario-empresa',
@@ -17,7 +18,11 @@ export class CrearUsuarioEmpresaComponent implements OnInit {
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
 
-  constructor(private formBuilder: FormBuilder, private crearUsuarioService: CrearUsuarioService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private crearUsuarioService: CrearUsuarioService,
+    private masterLoginService: MasterLoginService
+  ) {}
 
   ngOnInit(): void {
     this.nuevoRegistroUsuario = this.formBuilder.group({
@@ -44,7 +49,7 @@ export class CrearUsuarioEmpresaComponent implements OnInit {
       const datosUsuario: CrearUsuarioEmpresaDTO = {
         correoUsuario: this.nuevoRegistroUsuario.value.correoUsuario,
         nombreCompleto: this.nuevoRegistroUsuario.value.nombreCompleto,
-        idEmpresa: Number(localStorage.getItem('idEmpresa')) || 0,
+        idUsuarioCreador: this.masterLoginService.getUserId() || 0,
         password: this.nuevoRegistroUsuario.value.password,
         fechaNacimiento: new Date(this.nuevoRegistroUsuario.value.fechaNacimiento),
         numeroTelefonico: this.nuevoRegistroUsuario.value.numeroTelefonico,

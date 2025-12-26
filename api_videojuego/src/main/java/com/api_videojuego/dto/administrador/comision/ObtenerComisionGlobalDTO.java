@@ -1,12 +1,12 @@
 package com.api_videojuego.dto.administrador.comision;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 
 public class ObtenerComisionGlobalDTO {
 	private Integer id;
 	private BigDecimal comision;
-	private LocalDate fechaCreacion;
+	private Date fechaCreacion;
 
 	// * Getters and Setters */
 
@@ -26,11 +26,11 @@ public class ObtenerComisionGlobalDTO {
 		this.comision = comision;
 	}
 
-	public LocalDate getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion(LocalDate fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 }

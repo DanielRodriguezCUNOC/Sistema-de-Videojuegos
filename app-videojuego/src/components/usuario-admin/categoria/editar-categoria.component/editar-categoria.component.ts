@@ -66,11 +66,10 @@ export class EditarCategoriaComponent implements OnInit {
           this.mostrarPopup('Categoría actualizada exitosamente.', 'success');
           this.isLoading = false;
           setTimeout(() => {
-            this.router.navigate(['/admin-user/gestionar-categoria']);
+            this.router.navigate(['/user-admin/gestionar-categoria']);
           }, 1500);
         },
         error: (err) => {
-          console.error('Error al actualizar categoría:', err);
           this.mostrarPopup('Error al actualizar la categoría.', 'error');
           this.isLoading = false;
         },

@@ -64,7 +64,7 @@ export class CrearCategoriaComponent implements OnInit {
   }
 
   regresar(): void {
-    this.router.navigate(['/admin-user/gestionar-categoria']);
+    this.router.navigate(['/user-admin/gestionar-categorias']);
   }
 
   get categoria() {

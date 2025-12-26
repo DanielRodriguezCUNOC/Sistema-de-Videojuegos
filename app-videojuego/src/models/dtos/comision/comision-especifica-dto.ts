@@ -1,5 +1,6 @@
 export interface ComisionEspecificaDTO {
-  idComision: number;
-  porcentajeComision: number;
+  idEmpresa: number;
+  nombreEmpresa: string;
+  comision: number;
   fechaActualizacion: string;
 }

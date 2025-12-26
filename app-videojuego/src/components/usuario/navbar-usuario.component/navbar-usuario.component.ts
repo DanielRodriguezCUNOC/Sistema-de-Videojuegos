@@ -1,8 +1,14 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MasterLoginService } from '../../../services/login/masterlogin.service';
-import { UsuarioAdministradorResponseDTO } from '../../../models/dtos/usuario/response/usuario-administrador-response-dto';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
 import { UsuarioResponseService } from '../../../services/user/usuario-response.service';
 import { UsuarioGamerResponseDTO } from '../../../models/dtos/usuario/response/usuario-gamer-response-dto';
@@ -10,43 +16,55 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar-usuario',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './navbar-usuario.component.html',
   styleUrl: './navbar-usuario.component.scss',
 })
-export class NavbarUsuarioComponent implements OnInit {
-  avatarUrl = '';
+export class NavbarUsuarioComponent implements OnInit, OnDestroy {
+  avatarUrl: string = '';
   nickname = '';
 
   private subscripcion?: Subscription;
+  @Output() enviarNickname = new EventEmitter<string>();
 
   constructor(
     private masterLoginService: MasterLoginService,
     private redireccionarService: RedireccionarService,
-    private usuarioResponseService: UsuarioResponseService
+    private usuarioResponseService: UsuarioResponseService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.cargarDatosUsuario();
-    this.subscribirseACambiosUsuario();
-  }
-
-  logout(): void {
-    this.masterLoginService.setLogout();
-    this.redireccionarService.redirectToHome();
   }
 
   /*
    * Carga los datos del usuario actual
    */
   private cargarDatosUsuario(): void {
-    this.usuarioResponseService
-      .obtenerUsuarioGamerResponse(this.masterLoginService.getUserId())
-      .subscribe((usuario: UsuarioGamerResponseDTO) => {
-        this.nickname = usuario.nickname;
+    const userId = this.masterLoginService.getUserId();
 
-        this.avatarUrl = usuario.avatar ? this.createImageDataUrl(usuario.avatar) : '';
-      });
+    if (!userId) {
+      console.log('NavbarUsuario: No hay userId disponible');
+      return;
+    }
+
+    this.usuarioResponseService.obtenerUsuarioGamerResponse(userId).subscribe({
+      next: (usuario: UsuarioGamerResponseDTO) => {
+        this.nickname = usuario.nickname;
+        this.avatarUrl = this.createImageDataUrl(usuario.avatar);
+        this.cdr.detectChanges();
+        this.enviarNickname.emit(this.nickname);
+      },
+      error: (error) => {
+        console.error('NavbarUsuario: Error al obtener datos del usuario:', error);
+      },
+    });
+  }
+
+  logout(): void {
+    this.masterLoginService.setLogout();
+    this.redireccionarService.redirectToHome();
   }
 
   /*
@@ -66,16 +84,7 @@ export class NavbarUsuarioComponent implements OnInit {
     } else if (base64Data.startsWith('iVBORw0KGgo')) {
       return 'png';
     }
-    //* Se coloca png si no se detecta
     return 'png';
-  }
-
-  private subscribirseACambiosUsuario(): void {
-    this.subscripcion = this.masterLoginService.currentUser$.subscribe((user) => {
-      if (user) {
-        this.cargarDatosUsuario();
-      }
-    });
   }
 
   ngOnDestroy(): void {

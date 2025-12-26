@@ -13,16 +13,16 @@ import { environment } from '../../../environment/environment';
   providedIn: 'root',
 })
 export class ComisionService {
-  private apiUrl = `${environment.apiBaseUrl}/comision`;
+  private apiUrl = `${environment.apiBaseUrl}/comision-global`;
 
   constructor(private http: HttpClient) {}
 
   obtenerComisionGlobal(): Observable<ObtenerComisionGlobalDTO> {
-    return this.http.get<ObtenerComisionGlobalDTO>(`${this.apiUrl}/comision-global`);
+    return this.http.get<ObtenerComisionGlobalDTO>(`${this.apiUrl}/obtener-comision`);
   }
 
   editarComisionGlobal(dto: EditarComisionGlobalDto): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/comision-global`, dto);
+    return this.http.put<any>(`${this.apiUrl}/actualizar-comision`, dto);
   }
 
   obtenerComisionesEspecificas(): Observable<ListaComisionEspecificaDTO> {
