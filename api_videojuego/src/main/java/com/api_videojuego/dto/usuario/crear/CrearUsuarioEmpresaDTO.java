@@ -4,6 +4,8 @@ import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 public class CrearUsuarioEmpresaDTO {
+  @FormDataParam("idUsuarioCreador")
+  private String idUsuarioCreador;
   @FormDataParam("correoUsuario")
   private String correoUsuario;
   @FormDataParam("nombreCompleto")
@@ -20,6 +22,14 @@ public class CrearUsuarioEmpresaDTO {
   private FormDataBodyPart avatarPart;
 
   // * Getters and Setters */
+
+  public String getIdUsuarioCreador() {
+    return idUsuarioCreador;
+  }
+
+  public void setIdUsuarioCreador(String idUsuarioCreador) {
+    this.idUsuarioCreador = idUsuarioCreador;
+  }
 
   public String getCorreoUsuario() {
     return correoUsuario;

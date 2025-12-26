@@ -1,1 +1,78 @@
-<p>gestionar-comision-especifica.component works!</p>
+<div class="dashboard">
+  <div class="topbar">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="page-title">Gestión de Comisiones por Empresa</h1>
+    <button class="create-btn" (click)="crearComision()">
+      <i class="fas fa-plus"></i>
+      Asignar Comisión
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="table-container">
+      <div class="table-header">
+        <h2>Lista de Comisiones</h2>
+        <span class="total-count">Total: {{ comisiones.length || 0 }}</span>
+      </div>
+
+      @if(comisiones && comisiones.length > 0) {
+
+      <div class="table-wrapper">
+        <table class="companies-table">
+          <thead>
+            <tr>
+              <th>ID Empresa</th>
+              <th>Nombre de Empresa</th>
+              <th>Comisión (%)</th>
+              <th>Fecha de Actualización</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(empresa of comisiones; track empresa.idEmpresa) {
+            <tr class="table-row">
+              <td class="id-cell">{{ empresa.idEmpresa }}</td>
+              <td class="company-cell">{{ empresa.nombreEmpresa }}</td>
+              <td class="commission-cell">
+                <span class="commission-value">{{ empresa.comision || 0 }}%</span>
+              </td>
+              <td class="date-cell">{{ empresa.fechaActualizacion | date : 'MM/dd/yyyy' }}</td>
+              <td class="actions-cell">
+                <button
+                  class="action-btn edit-btn"
+                  (click)="editarComisionEmpresa(empresa.idEmpresa, empresa.comision)"
+                  title="Editar comisión"
+                >
+                  <i class="fas fa-percentage"></i>
+                  Editar Comisión
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }@else{
+      <div class="no-data">
+        <i class="fas fa-percentage"></i>
+        <h3>No hay comisiones asignadas</h3>
+        <p>Comienza asignando comisiones a las comisiones registradas</p>
+        <button class="create-btn" (click)="crearComision()">
+          <i class="fas fa-plus"></i>
+          Asignar Primera Comisión
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

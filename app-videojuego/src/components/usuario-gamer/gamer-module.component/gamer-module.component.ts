@@ -15,6 +15,7 @@ export class GamerModuleComponent {
   juegosComprados: ListaRapidaJuegoCompradoDTO[] = [];
   juegosCarousel: ListaRapidaJuegoCompradoDTO[] = [];
   indiceCarrusel = 0;
+  nickname: string = '';
 
   get imagenActual(): string {
     return this.juegosCarousel[this.indiceCarrusel].imagenJuego;
@@ -43,4 +44,8 @@ export class GamerModuleComponent {
 
   totalJuegos = this.juegosComprados.length;
   saldoCartera = 25.5;
+
+  recibirNickname(nickname: string): void {
+    this.nickname = nickname;
+  }
 }

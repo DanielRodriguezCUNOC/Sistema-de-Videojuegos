@@ -51,23 +51,22 @@ public class CrearEmpresaResource {
 
 		} catch (ErrorEncriptacion e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity(
-							"{\"error\": \"Error al procesar la información de seguridad\"}")
+					.entity("{\"error\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 
 		} catch (ErrorInsertarDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Error al guardar en la base de datos\"}")
+					.entity("{\"error\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 
 		} catch (ErrorConsultaDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Error al consultar la base de datos\"}")
+					.entity("{\"error\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 
 		} catch (ExcepcionInesperada e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"error\": \"Ha ocurrido un error inesperado\"}")
+					.entity("{\"error\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 		}
 	}

@@ -4,6 +4,7 @@ import com.api_videojuego.dto.usuario.reponse.UsuarioAdminResponseDTO;
 import com.api_videojuego.dto.usuario.reponse.UsuarioEmpresaResponseDTO;
 import com.api_videojuego.dto.usuario.reponse.UsuarioGamerResponseDTO;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
+import com.api_videojuego.excepciones.ExcepcionInesperada;
 import com.api_videojuego.services.usuario.response.UsuarioResponseService;
 
 import jakarta.ws.rs.GET;
@@ -32,6 +33,9 @@ public class UsuarioResponseResource {
 		} catch (ErrorConsultaDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(e.getMessage()).build();
+		} catch (ExcepcionInesperada e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(e.getMessage()).build();
 		}
 
 	}
@@ -52,6 +56,9 @@ public class UsuarioResponseResource {
 		} catch (ErrorConsultaDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(e.getMessage()).build();
+		} catch (ExcepcionInesperada e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(e.getMessage()).build();
 		}
 
 	}
@@ -70,6 +77,9 @@ public class UsuarioResponseResource {
 			return Response.status(Response.Status.OK).entity(usuarioGamerResponseDTO)
 					.build();
 		} catch (ErrorConsultaDB e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(e.getMessage()).build();
+		} catch (ExcepcionInesperada e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(e.getMessage()).build();
 		}

@@ -4,9 +4,9 @@ import com.api_videojuego.dto.administrador.comision.EditarComisionGlobalDTO;
 import com.api_videojuego.dto.administrador.comision.ObtenerComisionGlobalDTO;
 import com.api_videojuego.excepciones.DatosInvalidos;
 import com.api_videojuego.excepciones.ErrorActualizarRegistro;
+import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.services.administrador.comision.ComisionGlobalService;
 
-import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PUT;
@@ -20,9 +20,8 @@ public class ComisionGlobalResource {
 
 	@Path("/actualizar-comision")
 	@PUT
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response actualizarComisionGlobal(
-			@BeanParam EditarComisionGlobalDTO comision) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response actualizarComisionGlobal(EditarComisionGlobalDTO comision) {
 
 		ComisionGlobalService comisionService = new ComisionGlobalService();
 
@@ -33,15 +32,15 @@ public class ComisionGlobalResource {
 					.header("Content-Type", "application/json").build();
 		} catch (DatosInvalidos e) {
 			return Response.status(Response.Status.BAD_REQUEST)
-					.entity("{\"mensaje\": \"Datos inválidos\"}")
+					.entity("{\"mensaje\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 		} catch (ErrorActualizarRegistro e) {
 			return Response.status(Response.Status.BAD_REQUEST)
-					.entity("{\"mensaje\": \"Error al actualizar el registro\"}")
+					.entity("{\"mensaje\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
-		} catch (Exception e) {
+		} catch (ErrorConsultaDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("{\"mensaje\": \"Error del servidor, intentelo mas tarde\"}")
+					.entity("{\"mensaje\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 		}
 

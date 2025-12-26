@@ -12,6 +12,7 @@ import com.api_videojuego.excepciones.DatosInvalidos;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEncriptacion;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
+import com.api_videojuego.excepciones.ExcepcionInesperada;
 import com.api_videojuego.excepciones.UsuarioYaRegistrado;
 import com.api_videojuego.utils.ConfiguracionAvatar;
 import com.api_videojuego.utils.ConvertirImagen;
@@ -33,7 +34,9 @@ public class CrearUsuarioEmpresaService {
   }
 
   public void crearUsuarioEmpresa(CrearUsuarioEmpresaDTO crearUsuarioDTO)
-      throws Exception {
+      throws AvatarExcepcion, DatosInvalidos, UsuarioYaRegistrado,
+      ErrorInsertarDB, ErrorEncriptacion, ErrorConsultaDB, IOException,
+      ExcepcionInesperada {
 
     try {
 
@@ -75,23 +78,30 @@ public class CrearUsuarioEmpresaService {
           crearUsuarioDTO.getCorreoUsuario());
 
       // * Registramos el usuario empresa */
-      registrarUsuarioEmpresa(crearUsuarioDTO.getNombreCompleto(), idUsuario);
+      registrarUsuarioEmpresa(crearUsuarioDTO.getNombreCompleto(), idUsuario,
+          Integer.parseInt(crearUsuarioDTO.getIdUsuarioCreador()));
 
     } catch (UsuarioYaRegistrado e) {
       throw e;
 
     } catch (ErrorInsertarDB e) {
-      throw new Exception("Error al crear el usuario: " + e.getMessage());
+      throw e;
     } catch (DatosInvalidos e) {
       throw e;
     } catch (ErrorEncriptacion e) {
       throw e;
+    } catch (ErrorConsultaDB e) {
+      throw e;
 
+    } catch (IOException e) {
+      throw e;
+    } catch (ExcepcionInesperada e) {
+      throw e;
     }
   }
 
   public void registrarUsuarioGenerico(CrearUsuarioEmpresaDTO crearUsuarioDTO,
-      Integer idRol) throws Exception {
+      Integer idRol) throws IOException, ErrorInsertarDB, ExcepcionInesperada {
 
     byte[] avatarBytes = null;
 
@@ -119,24 +129,21 @@ public class CrearUsuarioEmpresaService {
   }
 
   public Integer obtenerIdUsuarioPorCorreo(String correoUsuario)
-      throws Exception {
+      throws ErrorConsultaDB {
     return crearUsuarioGenericoDB.obtenerIdUsuarioPorCorreo(correoUsuario);
   }
 
-  public void registrarUsuarioEmpresa(String nombreCompleto, Integer idUsuario)
-      throws Exception {
+  public void registrarUsuarioEmpresa(String nombreCompleto, Integer idUsuario,
+      Integer idUsuarioCreador) throws ErrorInsertarDB, ErrorConsultaDB {
 
     crearUsuarioDB.registrarUsuarioEmpresa(nombreCompleto, idUsuario,
-        obtenerIdEmpresaMedianteUsuario(idUsuario));
+        obtenerIdEmpresaMedianteUsuario(idUsuarioCreador));
   }
 
   public Integer obtenerIdEmpresaMedianteUsuario(Integer idUsuario)
       throws ErrorConsultaDB {
-    try {
-      return usuarioEmpresaDB.obtenerIdEmpresaPorIdUsuario(idUsuario);
-    } catch (ErrorConsultaDB e) {
-      throw e;
-    }
+
+    return usuarioEmpresaDB.obtenerIdEmpresaPorIdUsuario(idUsuario);
 
   }
 

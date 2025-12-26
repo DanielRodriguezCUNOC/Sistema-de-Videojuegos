@@ -6,18 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
-import com.api_videojuego.dto.usuario.reponse.UsuarioGamerResponseDTO;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 
 public class UsuarioGamerDB {
 
-	public UsuarioGamerResponseDTO obtenerGamerPorId(Integer idUsuario)
-			throws ErrorConsultaDB {
+	public String obtenerGamerPorId(Integer idUsuario) throws ErrorConsultaDB {
 
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-		String query = "SELECT ug.nickname, u.avatar " + "FROM usuario_gamer AS ug "
-				+ "JOIN usuario AS u ON ug.id_usuario = u.id_usuario "
+		String query = "SELECT ug.nickname " + "FROM usuario_gamer AS ug "
 				+ "WHERE ug.id_usuario = ?";
 
 		try (PreparedStatement ps = conn.prepareStatement(query)) {
@@ -27,16 +24,38 @@ public class UsuarioGamerDB {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				UsuarioGamerResponseDTO gamerDTO = new UsuarioGamerResponseDTO();
-				gamerDTO.setNickname(rs.getString("nickname"));
-				gamerDTO.setAvatar(rs.getBytes("avatar"));
+				String nickname = rs.getString("nickname");
 
-				return gamerDTO;
+				return nickname;
 			}
 
 		} catch (SQLException e) {
 			throw new ErrorConsultaDB(
 					"Error al obtener los datos del usuario en la BD");
+		}
+
+		return null;
+	}
+
+	public byte[] obtenerAvatarPorId(Integer idUsuario) throws ErrorConsultaDB {
+
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+		String query = "SELECT avatar " + "FROM usuario " + "WHERE id_usuario = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+
+			ps.setInt(1, idUsuario);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getBytes("avatar");
+			}
+
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB(
+					"Error al obtener el avatar del usuario en la BD");
 		}
 
 		return null;

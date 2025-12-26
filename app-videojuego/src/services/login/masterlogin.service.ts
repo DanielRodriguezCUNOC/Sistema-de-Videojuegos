@@ -41,7 +41,7 @@ export class MasterLoginService {
   }
 
   private isValidUser(user: any): user is UserResponseLoginDTO {
-    return user && user.idRol > 0 && user.correoUsuario;
+    return user && user.idRol > 0 && user.idUsuario > 0;
   }
 
   private clearInvalidData(): void {
@@ -86,19 +86,6 @@ export class MasterLoginService {
   isLoggedIn(): boolean {
     return this.isLoggedInSubject.value;
   }
-
-  /**
-   * Convierte el avatar Base64 a una URL utilizable en src de img
-   */
-  /*getAvatarUrl(): string {
-    const user = this.getCurrentUser();
-    if (user?.avatar) {
-      if (user.avatar.startsWith('data:image/')) {
-        return user.avatar;
-      }
-    }
-    return '';
-  }*/
 
   /**
    * Obtiene el ID del usuario

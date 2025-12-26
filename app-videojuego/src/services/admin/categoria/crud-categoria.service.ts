@@ -17,9 +17,7 @@ export class CrudCategoriaService {
 
   crearCategoria(datosCategoria: CrearCategoriaDTO): Observable<any> {
     const url = `${this.apiURL}/crear-categoria`;
-    const formData = new FormData();
-    formData.append('categoria', datosCategoria.categoria);
-    return this.http.post(url, formData);
+    return this.http.post(url, datosCategoria);
   }
 
   obtenerCategorias(): Observable<ListaCategoriaDTO> {

@@ -1,8 +1,8 @@
-<app-navbar-usuario></app-navbar-usuario>
+<app-navbar-usuario (enviarNickname)="recibirNickname($event)"></app-navbar-usuario>
 
 <main class="usuario-main">
   <section class="usuario-banner">
-    <h1>¡Bienvenido, Usuario!</h1>
+    <h1>¡Bienvenido, {{ nickname }}!</h1>
     <p>Explora tus juegos, estadísticas y mucho más.</p>
   </section>
 

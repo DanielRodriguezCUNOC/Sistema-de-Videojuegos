@@ -74,7 +74,7 @@ export class CrearEmpresaComponent implements OnInit {
   }
 
   regresar(): void {
-    this.router.navigate(['/admin-user/gestionar-categoria']);
+    this.router.navigate(['/user-admin']);
   }
 
   private mostrarPopup(mensaje: string, tipo: 'error' | 'success' | 'info'): void {

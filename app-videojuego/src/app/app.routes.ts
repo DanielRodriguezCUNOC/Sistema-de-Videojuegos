@@ -19,6 +19,7 @@ import { CrearComisionEspecificaComponent } from '../components/usuario-admin/co
 import { EditarComisionComponent } from '../components/usuario-admin/comision/editar-comision.component/editar-comision.component';
 import { EditarComisionEspecificaComponent } from '../components/usuario-admin/comision/editar-comision-especifica.component/editar-comision-especifica.component';
 import { CrearVideojuegoComponent } from '../components/usuario-empresa/crear/crear-videojuego.component/crear-videojuego.component';
+import { CrearCategoriaComponent } from '../components/usuario-admin/categoria/crear-categoria.component/crear-categoria.component';
 
 export const routes: Routes = [
   {
@@ -112,9 +113,14 @@ export const routes: Routes = [
         path: 'crear-administrador',
         component: CrearUsuarioAdminComponent,
       },
+
       {
         path: 'gestionar-categorias',
         component: GestionarCategoriaComponent,
+      },
+      {
+        path: 'crear-categoria',
+        component: CrearCategoriaComponent,
       },
       {
         path: 'gestionar-comisiones',
@@ -141,7 +147,7 @@ export const routes: Routes = [
         component: CrearComisionEspecificaComponent,
       },
       {
-        path: 'editar-comision-global',
+        path: 'editar-comision-global/:comisionGlobal/:comisionId',
         component: EditarComisionComponent,
       },
       {

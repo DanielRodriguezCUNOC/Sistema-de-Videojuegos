@@ -35,12 +35,14 @@ public class CrearEmpresaDB {
 			String estadoComentario) throws ErrorInsertarDB, ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-		String query = "INSERT INTO empresa_desarrolladora (nombre_empresa, descripcion, estado_comentario) VALUES (?, ?, ?)";
+		String query = "INSERT INTO empresa_desarrolladora (nombre_empresa, descripcion, estado_comentarios, estado) VALUES (?, ?, ?, ?)";
 		try (PreparedStatement ps = conn.prepareStatement(query,
 				Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, nombreEmpresa);
 			ps.setString(2, descripcion);
-			ps.setString(3, estadoComentario);
+			ps.setInt(3, Boolean.parseBoolean(estadoComentario) ? 1 : 0);
+			ps.setString(4, "activa");
+
 			int rowsAffected = ps.executeUpdate();
 			if (rowsAffected == 0) {
 				throw new ErrorInsertarDB("No se pudo registrar la empresa.");
@@ -55,9 +57,9 @@ public class CrearEmpresaDB {
 				}
 			}
 		} catch (SQLException e) {
-			throw new ErrorConsultaDB(
-					"Error al registrar la empresa en la base de datos: "
-							+ e.getMessage());
+
+			throw new ErrorInsertarDB(
+					"Error al registrar la empresa en la base de datos");
 		}
 	}
 

@@ -4,7 +4,14 @@ public class UsuarioEmpresaResponseDTO {
 
 	private String nombreCompleto;
 	private String nombreEmpresa;
-	private byte[] avatar;
+	private String avatar;
+
+	public UsuarioEmpresaResponseDTO(String nombreCompleto, String avatar,
+			String nombreEmpresa) {
+		this.nombreCompleto = nombreCompleto;
+		this.avatar = avatar;
+		this.nombreEmpresa = nombreEmpresa;
+	}
 
 	// * Getters and Setters */
 
@@ -24,11 +31,11 @@ public class UsuarioEmpresaResponseDTO {
 		this.nombreEmpresa = nombreEmpresa;
 	}
 
-	public byte[] getAvatar() {
+	public String getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(byte[] avatar) {
+	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
 

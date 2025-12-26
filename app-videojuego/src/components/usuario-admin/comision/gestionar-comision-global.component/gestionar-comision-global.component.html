@@ -3,7 +3,7 @@
     <div class="user-info">
       <h2 style="color: #ebeef2; margin: 0">Comisión Global del Sistema</h2>
     </div>
-    <button class="logout-btn" (click)="regresar()">Regresar</button>
+    <button class="back-btn" (click)="regresar()">Regresar</button>
   </header>
 
   <main class="content">
@@ -23,7 +23,7 @@
         <div class="stats">
           <div class="stat-item">
             <span class="stat-label">Última actualización:</span>
-            <span class="stat-value">{{ fechaActualizacion }}</span>
+            <span class="stat-value">{{ fechaActualizacion | date : 'dd/MM/yyyy' }}</span>
           </div>
         </div>
 

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { CrearUsuarioService } from '../../../../services/user/crear-usuario.service';
 import { CrearUsuarioAdminDTO } from '../../../../models/dtos/usuario/crear/crear-usuario-admin';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-usuario-admin',
@@ -17,7 +18,11 @@ export class CrearUsuarioAdminComponent implements OnInit {
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
 
-  constructor(private formBuilder: FormBuilder, private crearUsuarioService: CrearUsuarioService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private crearUsuarioService: CrearUsuarioService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.nuevoRegistroUsuario = this.formBuilder.group({
@@ -66,5 +71,9 @@ export class CrearUsuarioAdminComponent implements OnInit {
         },
       });
     }
+  }
+
+  regresar(): void {
+    this.router.navigate(['/user-admin']);
   }
 }

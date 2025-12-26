@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { LoginService } from '../../../services/login/login.service';
-import { UserRequestLoginDTO } from '../../../models/dtos/login/user-request-login';
 import { SharePopupComponent } from '../../../shared/share-popup.component/share-popup.component';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
 import { UserResponseLoginDTO } from '../../../models/dtos/login/user-response-login';

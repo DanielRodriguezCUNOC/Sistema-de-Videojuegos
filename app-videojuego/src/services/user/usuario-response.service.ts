@@ -23,7 +23,7 @@ export class UsuarioResponseService {
     if (!idUsuario) {
       throw new Error('El ID de usuario no puede ser nulo o indefinido.');
     }
-    return this.http.get<UsuarioEmpresaResponseDTO>(`${this.apiUrl}/empresa/${idUsuario}`);
+    return this.http.get<UsuarioEmpresaResponseDTO>(`${this.apiUrl}/usuario-empresa/${idUsuario}`);
   }
 
   obtenerUsuarioGamerResponse(idUsuario: number | null | undefined) {

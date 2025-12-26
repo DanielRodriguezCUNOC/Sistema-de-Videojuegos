@@ -5,30 +5,25 @@ import { MasterLoginService } from '../../../services/login/masterlogin.service'
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
 import { Subscription } from 'rxjs';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NavbarUsuarioEmpresaComponent } from '../crear/navbar-usuario-empresa.component/navbar-usuario-empresa.component';
 
 @Component({
   selector: 'app-empresa-module',
-  imports: [CommonModule, FooterComponent, RouterLinkActive, RouterLink],
+  imports: [
+    CommonModule,
+    FooterComponent,
+    RouterLinkActive,
+    RouterLink,
+    NavbarUsuarioEmpresaComponent,
+  ],
   templateUrl: './empresa-module.component.html',
   styleUrl: './empresa-module.component.scss',
 })
-export class EmpresaModuleComponent implements OnInit {
+export class EmpresaModuleComponent {
   activeSection: string = 'dashboard';
   activeSubsection: string = '';
-  avatarUrl: string = '';
-  correoUsuario: string = '';
 
-  private subscripcion?: Subscription;
-
-  constructor(
-    private masterLoginService: MasterLoginService,
-    private redireccionarService: RedireccionarService
-  ) {}
-
-  ngOnInit() {
-    this.cargarDatosUsuario();
-    this.subscribirseACambiosUsuario();
-  }
+  constructor() {}
 
   setActiveSection(section: string): void {
     this.activeSection = section;
@@ -37,26 +32,5 @@ export class EmpresaModuleComponent implements OnInit {
 
   setActiveSubsection(subsection: string): void {
     this.activeSubsection = subsection;
-  }
-
-  logout(): void {
-    this.masterLoginService.setLogout();
-    this.redireccionarService.redirectToHome();
-  }
-
-  /**
-   * Carga los datos del usuario actual
-   */
-  private cargarDatosUsuario(): void {
-    //this.avatarUrl = this.masterLoginService.getAvatarUrl();
-    this.correoUsuario = this.masterLoginService.getUserDisplayCorreo();
-  }
-
-  private subscribirseACambiosUsuario(): void {
-    this.subscripcion = this.masterLoginService.currentUser$.subscribe((user) => {
-      if (user) {
-        this.cargarDatosUsuario();
-      }
-    });
   }
 }

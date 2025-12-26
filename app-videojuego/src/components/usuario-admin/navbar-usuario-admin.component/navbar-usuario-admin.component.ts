@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MasterLoginService } from '../../../services/login/masterlogin.service';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
@@ -21,12 +21,12 @@ export class NavbarUsuarioAdminComponent implements OnInit {
   constructor(
     private masterLoginService: MasterLoginService,
     private redireccionarService: RedireccionarService,
-    private usuarioResponseService: UsuarioResponseService
+    private usuarioResponseService: UsuarioResponseService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.cargarDatosUsuario();
-    this.subscribirseACambiosUsuario();
   }
 
   logout(): void {
@@ -38,13 +38,18 @@ export class NavbarUsuarioAdminComponent implements OnInit {
    * Carga los datos del usuario actual
    */
   private cargarDatosUsuario(): void {
-    this.usuarioResponseService
-      .obtenerUsuarioAdminResponse(this.masterLoginService.getUserId())
-      .subscribe((usuario: UsuarioAdministradorResponseDTO) => {
-        this.nombreCompleto = usuario.nombreCompleto;
+    const userId = this.masterLoginService.getUserId();
 
+    this.usuarioResponseService.obtenerUsuarioAdminResponse(userId).subscribe({
+      next: (usuario: UsuarioAdministradorResponseDTO) => {
+        this.nombreCompleto = usuario.nombreCompleto;
         this.avatarUrl = usuario.avatar ? this.createImageDataUrl(usuario.avatar) : '';
-      });
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('NavbarUsuarioAdmin: Error al obtener datos del usuario:', error);
+      },
+    });
   }
 
   /*
@@ -66,14 +71,6 @@ export class NavbarUsuarioAdminComponent implements OnInit {
     }
     //* Se coloca png si no se detecta
     return 'png';
-  }
-
-  private subscribirseACambiosUsuario(): void {
-    this.subscripcion = this.masterLoginService.currentUser$.subscribe((user) => {
-      if (user) {
-        this.cargarDatosUsuario();
-      }
-    });
   }
 
   ngOnDestroy(): void {

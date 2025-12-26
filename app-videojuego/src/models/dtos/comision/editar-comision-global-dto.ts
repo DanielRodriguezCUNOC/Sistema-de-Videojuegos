@@ -1,4 +1,4 @@
 export interface EditarComisionGlobalDto {
-  idComision: number;
-  comisionGlobal: number;
+  id: number;
+  comision: number;
 }

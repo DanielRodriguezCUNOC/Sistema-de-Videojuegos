@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
-import com.api_videojuego.dto.usuario.reponse.UsuarioEmpresaResponseDTO;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 
 public class UsuarioEmpresaDB {
@@ -35,14 +34,13 @@ public class UsuarioEmpresaDB {
 		return null;
 	}
 
-	public UsuarioEmpresaResponseDTO obtenerUsuarioEmpresaPorId(Integer idUsuario)
+	public String[] obtenerUsuarioEmpresaPorId(Integer idUsuario)
 			throws ErrorConsultaDB {
 
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-		String query = "SELECT ue.nombre_completo, u.avatar, e.nombre_empresa "
+		String query = "SELECT ue.nombre_completo e.nombre_empresa "
 				+ "FROM usuario_empresa AS ue "
-				+ "JOIN usuario AS u ON ue.id_usuario = u.id_usuario "
 				+ "JOIN empresa_desarrolladora AS e ON ue.id_empresa = e.id_empresa "
 				+ "WHERE ue.id_usuario = ?";
 
@@ -53,17 +51,40 @@ public class UsuarioEmpresaDB {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				UsuarioEmpresaResponseDTO empresaDTO = new UsuarioEmpresaResponseDTO();
-				empresaDTO.setNombreCompleto(rs.getString("nombre_completo"));
-				empresaDTO.setAvatar(rs.getBytes("avatar"));
-				empresaDTO.setNombreEmpresa(rs.getString("nombre_empresa"));
+				String[] datosUsuario = new String[2];
+				datosUsuario[0] = rs.getString("nombre_completo");
+				datosUsuario[1] = rs.getString("nombre_empresa");
 
-				return empresaDTO;
+				return datosUsuario;
 			}
 
 		} catch (SQLException e) {
 			throw new ErrorConsultaDB(
 					"Error al obtener los datos del usuario en la BD");
+		}
+
+		return null;
+	}
+
+	public byte[] obtenerAvatarPorId(Integer idUsuario) throws ErrorConsultaDB {
+
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+		String query = "SELECT avatar FROM usuario WHERE id_usuario = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+
+			ps.setInt(1, idUsuario);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getBytes("avatar");
+			}
+
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB(
+					"Error al obtener el avatar del usuario en la BD");
 		}
 
 		return null;

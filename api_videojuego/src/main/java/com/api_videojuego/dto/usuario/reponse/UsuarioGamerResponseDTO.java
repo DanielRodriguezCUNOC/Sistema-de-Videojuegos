@@ -3,7 +3,12 @@ package com.api_videojuego.dto.usuario.reponse;
 public class UsuarioGamerResponseDTO {
 
 	private String nickname;
-	private byte[] avatar;
+	private String avatar;
+
+	public UsuarioGamerResponseDTO(String nickname, String avatar) {
+		this.nickname = nickname;
+		this.avatar = avatar;
+	}
 
 	// * Getters and Setters */
 
@@ -15,11 +20,11 @@ public class UsuarioGamerResponseDTO {
 		this.nickname = nickname;
 	}
 
-	public byte[] getAvatar() {
+	public String getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(byte[] avatar) {
+	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
 
