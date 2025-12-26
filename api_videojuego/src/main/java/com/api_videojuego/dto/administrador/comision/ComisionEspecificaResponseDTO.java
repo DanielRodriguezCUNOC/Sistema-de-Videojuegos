@@ -1,30 +1,33 @@
 package com.api_videojuego.dto.administrador.comision;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class ComisionEspecificaResponseDTO {
-	private Integer id;
+	private Integer idEmpresa;
 	private String nombreEmpresa;
-	private BigDecimal comisionEspecifica;
+	private BigDecimal comision;
+	private Date fechaActualizacion;
 
 	public ComisionEspecificaResponseDTO() {
 	}
 
-	public ComisionEspecificaResponseDTO(Integer id, String nombreEmpresa,
-			BigDecimal comisionEspecifica) {
-		this.id = id;
+	public ComisionEspecificaResponseDTO(Integer idEmpresa, String nombreEmpresa,
+			BigDecimal comision, Date fechaActualizacion) {
+		this.idEmpresa = idEmpresa;
 		this.nombreEmpresa = nombreEmpresa;
-		this.comisionEspecifica = comisionEspecifica;
+		this.comision = comision;
+		this.fechaActualizacion = fechaActualizacion;
 	}
 
 	// * Getters and Setters */
 
 	public Integer getId() {
-		return id;
+		return idEmpresa;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 
 	public String getNombreEmpresa() {
@@ -36,11 +39,19 @@ public class ComisionEspecificaResponseDTO {
 	}
 
 	public BigDecimal getComisionEspecifica() {
-		return comisionEspecifica;
+		return comision;
 	}
 
-	public void setComisionEspecifica(BigDecimal comisionEspecifica) {
-		this.comisionEspecifica = comisionEspecifica;
+	public void setComisionEspecifica(BigDecimal comision) {
+		this.comision = comision;
+	}
+
+	public Date getFechaActualizacion() {
+		return fechaActualizacion;
+	}
+
+	public void setFechaActualizacion(Date fechaActualizacion) {
+		this.fechaActualizacion = fechaActualizacion;
 	}
 
 }

@@ -1,10 +1,8 @@
 package com.api_videojuego.services.administrador.comision;
 
-import java.sql.Connection;
 import java.time.LocalDate;
 
 import com.api_videojuego.db.administrador.comision.ComisionEspecificaDB;
-import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.dto.administrador.comision.ComisionEspecificaRequestDTO;
 import com.api_videojuego.dto.administrador.comision.EditarComisionEspecificaDTO;
 import com.api_videojuego.dto.administrador.comision.ListaComisionEspecificaDTO;
@@ -87,14 +85,9 @@ public class ComisionEspecificaService {
 
 	public ListaComisionEspecificaDTO obtenerComisionesEspecificas()
 			throws ErrorConsultaDB {
-		Connection conn = null;
-		try {
-			conn = DBConnectionSingleton.getInstance().getConnection();
-			return (ListaComisionEspecificaDTO) comisionDB
-					.listaComisionEspecifica(conn);
-		} catch (ErrorConsultaDB e) {
-			throw e;
-		}
+
+		return (ListaComisionEspecificaDTO) comisionDB.listaComisionEspecifica();
+
 	}
 
 }

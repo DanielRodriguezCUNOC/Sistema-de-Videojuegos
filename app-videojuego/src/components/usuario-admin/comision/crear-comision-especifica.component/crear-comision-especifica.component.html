@@ -1,1 +1,89 @@
-<p>crear-comision-especifica.component works!</p>
+<div class="dashboard">
+  <div class="topbar">
+    <h1 class="page-title">Asignar Comisión Específica</h1>
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="form-container">
+      <div class="form-header">
+        <i class="fas fa-percentage header-icon"></i>
+        <h2>Nueva Comisión</h2>
+        <p>Complete la información para asignar una comisión específica a la empresa</p>
+      </div>
+
+      <form [formGroup]="comisionForm" (ngSubmit)="onSubmit()" class="create-form">
+        <div class="form-group">
+          <label for="nombreEmpresa" class="form-label">
+            Nombre de la Empresa
+            <span class="required">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="nombreEmpresa"
+            formControlName="nombreEmpresa"
+            class="form-input"
+            placeholder="Ingrese el nombre de la empresa"
+            maxlength="100"
+          />
+
+          <div class="input-info">
+            <small class="char-count">{{ nombreEmpresa?.value?.length || 0 }}/100 caracteres</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comision" class="form-label">
+            Comisión (%)
+            <span class="required">*</span>
+          </label>
+
+          <div class="input-with-suffix">
+            <input
+              type="number"
+              id="comision"
+              formControlName="comision"
+              class="form-input"
+              placeholder="Ingrese el porcentaje de comisión"
+              min="0"
+              max="100"
+              step="0.01"
+            />
+            <span class="input-suffix">%</span>
+          </div>
+
+          <div class="input-info">
+            <small class="helper-text">Ingrese un valor entre 0% y 100%</small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">
+            Limpiar
+          </button>
+
+          <button type="button" class="btn btn-tertiary" (click)="regresar()">Cancelar</button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!comisionForm.valid || isLoading"
+          >
+            {{ isLoading ? 'Guardando...' : 'Asignar Comisión' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

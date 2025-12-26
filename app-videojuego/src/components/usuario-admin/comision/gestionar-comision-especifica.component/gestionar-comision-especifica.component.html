@@ -43,11 +43,21 @@
               <td class="actions-cell">
                 <button
                   class="action-btn edit-btn"
-                  (click)="editarComisionEmpresa(empresa.idEmpresa, empresa.comision)"
+                  (click)="editarComisionEspecifica(empresa.idEmpresa, empresa.comision)"
                   title="Editar comisión"
                 >
                   <i class="fas fa-percentage"></i>
                   Editar Comisión
+                </button>
+              </td>
+              <td class="action-btn delete-btn">
+                <button
+                  class="action-btn delete-btn"
+                  (click)="eliminarComisionEspecifica(empresa.idEmpresa)"
+                  title="Eliminar comisión"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                  Eliminar Comisión
                 </button>
               </td>
             </tr>
