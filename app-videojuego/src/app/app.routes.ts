@@ -151,7 +151,7 @@ export const routes: Routes = [
         component: EditarComisionComponent,
       },
       {
-        path: 'editar-comision-especifica',
+        path: 'editar-comision-especifica/:idEmpresa/:nombreEmpresa/:comisionActual',
         component: EditarComisionEspecificaComponent,
       },
     ],

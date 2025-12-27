@@ -43,7 +43,13 @@
               <td class="actions-cell">
                 <button
                   class="action-btn edit-btn"
-                  (click)="editarComisionEspecifica(empresa.idEmpresa, empresa.comision)"
+                  (click)="
+                    editarComisionEspecifica(
+                      empresa.idEmpresa,
+                      empresa.nombreEmpresa,
+                      empresa.comision
+                    )
+                  "
                   title="Editar comisión"
                 >
                   <i class="fas fa-percentage"></i>

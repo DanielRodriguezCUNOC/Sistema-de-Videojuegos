@@ -4,7 +4,6 @@ import { DatePipe } from '@angular/common';
 import { ComisionEspecificaDTO } from '../../../../models/dtos/comision/comision-especifica-dto';
 import { ComisionService } from '../../../../services/admin/comision/comision.service';
 import { ListaComisionEspecificaDTO } from '../../../../models/dtos/comision/lista-comision-especifica-dto';
-import { EditarComisionEspecificaDTO } from '../../../../models/dtos/comision/editar-comision-especifica-dto';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,9 +18,7 @@ export class GestionarComisionEspecificaComponent implements OnInit {
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
 
-  constructor(private service: ComisionService,
-    private router: Router
-  ) {}
+  constructor(private service: ComisionService, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarComisiones();
@@ -47,22 +44,13 @@ export class GestionarComisionEspecificaComponent implements OnInit {
     this.router.navigate(['/user-admin/crear-comision-especifica']);
   }
 
-  editarComisionEspecifica(idEmpresa: number, comision: number): void {
-    const data: EditarComisionEspecificaDTO = {
+  editarComisionEspecifica(idEmpresa: number, nombreEmpresa: string, comision: number): void {
+    this.router.navigate([
+      '/user-admin/editar-comision-especifica',
       idEmpresa,
+      nombreEmpresa,
       comision,
-    };
-
-    this.service.editarComisionEspecifica(data).subscribe({
-      next: () => {
-        this.mostrarPopup('Comisión específica editada correctamente.', 'success');
-        this.cargarComisiones();
-      },
-      error: (err) => {
-        this.mostrarPopup('Error al editar la comisión específica.', 'error');
-        this.popupMostrar = true;
-      },
-    });
+    ]);
   }
 
   eliminarComisionEspecifica(idEmpresa: number): void {
