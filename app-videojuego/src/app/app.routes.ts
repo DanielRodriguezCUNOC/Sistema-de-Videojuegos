@@ -20,6 +20,10 @@ import { EditarComisionComponent } from '../components/usuario-admin/comision/ed
 import { EditarComisionEspecificaComponent } from '../components/usuario-admin/comision/editar-comision-especifica.component/editar-comision-especifica.component';
 import { CrearVideojuegoComponent } from '../components/usuario-empresa/crear/crear-videojuego.component/crear-videojuego.component';
 import { CrearCategoriaComponent } from '../components/usuario-admin/categoria/crear-categoria.component/crear-categoria.component';
+import { GestionarComisionEspecificaComponent } from '../components/usuario-admin/comision/gestionar-comision-especifica.component/gestionar-comision-especifica.component';
+import { GetionarCatalogoVideojuegosComponent } from '../components/usuario-empresa/gestion/getionar-catalogo-videojuegos.component/getionar-catalogo-videojuegos.component';
+import { GetionarComentariosComponent } from '../components/usuario-empresa/gestion/getionar-comentarios.component/getionar-comentarios.component';
+import { GestionarEmpresaComponent } from '../components/usuario-admin/empresa/gestionar-empresa.component/gestionar-empresa.component';
 
 export const routes: Routes = [
   {
@@ -94,6 +98,14 @@ export const routes: Routes = [
         path: 'crear-videojuego',
         component: CrearVideojuegoComponent,
       },
+      {
+        path: 'gestionar-catalogo',
+        component: GetionarCatalogoVideojuegosComponent,
+      },
+      {
+        path: 'gestionar-comentarios',
+        component: GetionarComentariosComponent,
+      },
     ],
   },
   {
@@ -131,12 +143,16 @@ export const routes: Routes = [
         component: CrearEmpresaComponent,
       },
       {
+        path: 'gestionar-empresas',
+        component: GestionarEmpresaComponent,
+      },
+      {
         path: 'comision-global',
         component: GestionarComisionGlobalComponent,
       },
       {
         path: 'comision-especifica',
-        component: GestionarComisionComponent,
+        component: GestionarComisionEspecificaComponent,
       },
       {
         path: 'crear-comision-global',

@@ -3,21 +3,6 @@
 
   <main class="content">
     <section class="cards-grid">
-      <div class="card card--blue">
-        <h3>Catálogo</h3>
-        <p>Explora y accede a los juegos disponibles</p>
-      </div>
-
-      <div class="card card--green">
-        <h3>Comentarios</h3>
-        <p>Revisa y gestiona tus opiniones</p>
-      </div>
-
-      <div class="card card--orange">
-        <h3>Reportes</h3>
-        <p>Consulta reportes y actividad reciente</p>
-      </div>
-
       <div
         class="card card--blue"
         routerLink="/user-empresa/registrar-usuario-empresa"
@@ -25,6 +10,29 @@
       >
         <h3>Registrar Usuario</h3>
         <p>Registra a nuevos usuarios</p>
+      </div>
+
+      <div
+        class="card card--orange"
+        routerLink="/user-empresa/gestionar-catalogo"
+        routerLinkActive="active"
+      >
+        <h3>Gestionar Catalogo</h3>
+        <p>Administra y actualiza tu catálogo de videojuegos</p>
+      </div>
+
+      <div
+        class="card card--green"
+        routerLink="/user-empresa/gestionar-comentarios"
+        routerLinkActive="active"
+      >
+        <h3>Gestionar Comentarios</h3>
+        <p>Habilita o deshabilita comentarios</p>
+      </div>
+
+      <div class="card card--orange">
+        <h3>Reportes</h3>
+        <p>Consulta reportes y actividad reciente</p>
       </div>
 
       <div class="card card--pink">

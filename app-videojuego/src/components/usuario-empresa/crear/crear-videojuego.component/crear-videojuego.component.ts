@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
-import { CrearVideojuegoService } from '../../../../services/empresa/crear-videojuego.service';
+import { CrearVideojuegoService } from '../../../../services/empresa/videojuego/crear-videojuego.service';
 import { VideojuegoRequestDto } from '../../../../models/dtos/empresa/videojuego/videojuego-request-dto';
 import { Router } from '@angular/router';
 

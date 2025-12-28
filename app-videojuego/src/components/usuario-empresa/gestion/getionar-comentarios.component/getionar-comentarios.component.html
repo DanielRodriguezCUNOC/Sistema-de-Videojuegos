@@ -1,0 +1,129 @@
+<div class="dashboard">
+  <div class="topbar">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="page-title">Gestión de Comentarios</h1>
+    <button class="save-btn" (click)="guardarCambios()">
+      <i class="fas fa-save"></i>
+      Guardar Cambios
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="general-settings">
+      <div class="settings-header">
+        <h2>Estado General de Comentarios</h2>
+        <p>Configura el estado global de los comentarios para todos los videojuegos</p>
+      </div>
+
+      <div class="toggle-container">
+        <label class="toggle-switch">
+          <span class="toggle-label">Comentarios Generales:</span>
+          <input
+            type="checkbox"
+            [(ngModel)]="estadoComentarioGeneral"
+            (change)="cambiarEstadoGeneral($event)"
+          />
+          <span class="slider"></span>
+          <span
+            class="status-text"
+            [class.enabled]="estadoComentarioGeneral"
+            [class.disabled]="!estadoComentarioGeneral"
+          >
+            {{ estadoComentarioGeneral ? 'Habilitados' : 'Deshabilitados' }}
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-header">
+        <h2>Estado por Videojuego</h2>
+        <span class="total-count">Total: {{ videojuegos.length || 0 }}</span>
+      </div>
+
+      @if(videojuegos && videojuegos.length > 0) {
+
+      <div class="table-wrapper">
+        <table class="comments-table">
+          <thead>
+            <tr>
+              <th>ID Videojuego</th>
+              <th>Título</th>
+              <th>Estado General</th>
+              <th>Estado Videojuego</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(videojuego of videojuegos; track videojuego.idVideojuego) {
+            <tr class="table-row">
+              <td class="id-cell">{{ videojuego.idVideojuego }}</td>
+              <td class="title-cell">{{ videojuego.titulo }}</td>
+              <td class="status-cell">
+                <span
+                  class="status-badge"
+                  [class.status-enabled]="videojuego.estadoComentarioGeneral"
+                  [class.status-disabled]="!videojuego.estadoComentarioGeneral"
+                >
+                  {{ videojuego.estadoComentarioGeneral ? 'Habilitado' : 'Deshabilitado' }}
+                </span>
+              </td>
+              <td class="videogame-status-cell">
+                <span
+                  class="videogame-badge"
+                  [class.videogame-enabled]="videojuego.estadoComentarioVideojuego"
+                  [class.videogame-disabled]="!videojuego.estadoComentarioVideojuego"
+                >
+                  {{ videojuego.estadoComentarioVideojuego ? 'Habilitado' : 'Deshabilitado' }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                <button
+                  class="action-btn toggle-btn"
+                  [class.enable-btn]="!videojuego.estadoComentarioVideojuego"
+                  [class.disable-btn]="videojuego.estadoComentarioVideojuego"
+                  (click)="
+                    cambiarEstadoVideojuego(
+                      videojuego.idVideojuego,
+                      videojuego.estadoComentarioVideojuego
+                    )
+                  "
+                  [title]="
+                    videojuego.estadoComentarioVideojuego
+                      ? 'Deshabilitar comentarios'
+                      : 'Habilitar comentarios'
+                  "
+                >
+                  <i
+                    class="fas"
+                    [class.fa-toggle-off]="!videojuego.estadoComentarioVideojuego"
+                    [class.fa-toggle-on]="videojuego.estadoComentarioVideojuego"
+                  ></i>
+                  {{ videojuego.estadoComentarioVideojuego ? 'Deshabilitar' : 'Habilitar' }}
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }@else{
+      <div class="no-data">
+        <i class="fas fa-comments"></i>
+        <h3>No hay videojuegos registrados</h3>
+        <p>Añade videojuegos para gestionar sus comentarios</p>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

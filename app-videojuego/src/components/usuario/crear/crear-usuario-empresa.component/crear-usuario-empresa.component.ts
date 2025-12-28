@@ -4,6 +4,7 @@ import { SharePopupComponent } from '../../../../shared/share-popup.component/sh
 import { CrearUsuarioService } from '../../../../services/user/crear-usuario.service';
 import { CrearUsuarioEmpresaDTO } from '../../../../models/dtos/usuario/crear/crear-usuario-empresa';
 import { MasterLoginService } from '../../../../services/login/masterlogin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-usuario-empresa',
@@ -21,7 +22,8 @@ export class CrearUsuarioEmpresaComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private crearUsuarioService: CrearUsuarioService,
-    private masterLoginService: MasterLoginService
+    private masterLoginService: MasterLoginService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -72,5 +74,8 @@ export class CrearUsuarioEmpresaComponent implements OnInit {
         },
       });
     }
+  }
+  regresar(): void {
+    this.router.navigate(['/user-admin']);
   }
 }

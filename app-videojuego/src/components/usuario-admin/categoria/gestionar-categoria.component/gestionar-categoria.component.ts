@@ -51,6 +51,10 @@ export class GestionarCategoriaComponent implements OnInit {
     this.router.navigate(['/admin-user/editar-categoria', id, categoria]);
   }
 
+  regresar(): void {
+    this.router.navigate(['/user-admin']);
+  }
+
   private mostrarPopup(mensaje: string, tipo: 'error' | 'success' | 'info'): void {
     this.infoMessage = mensaje;
     this.popupTipo = tipo;

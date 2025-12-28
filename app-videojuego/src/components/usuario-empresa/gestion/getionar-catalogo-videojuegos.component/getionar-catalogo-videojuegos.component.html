@@ -1,0 +1,114 @@
+<div class="dashboard">
+  <div class="topbar">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="page-title">Gestión de Catálogo de Videojuegos</h1>
+    <button class="create-btn" (click)="crearVideojuego()">
+      <i class="fas fa-plus"></i>
+      Agregar Videojuego
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="table-container">
+      <div class="table-header">
+        <h2>Lista de Videojuegos</h2>
+        <span class="total-count">Total: {{ videojuegos.length || 0 }}</span>
+      </div>
+
+      @if(videojuegos && videojuegos.length > 0) {
+
+      <div class="table-wrapper">
+        <table class="videogames-table">
+          <thead>
+            <tr>
+              <th>ID Videojuego</th>
+              <th>Título</th>
+              <th>Estado</th>
+              <th>Comentarios</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(videojuego of videojuegos; track videojuego.idVideojuego) {
+            <tr class="table-row">
+              <td class="id-cell">{{ videojuego.idVideojuego }}</td>
+              <td class="title-cell">{{ videojuego.titulo }}</td>
+              <td class="status-cell">
+                <span
+                  class="status-badge"
+                  [class.status-visible]="videojuego.estado"
+                  [class.status-hidden]="!videojuego.estado"
+                >
+                  {{ videojuego.estado ? 'Visible' : 'Oculto' }}
+                </span>
+              </td>
+              <td class="comments-cell">
+                <span
+                  class="comments-badge"
+                  [class.comments-enabled]="videojuego.estado"
+                  [class.comments-disabled]="!videojuego.estado"
+                >
+                  {{ videojuego.estado ? 'Habilitado' : 'Deshabilitado' }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                <button
+                  class="action-btn cover-btn"
+                  (click)="editarPortada(videojuego.idVideojuego)"
+                  title="Editar portada"
+                >
+                  <i class="fas fa-image"></i>
+                  Portada
+                </button>
+                <button
+                  class="action-btn edit-btn"
+                  (click)="editarVideojuego(videojuego.idVideojuego)"
+                  title="Editar videojuego"
+                >
+                  <i class="fas fa-edit"></i>
+                  Editar
+                </button>
+                <button
+                  class="action-btn visibility-btn"
+                  [class.hide-btn]="videojuego.estado"
+                  [class.show-btn]="!videojuego.estado"
+                  (click)="cambiarVisibilidad(videojuego.idVideojuego, videojuego.estado)"
+                  [title]="videojuego.estado ? 'Ocultar videojuego' : 'Mostrar videojuego'"
+                >
+                  <i
+                    class="fas"
+                    [class.fa-eye-slash]="!videojuego.estado"
+                    [class.fa-eye]="videojuego.estado"
+                  ></i>
+                  {{ videojuego.estado ? 'Ocultar' : 'Mostrar' }}
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }@else{
+      <div class="no-data">
+        <i class="fas fa-gamepad"></i>
+        <h3>No hay videojuegos registrados</h3>
+        <p>Comienza agregando videojuegos a tu catálogo</p>
+        <button class="create-btn" (click)="crearVideojuego()">
+          <i class="fas fa-plus"></i>
+          Agregar Primer Videojuego
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

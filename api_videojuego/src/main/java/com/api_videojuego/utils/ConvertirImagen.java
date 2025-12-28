@@ -45,4 +45,17 @@ public class ConvertirImagen {
 		}
 	}
 
+	public byte[] obtenerPortadaDefault() throws ExcepcionInesperada {
+
+		try (InputStream defaultImg = getClass()
+				.getResourceAsStream("/images/default-portada.png")) {
+			return defaultImg.readAllBytes();
+
+		} catch (IOException ex) {
+			throw new ExcepcionInesperada(
+					"No se han podido obtener la portada predeterminada");
+		}
+
+	}
+
 }
