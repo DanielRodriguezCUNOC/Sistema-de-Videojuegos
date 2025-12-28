@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
-import { CrearVideojuegoService } from '../../../../services/empresa/crear-videojuego.service';
+import { CrearVideojuegoService } from '../../../../services/empresa/videojuego/crear-videojuego.service';
 import { VideojuegoRequestDto } from '../../../../models/dtos/empresa/videojuego/videojuego-request-dto';
-
-interface Categoria {
-  id: string;
-  nombre: string;
-}
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-videojuego.component',
-  imports: [ReactiveFormsModule, CommonModule, SharePopupComponent],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, SharePopupComponent],
   templateUrl: './crear-videojuego.component.html',
   styleUrl: './crear-videojuego.component.scss',
 })
@@ -20,26 +17,15 @@ export class CrearVideojuegoComponent implements OnInit {
   nuevoVideojuego!: FormGroup;
   selectedFile: File | null = null;
   categoriasSeleccionadas: string[] = [];
+  nuevaCategoria: string = '';
   infoMessage: string | null = null;
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
 
-  categoriasDisponibles: Categoria[] = [
-    { id: '1', nombre: 'Acción' },
-    { id: '2', nombre: 'Aventura' },
-    { id: '3', nombre: 'RPG' },
-    { id: '4', nombre: 'Estrategia' },
-    { id: '5', nombre: 'Deportes' },
-    { id: '6', nombre: 'Racing' },
-    { id: '7', nombre: 'Shooter' },
-    { id: '8', nombre: 'Simulación' },
-    { id: '9', nombre: 'Puzzle' },
-    { id: '10', nombre: 'Plataformas' },
-  ];
-
   constructor(
     private formBuilder: FormBuilder,
-    private crearVideojuegoService: CrearVideojuegoService
+    private crearVideojuegoService: CrearVideojuegoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,84 +43,62 @@ export class CrearVideojuegoComponent implements OnInit {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      // Validar tipo de archivo
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-      if (!allowedTypes.includes(file.type)) {
-        this.showMessage('Solo se permiten archivos de imagen (JPG, JPEG, PNG)', 'error');
-        return;
-      }
-
-      // Validar tamaño (máximo 5MB)
-      const maxSize = 5 * 1024 * 1024; // 5MB
-      if (file.size > maxSize) {
-        this.showMessage('El archivo debe ser menor a 5MB', 'error');
-        return;
-      }
-
       this.selectedFile = file;
     }
   }
 
-  //* Manejo de cambios en categorías */
-  onCategoriaChange(event: any, categoriaId: string): void {
-    if (event.target.checked) {
-      this.categoriasSeleccionadas.push(categoriaId);
-    } else {
-      const index = this.categoriasSeleccionadas.indexOf(categoriaId);
-      if (index > -1) {
-        this.categoriasSeleccionadas.splice(index, 1);
-      }
-    }
-  }
+  //* Agregar nueva categoría */
+  agregarCategoria(): void {
+    const categoria = this.nuevaCategoria.trim();
 
-  //* Validar formulario antes del envío */
-  private validarFormulario(): boolean {
-    if (!this.nuevoVideojuego.valid) {
-      this.showMessage('Por favor complete todos los campos requeridos', 'error');
-      return false;
-    }
-
-    if (!this.selectedFile) {
-      this.showMessage('Por favor seleccione una imagen para el videojuego', 'error');
-      return false;
-    }
-
-    if (this.categoriasSeleccionadas.length === 0) {
-      this.showMessage('Por favor seleccione al menos una categoría', 'error');
-      return false;
-    }
-
-    return true;
-  }
-
-  //* Envío del formulario */
-  submit(): void {
-    if (!this.validarFormulario()) {
+    if (!categoria) {
       return;
     }
 
-    const datosVideojuego: VideojuegoRequestDto = {
-      idUsuarioEmpresa: localStorage.getItem('idUsuarioEmpresa') || '0',
-      titulo: this.nuevoVideojuego.value.titulo,
-      descripcion: this.nuevoVideojuego.value.descripcion,
-      fechaLanzamiento: new Date(this.nuevoVideojuego.value.fechaLanzamiento),
-      precio: parseFloat(this.nuevoVideojuego.value.precio),
-      recurosMinimos: this.nuevoVideojuego.value.recursosMinimos,
-      imagen: this.selectedFile!,
-      clasificacion: this.nuevoVideojuego.value.clasificacion,
-      categorias: this.categoriasSeleccionadas,
-    };
+    const categoriaExiste = this.categoriasSeleccionadas.some(
+      (cat) => cat.toLowerCase() === categoria.toLowerCase()
+    );
 
-    this.crearVideojuegoService.crearVideojuego(datosVideojuego).subscribe({
-      next: (response) => {
-        this.showMessage('Videojuego registrado correctamente', 'success');
-        this.resetFormulario();
-      },
-      error: (error) => {
-        const mensaje = error.error?.mensaje || 'Error al registrar el videojuego';
-        this.showMessage(mensaje, 'error');
-      },
-    });
+    if (categoriaExiste) {
+      this.showMessage('Esta categoría ya ha sido agregada', 'error');
+      return;
+    }
+
+    this.categoriasSeleccionadas.push(categoria);
+    this.nuevaCategoria = '';
+  }
+
+  //* Eliminar categoria */
+  eliminarCategoria(index: number): void {
+    this.categoriasSeleccionadas.splice(index, 1);
+  }
+
+  //* Enviar formulario */
+  submit(): void {
+    if (this.nuevoVideojuego.valid) {
+      const datosVideojuego: VideojuegoRequestDto = {
+        idUsuarioEmpresa: localStorage.getItem('idUsuarioEmpresa') || '0',
+        titulo: this.nuevoVideojuego.value.titulo,
+        descripcion: this.nuevoVideojuego.value.descripcion,
+        fechaLanzamiento: new Date(this.nuevoVideojuego.value.fechaLanzamiento),
+        precio: parseFloat(this.nuevoVideojuego.value.precio),
+        recurosMinimos: this.nuevoVideojuego.value.recursosMinimos,
+        imagen: this.selectedFile!,
+        clasificacion: this.nuevoVideojuego.value.clasificacion,
+        categorias: this.categoriasSeleccionadas,
+      };
+
+      this.crearVideojuegoService.crearVideojuego(datosVideojuego).subscribe({
+        next: (response) => {
+          this.showMessage('Videojuego registrado correctamente', 'success');
+          this.resetFormularioInterno();
+        },
+        error: (error) => {
+          const mensaje = error.error?.mensaje || 'Error al registrar el videojuego';
+          this.showMessage(mensaje, 'error');
+        },
+      });
+    }
   }
 
   //* Mostrar mensajes */
@@ -145,21 +109,25 @@ export class CrearVideojuegoComponent implements OnInit {
   }
 
   //* Resetear formulario */
-  private resetFormulario(): void {
+  resetFormulario(): void {
     this.nuevoVideojuego.reset();
     this.selectedFile = null;
     this.categoriasSeleccionadas = [];
-
-    // Desmarcar checkboxes
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox: any) => {
-      checkbox.checked = false;
-    });
+    this.nuevaCategoria = '';
 
     // Limpiar input de archivo
-    const fileInput = document.getElementById('imagen') as HTMLInputElement;
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
     if (fileInput) {
       fileInput.value = '';
     }
+  }
+
+  //* Resetear formulario privado - para uso interno */
+  private resetFormularioInterno(): void {
+    this.resetFormulario();
+  }
+
+  regresar(): void {
+    this.router.navigate(['/user-empresa']);
   }
 }

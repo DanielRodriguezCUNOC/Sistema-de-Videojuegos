@@ -85,24 +85,17 @@ public class CrearUsuarioAdminDTO {
   }
 
   public long getAvatarAdminSize() {
-    try {
-      long size = avatarPart.getContentDisposition().getSize();
-      if (size == -1) {
-        return size = avatarPart.getValueAs(byte[].class).length;
-      }
-      else {
-        return size;
-      }
-    } catch (Exception e) {
-      return 0;
-    }
+    if (avatarPart != null)
+      return avatarPart.getContentDisposition().getSize();
+
+    return 0;
+
   }
 
   public String getAvatarAdminType() {
-    try {
+    if (avatarPart != null)
       return avatarPart.getMediaType().toString();
-    } catch (Exception e) {
-      return "";
-    }
+
+    return "";
   }
 }

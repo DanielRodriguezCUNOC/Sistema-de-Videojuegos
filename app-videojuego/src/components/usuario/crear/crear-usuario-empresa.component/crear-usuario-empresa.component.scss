@@ -1,3 +1,56 @@
+$card-bg: #11212f;
+$gray: #6b7280;
+$border-radius: 14px;
+$text-primary: #ebeef2;
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: $card-bg;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+
+  .user-info h2 {
+    color: $text-primary;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .back-btn {
+    background: linear-gradient(135deg, $gray, #9ca3af);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: $border-radius;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(107, 114, 128, 0.3);
+    }
+  }
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
 form {
   width: 100%;
   max-width: 800px;

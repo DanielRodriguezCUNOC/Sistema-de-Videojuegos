@@ -1,0 +1,98 @@
+<div class="dashboard">
+  <div class="topbar">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="page-title">Gestión de Empresas</h1>
+    <button class="create-btn" (click)="crearEmpresa()">
+      <i class="fas fa-plus"></i>
+      Crear Empresa
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="table-container">
+      <div class="table-header">
+        <h2>Lista de Empresas</h2>
+        <span class="total-count">Total: {{ empresas.length || 0 }}</span>
+      </div>
+
+      @if(empresas && empresas.length > 0) {
+
+      <div class="table-wrapper">
+        <table class="companies-table">
+          <thead>
+            <tr>
+              <th>ID Empresa</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(empresa of empresas; track empresa.idEmpresa) {
+            <tr class="table-row">
+              <td class="id-cell">{{ empresa.idEmpresa }}</td>
+              <td class="name-cell">{{ empresa.nombreEmpresa }}</td>
+              <td class="description-cell">{{ empresa.descripcionEmpresa }}</td>
+              <td class="status-cell">
+                <span
+                  class="status-badge"
+                  [class.status-active]="empresa.estado === 'ACTIVO'"
+                  [class.status-inactive]="empresa.estado === 'INACTIVO'"
+                >
+                  {{ empresa.estado }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                <button
+                  class="action-btn edit-btn"
+                  (click)="editarEmpresa(empresa.idEmpresa)"
+                  title="Editar empresa"
+                >
+                  <i class="fas fa-edit"></i>
+                  Editar
+                </button>
+                <button
+                  class="action-btn status-btn"
+                  [class.activate-btn]="empresa.estado === 'INACTIVO'"
+                  [class.deactivate-btn]="empresa.estado === 'ACTIVO'"
+                  (click)="cambiarEstadoEmpresa(empresa.idEmpresa, empresa.estado)"
+                  [title]="empresa.estado === 'ACTIVO' ? 'Desactivar empresa' : 'Activar empresa'"
+                >
+                  <i
+                    class="fas"
+                    [class.fa-toggle-off]="empresa.estado === 'INACTIVO'"
+                    [class.fa-toggle-on]="empresa.estado === 'ACTIVO'"
+                  ></i>
+                  {{ empresa.estado === 'ACTIVO' ? 'Desactivar' : 'Activar' }}
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }@else{
+      <div class="no-data">
+        <i class="fas fa-building"></i>
+        <h3>No hay empresas registradas</h3>
+        <p>Comienza creando empresas para el sistema</p>
+        <button class="create-btn" (click)="crearEmpresa()">
+          <i class="fas fa-plus"></i>
+          Crear Primera Empresa
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

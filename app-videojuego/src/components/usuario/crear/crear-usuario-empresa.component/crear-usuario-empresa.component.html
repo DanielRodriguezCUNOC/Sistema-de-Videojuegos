@@ -1,99 +1,110 @@
-<form [formGroup]="nuevoRegistroUsuario" (submit)="submit()">
-  <div class="row g-3">
-    <div class="col-sm-6">
-      <label for="correoUsuario" class="form-label">Correo Electrónico</label>
-      <input
-        type="email"
-        class="form-control"
-        name="correoUsuario"
-        id="correoUsuario"
-        autocomplete="off"
-        placeholder="Tu Correo Electrónico"
-        formControlName="correoUsuario"
-      />
+<div class="dashboard">
+  <header class="topbar">
+    <div class="user-info">
+      <h2>Registrar Usuario Empresa</h2>
     </div>
+    <button class="back-btn" (click)="regresar()">Regresar</button>
+  </header>
 
-    <div class="col-sm-6">
-      <label for="nombreCompleto" class="form-label">Nombre Completo</label>
-      <input
-        type="text"
-        class="form-control"
-        name="nombreCompleto"
-        id="nombreCompleto"
-        autocomplete="off"
-        placeholder="Ej: DanooBlood"
-        formControlName="nombreCompleto"
-      />
-    </div>
+  <div class="container">
+    <form [formGroup]="nuevoRegistroUsuario" (submit)="submit()">
+      <div class="row g-3">
+        <div class="col-sm-6">
+          <label for="correoUsuario" class="form-label">Correo Electrónico</label>
+          <input
+            type="email"
+            class="form-control"
+            name="correoUsuario"
+            id="correoUsuario"
+            autocomplete="off"
+            placeholder="Tu Correo Electrónico"
+            formControlName="correoUsuario"
+          />
+        </div>
 
-    <div class="col-sm-6">
-      <label for="password" class="form-label">Contraseña</label>
-      <input
-        type="password"
-        class="form-control"
-        name="password"
-        id="password"
-        autocomplete="off"
-        placeholder="Tu Contraseña"
-        formControlName="password"
-      />
-    </div>
+        <div class="col-sm-6">
+          <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombreCompleto"
+            id="nombreCompleto"
+            autocomplete="off"
+            placeholder="Ej: DanooBlood"
+            formControlName="nombreCompleto"
+          />
+        </div>
 
-    <div class="col-sm-6">
-      <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-      <input
-        type="date"
-        class="form-control"
-        name="fechaNacimiento"
-        id="fechaNacimiento"
-        formControlName="fechaNacimiento"
-      />
-    </div>
+        <div class="col-sm-6">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="password"
+            autocomplete="off"
+            placeholder="Tu Contraseña"
+            formControlName="password"
+          />
+        </div>
 
-    <div class="col-sm-6">
-      <label for="numeroTelefonico" class="form-label">Teléfono</label>
-      <input
-        type="tel"
-        class="form-control"
-        name="numeroTelefonico"
-        id="numeroTelefonico"
-        autocomplete="off"
-        placeholder="12345678"
-        formControlName="numeroTelefonico"
-        maxlength="8"
-      />
-    </div>
+        <div class="col-sm-6">
+          <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+          <input
+            type="date"
+            class="form-control"
+            name="fechaNacimiento"
+            id="fechaNacimiento"
+            formControlName="fechaNacimiento"
+          />
+        </div>
 
-    <div class="col-sm-6">
-      <label for="pais" class="form-label">País</label>
-      <input
-        type="text"
-        class="form-control"
-        name="pais"
-        id="pais"
-        autocomplete="off"
-        placeholder="Tu País"
-        formControlName="pais"
-      />
-    </div>
+        <div class="col-sm-6">
+          <label for="numeroTelefonico" class="form-label">Teléfono</label>
+          <input
+            type="tel"
+            class="form-control"
+            name="numeroTelefonico"
+            id="numeroTelefonico"
+            autocomplete="off"
+            placeholder="12345678"
+            formControlName="numeroTelefonico"
+            maxlength="8"
+          />
+        </div>
 
-    <div class="col-12">
-      <label for="avatar" class="form-label">Foto de Perfil</label>
-      <input
-        type="file"
-        class="form-control"
-        name="avatar"
-        id="avatar"
-        (change)="onFileSelected($event)"
-        accept="image/png, image/jpeg"
-      />
-    </div>
+        <div class="col-sm-6">
+          <label for="pais" class="form-label">País</label>
+          <input
+            type="text"
+            class="form-control"
+            name="pais"
+            id="pais"
+            autocomplete="off"
+            placeholder="Tu País"
+            formControlName="pais"
+          />
+        </div>
 
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary">Registrar Usuario</button>
-    </div>
+        <div class="col-12">
+          <label for="avatar" class="form-label">Foto de Perfil</label>
+          <input
+            type="file"
+            class="form-control"
+            name="avatar"
+            id="avatar"
+            (change)="onFileSelected($event)"
+            accept="image/png, image/jpeg"
+          />
+        </div>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Registrar Usuario</button>
+        </div>
+      </div>
+    </form>
   </div>
-</form>
+</div>
 
 <app-share-popup
   [mensaje]="infoMessage || ''"

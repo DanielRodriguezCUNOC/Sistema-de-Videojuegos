@@ -81,7 +81,7 @@ public class ComisionGlobalDB {
 			}
 
 			ListaComisionEspecificaDTO comisiones = comisionEspecificaDB
-					.listaComisionEspecifica(conn);
+					.listaComisionEspecifica();
 
 			// * Actualizar comision especifica si es requerido */
 			String updateEspecificaQuery = "UPDATE comision_especifica SET comision_especifica = ?, fecha_actualizacion = ? WHERE id = ?";

@@ -1,0 +1,75 @@
+<div class="dashboard">
+  <div class="topbar">
+    <h1 class="page-title">Editar Comisión Específica</h1>
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Modificar Comisión Específica</h2>
+        <p>
+          Empresa: <span class="company-name">{{ nombreEmpresa }}</span
+          ><br />
+          Comisión actual: <span class="commission-value">{{ comision }}%</span>
+        </p>
+      </div>
+
+      <form [formGroup]="editarForm" (ngSubmit)="onSubmit()" class="edit-form">
+        <div class="form-group">
+          <label for="comision" class="form-label">
+            Porcentaje de Comisión
+            <span class="required">*</span>
+          </label>
+
+          <div class="input-wrapper">
+            <input
+              type="number"
+              id="comision"
+              formControlName="comision"
+              class="form-input"
+              placeholder="Ingrese el porcentaje de comisión"
+              min="0"
+              max="100"
+              step="0.01"
+            />
+            <span class="input-suffix">%</span>
+          </div>
+
+          <div class="input-info">
+            <small class="input-hint">
+              <i class="fas fa-info-circle"></i>
+              Valor entre 0% y 100% (específico para esta empresa)
+            </small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="regresar()">
+            <i class="fas fa-times"></i>
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="editarForm.invalid || !editarForm.dirty"
+          >
+            <i class="fas fa-save"></i>
+            Actualizar Comisión
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

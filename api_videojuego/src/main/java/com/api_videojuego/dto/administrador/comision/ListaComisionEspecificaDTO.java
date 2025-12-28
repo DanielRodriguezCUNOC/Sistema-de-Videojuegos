@@ -1,6 +1,7 @@
 package com.api_videojuego.dto.administrador.comision;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class ListaComisionEspecificaDTO {
@@ -17,8 +18,9 @@ public class ListaComisionEspecificaDTO {
 	}
 
 	public void agregarComisionEspecifica(Integer idComisionEspecifica,
-			String nombreEmpresa, BigDecimal comisionEspecifica) {
+			String nombreEmpresa, BigDecimal comisionEspecifica,
+			Date fechaActualizacion) {
 		this.comisiones.add(new ComisionEspecificaResponseDTO(idComisionEspecifica,
-				nombreEmpresa, comisionEspecifica));
+				nombreEmpresa, comisionEspecifica, fechaActualizacion));
 	}
 }

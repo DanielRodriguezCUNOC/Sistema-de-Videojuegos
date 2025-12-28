@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Date;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.dto.administrador.comision.ComisionEspecificaRequestDTO;
@@ -57,8 +58,10 @@ public class ComisionEspecificaDB {
 		return false;
 	}
 
-	public ListaComisionEspecificaDTO listaComisionEspecifica(Connection conn)
+	public ListaComisionEspecificaDTO listaComisionEspecifica()
 			throws ErrorConsultaDB {
+
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "SELECT ce.id, ce.comision_especifica, ed.nombre_empresa "
 				+ "FROM comision_especifica ce "
@@ -73,13 +76,13 @@ public class ComisionEspecificaDB {
 				Integer id = rs.getInt("id");
 				String nombreEmpresa = rs.getString("nombre_empresa");
 				BigDecimal comisionEspecifica = rs.getBigDecimal("comision_especifica");
+				Date fechaActualizacion = rs.getDate("fecha_actualizacion");
 				comisiones.agregarComisionEspecifica(id, nombreEmpresa,
-						comisionEspecifica);
+						comisionEspecifica, fechaActualizacion);
 			}
 
 		} catch (SQLException e) {
-			throw new ErrorConsultaDB(
-					"Error al obtener las comisiones especificas: " + e.getMessage());
+			throw new ErrorConsultaDB("Error al obtener las comisiones especificas");
 		}
 		return comisiones;
 	}
@@ -97,8 +100,7 @@ public class ComisionEspecificaDB {
 			ps.setObject(3, fechaActual);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			throw new ErrorInsertarDB(
-					"Error al registrar la comision especifica: " + e.getMessage());
+			throw new ErrorInsertarDB("Error al registrar la comision especifica");
 		}
 	}
 
@@ -134,7 +136,7 @@ public class ComisionEspecificaDB {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new ErrorActualizarRegistro(
-					"Error al actualizar la comision especifica: " + e.getMessage());
+					"Error al actualizar la comision especifica");
 		}
 	}
 
