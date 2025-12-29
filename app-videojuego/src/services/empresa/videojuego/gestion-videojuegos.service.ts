@@ -6,14 +6,15 @@ import { VideojuegoRequestDto } from '../../../models/dtos/empresa/videojuego/vi
 import { Observable } from 'rxjs';
 import { MasterLoginService } from '../../login/masterlogin.service';
 import { ListaVideojuegosDto } from '../../../models/dtos/empresa/videojuego/lista-videojuegos-dto';
-import { EditarVideojuegoDto } from '../../../models/dtos/empresa/videojuego/editar-videojuego-dto';
 import { EditarPortadaVideojuego } from '../../../models/dtos/empresa/videojuego/editar-portada-videojuego-dto';
 import { editarEstadoVideojuegoDto } from '../../../models/dtos/empresa/videojuego/editar-estado-videojuego-dto';
+import { EditarVideojuegoRequestDto } from '../../../models/dtos/empresa/videojuego/editar-videojuego-request-dto';
+import { EditarVideojuegoResponseDto } from '../../../models/dtos/empresa/videojuego/editar-videojuego-response-dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CatalogoVideojuegosService {
+export class GestionVideojuegosService {
   apiUrl = `${environment.apiBaseUrl}/empresa/gestion_videojuegos`;
   private formatearFecha = new FormatoFecha();
 
@@ -63,7 +64,10 @@ export class CatalogoVideojuegosService {
     return this.http.put(url, formData);
   }
 
-  editarVideojuego(idVideojuego: string, datosVideojuego: EditarVideojuegoDto): Observable<any> {
+  editarVideojuego(
+    idVideojuego: string,
+    datosVideojuego: EditarVideojuegoRequestDto
+  ): Observable<any> {
     const url = `${this.apiUrl}/editar-videojuego/${idVideojuego}`;
     const formData = new FormData();
 
@@ -74,5 +78,10 @@ export class CatalogoVideojuegosService {
     formData.append('recursosMinimos', datosVideojuego.recurosMinimos);
 
     return this.http.put(url, formData);
+  }
+
+  obtenerVideojuegoPorId(idVideojuego: string): Observable<EditarVideojuegoResponseDto> {
+    const url = `${this.apiUrl}/obtener-videojuego/${idVideojuego}`;
+    return this.http.get<EditarVideojuegoResponseDto>(url);
   }
 }

@@ -58,6 +58,7 @@ export class CrearUsuarioService {
   crearUsuarioEmpresa(datosUsuario: CrearUsuarioEmpresaDTO): Observable<any> {
     const url = `${this.apiURL}/crear-usuario-empresa`;
     const formData = new FormData();
+    formData.append('idUsuarioCreador', datosUsuario.idUsuarioCreador.toString());
     formData.append('correoUsuario', datosUsuario.correoUsuario);
     formData.append('nombreCompleto', datosUsuario.nombreCompleto);
     formData.append('password', datosUsuario.password);

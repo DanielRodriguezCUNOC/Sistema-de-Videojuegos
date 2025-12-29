@@ -1,6 +1,5 @@
-export interface ObtenerDatosEmpresaDTO {
+export interface EditarEmpresaRequestDTO {
   idEmpresa: number;
   nombreEmpresa: string;
   descripcion: string;
-  estado: string;
 }

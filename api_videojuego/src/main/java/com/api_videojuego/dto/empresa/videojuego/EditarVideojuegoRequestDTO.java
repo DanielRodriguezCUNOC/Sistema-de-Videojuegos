@@ -1,6 +1,6 @@
 package com.api_videojuego.dto.empresa.videojuego;
 
-public class EditarVideojuegoDTO {
+public class EditarVideojuegoRequestDTO {
 	private Integer idVideojuego;
 	private String titulo;
 	private String descripcion;

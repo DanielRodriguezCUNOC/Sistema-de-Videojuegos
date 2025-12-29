@@ -36,12 +36,12 @@
             <tr class="table-row">
               <td class="id-cell">{{ empresa.idEmpresa }}</td>
               <td class="name-cell">{{ empresa.nombreEmpresa }}</td>
-              <td class="description-cell">{{ empresa.descripcionEmpresa }}</td>
+              <td class="description-cell">{{ empresa.descripcion }}</td>
               <td class="status-cell">
                 <span
                   class="status-badge"
-                  [class.status-active]="empresa.estado === 'ACTIVO'"
-                  [class.status-inactive]="empresa.estado === 'INACTIVO'"
+                  [class.status-active]="empresa.estado === 'ACTIVA'"
+                  [class.status-inactive]="empresa.estado === 'INACTIVA'"
                 >
                   {{ empresa.estado }}
                 </span>
@@ -49,7 +49,9 @@
               <td class="actions-cell">
                 <button
                   class="action-btn edit-btn"
-                  (click)="editarEmpresa(empresa.idEmpresa)"
+                  (click)="
+                    editarEmpresa(empresa.idEmpresa, empresa.nombreEmpresa, empresa.descripcion)
+                  "
                   title="Editar empresa"
                 >
                   <i class="fas fa-edit"></i>
@@ -57,17 +59,17 @@
                 </button>
                 <button
                   class="action-btn status-btn"
-                  [class.activate-btn]="empresa.estado === 'INACTIVO'"
-                  [class.deactivate-btn]="empresa.estado === 'ACTIVO'"
+                  [class.activate-btn]="empresa.estado === 'INACTIVA'"
+                  [class.deactivate-btn]="empresa.estado === 'ACTIVA'"
                   (click)="cambiarEstadoEmpresa(empresa.idEmpresa, empresa.estado)"
-                  [title]="empresa.estado === 'ACTIVO' ? 'Desactivar empresa' : 'Activar empresa'"
+                  [title]="empresa.estado === 'ACTIVA' ? 'Desactivar empresa' : 'Activar empresa'"
                 >
                   <i
                     class="fas"
-                    [class.fa-toggle-off]="empresa.estado === 'INACTIVO'"
-                    [class.fa-toggle-on]="empresa.estado === 'ACTIVO'"
+                    [class.fa-toggle-off]="empresa.estado === 'INACTIVA'"
+                    [class.fa-toggle-on]="empresa.estado === 'ACTIVA'"
                   ></i>
-                  {{ empresa.estado === 'ACTIVO' ? 'Desactivar' : 'Activar' }}
+                  {{ empresa.estado === 'ACTIVA' ? 'Desactivar' : 'Activar' }}
                 </button>
               </td>
             </tr>

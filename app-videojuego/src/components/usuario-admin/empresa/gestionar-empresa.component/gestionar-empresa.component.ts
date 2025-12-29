@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
 import { ObtenerDatosEmpresaDTO } from '../../../../models/dtos/administrador/empresa/obtener-datos-empresa-dto';
 import { ListaEmpresasDTO } from '../../../../models/dtos/administrador/empresa/lista-empresas-dto';
+import { GestionEmpresaService } from '../../../../services/admin/empresa/gestion-empresa.service';
+import { CambiarEstadoEmpresaDTO } from '../../../../models/dtos/administrador/empresa/cambiar-estado-empresa-dto';
 
 @Component({
   selector: 'app-gestionar-empresa.component',
@@ -16,35 +18,22 @@ export class GestionarEmpresaComponent implements OnInit {
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private gestionEmpresaService: GestionEmpresaService) {}
 
   ngOnInit(): void {
     this.cargarEmpresas();
   }
 
   cargarEmpresas(): void {
-    // TODO: Implementar servicio para cargar empresas del backend
-    // Por ahora datos de ejemplo basados en el DTO
-    this.empresas = [
-      {
-        idEmpresa: 1,
-        nombreEmpresa: 'GameStudio Pro',
-        descripcionEmpresa: 'Desarrolladora de videojuegos indie especializados en aventuras',
-        estado: 'ACTIVO',
+    this.gestionEmpresaService.obtenerEmpresas().subscribe({
+      next: (data: ListaEmpresasDTO) => {
+        this.empresas = data.empresas;
       },
-      {
-        idEmpresa: 2,
-        nombreEmpresa: 'Digital Entertainment',
-        descripcionEmpresa: 'Compañía de entretenimiento digital y desarrollo de juegos móviles',
-        estado: 'INACTIVO',
+      error: (error) => {
+        this.mostrarPopup('Error al cargar las empresas. Por favor, intente nuevamente.', 'error');
+        console.error('Error al obtener empresas:', error);
       },
-      {
-        idEmpresa: 3,
-        nombreEmpresa: 'Pixel Arts Games',
-        descripcionEmpresa: 'Estudio creativo enfocado en juegos pixel art y retro gaming',
-        estado: 'ACTIVO',
-      },
-    ];
+    });
   }
 
   regresar(): void {
@@ -55,21 +44,33 @@ export class GestionarEmpresaComponent implements OnInit {
     this.router.navigate(['/user-admin/crear-empresa']);
   }
 
-  editarEmpresa(idEmpresa: number): void {
-    // TODO: Implementar ruta para editar empresa
-    this.mostrarPopup(`Editar empresa con ID: ${idEmpresa}`, 'info');
+  editarEmpresa(idEmpresa: number, nombreEmpresa: string, descripcionEmpresa: string): void {
+    this.router.navigate([
+      '/user-admin/editar-empresa',
+      idEmpresa,
+      nombreEmpresa,
+      descripcionEmpresa,
+    ]);
   }
 
   cambiarEstadoEmpresa(idEmpresa: number, estadoActual: string): void {
-    // TODO: Implementar servicio para cambiar estado
-    const empresa = this.empresas.find((e) => e.idEmpresa === idEmpresa);
-    if (empresa) {
-      const nuevoEstado = estadoActual === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO';
-      empresa.estado = nuevoEstado;
-
-      const accion = nuevoEstado === 'ACTIVO' ? 'activada' : 'desactivada';
-      this.mostrarPopup(`Empresa "${empresa.nombreEmpresa}" ${accion} correctamente`, 'success');
-    }
+    const data: CambiarEstadoEmpresaDTO = {
+      idEmpresa: idEmpresa,
+      estado: estadoActual === 'ACTIVA' ? 'INACTIVA' : 'ACTIVA',
+    };
+    this.gestionEmpresaService.cambiarEstadoEmpresa(data).subscribe({
+      next: () => {
+        this.mostrarPopup('Estado de la empresa actualizado correctamente.', 'success');
+        this.cargarEmpresas();
+      },
+      error: (error) => {
+        this.mostrarPopup(
+          'Error al cambiar el estado de la empresa. Por favor, intente nuevamente.',
+          'error'
+        );
+        console.error('Error al cambiar estado de la empresa:', error);
+      },
+    });
   }
 
   private mostrarPopup(mensaje: string, tipo: 'error' | 'success' | 'info'): void {

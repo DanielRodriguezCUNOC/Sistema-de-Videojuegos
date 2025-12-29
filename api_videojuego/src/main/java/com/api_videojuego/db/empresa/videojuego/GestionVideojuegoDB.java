@@ -7,7 +7,8 @@ import java.sql.SQLException;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.dto.empresa.videojuego.EditarEstadoVideojuegoDTO;
-import com.api_videojuego.dto.empresa.videojuego.EditarVideojuegoDTO;
+import com.api_videojuego.dto.empresa.videojuego.EditarVideojuegoRequestDTO;
+import com.api_videojuego.dto.empresa.videojuego.EditarVideojuegoResponseDTO;
 import com.api_videojuego.dto.empresa.videojuego.ListaVideojuegosDTO;
 import com.api_videojuego.excepciones.ErrorActualizarRegistro;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
@@ -57,7 +58,7 @@ public class GestionVideojuegoDB {
 
 	}
 
-	public void editarVideojuego(EditarVideojuegoDTO editarVideojuegoDTO)
+	public void editarVideojuego(EditarVideojuegoRequestDTO editarVideojuegoDTO)
 			throws ErrorActualizarRegistro {
 
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
@@ -103,6 +104,34 @@ public class GestionVideojuegoDB {
 		} catch (SQLException e) {
 			throw new ErrorConsultaDB("Error al obtener la lista de videojuegos");
 		}
+	}
+
+	public EditarVideojuegoResponseDTO obtenerDatosVideojuegoPorId(
+			Integer idVideojuego) throws ErrorConsultaDB {
+
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+		EditarVideojuegoResponseDTO editarVideojuegoResponseDTO = null;
+
+		String query = "SELECT titulo, descripcion, precio, recursos_minimos FROM videojuego WHERE id_videojuego = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+
+			ps.setInt(1, idVideojuego);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+
+				editarVideojuegoResponseDTO = new EditarVideojuegoResponseDTO(
+						rs.getString("titulo"), rs.getString("descripcion"),
+						rs.getBigDecimal("precio"), rs.getString("recursos_minimos"));
+
+			}
+			return editarVideojuegoResponseDTO;
+
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB("No se pudo obtener los datos del videojuego");
+		}
+
 	}
 
 }

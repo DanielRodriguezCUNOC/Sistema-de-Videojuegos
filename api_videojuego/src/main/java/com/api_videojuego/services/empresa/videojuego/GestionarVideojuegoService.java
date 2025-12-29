@@ -5,8 +5,9 @@ import java.io.InputStream;
 
 import com.api_videojuego.db.empresa.videojuego.GestionVideojuegoDB;
 import com.api_videojuego.dto.empresa.videojuego.EditarEstadoVideojuegoDTO;
-import com.api_videojuego.dto.empresa.videojuego.EditarPortadaVideojuegoDTO;
-import com.api_videojuego.dto.empresa.videojuego.EditarVideojuegoDTO;
+import com.api_videojuego.dto.empresa.videojuego.EditarPortadaVideojuegoRequestDTO;
+import com.api_videojuego.dto.empresa.videojuego.EditarVideojuegoRequestDTO;
+import com.api_videojuego.dto.empresa.videojuego.EditarVideojuegoResponseDTO;
 import com.api_videojuego.dto.empresa.videojuego.ListaVideojuegosDTO;
 import com.api_videojuego.excepciones.AvatarExcepcion;
 import com.api_videojuego.excepciones.DatosInvalidos;
@@ -41,7 +42,7 @@ public class GestionarVideojuegoService {
 	}
 
 	public void cambiarPortadaVideojuego(
-			EditarPortadaVideojuegoDTO editarPortadaVideojuegoDTO)
+			EditarPortadaVideojuegoRequestDTO editarPortadaVideojuegoDTO)
 			throws DatosInvalidos, AvatarExcepcion, ExcepcionInesperada, IOException,
 			ErrorActualizarRegistro {
 
@@ -77,7 +78,7 @@ public class GestionarVideojuegoService {
 				editarPortadaVideojuegoDTO.getIdVideojuego(), nuevaPortada);
 	}
 
-	public void editarVideojuego(EditarVideojuegoDTO editarVideojuegoDTO)
+	public void editarVideojuego(EditarVideojuegoRequestDTO editarVideojuegoDTO)
 			throws DatosInvalidos, ErrorActualizarRegistro {
 
 		if (!editarVideojuegoDTO.datosValidos()) {
@@ -90,6 +91,26 @@ public class GestionarVideojuegoService {
 
 	public ListaVideojuegosDTO obtenerVideojuegos() throws ErrorConsultaDB {
 		return gestionVideojuegoDB.obtenerListaVideojuegos();
+	}
+
+	public EditarVideojuegoResponseDTO obtenerDatosVideojuego(String idVideojuego)
+			throws ErrorConsultaDB, DatosInvalidos {
+
+		try {
+			Integer videojuegoId = idVideojuego != null
+					? Integer.parseInt(idVideojuego)
+					: -1;
+
+			if (videojuegoId <= 0) {
+				throw new DatosInvalidos("El ID del videojuego no es valido");
+			}
+
+			return gestionVideojuegoDB.obtenerDatosVideojuegoPorId(videojuegoId);
+		} catch (ErrorConsultaDB e) {
+			throw e;
+		} catch (NumberFormatException e) {
+			throw new DatosInvalidos("El ID del videojuego no es valido");
+		}
 	}
 
 }

@@ -71,7 +71,7 @@
           <input
             type="text"
             class="form-control categoria-input"
-            [(ngModel)]="nuevaCategoria"
+            formControlName="nuevaCategoria"
             placeholder="Escriba una categoría (ej: Acción, Aventura, RPG...)"
             (keyup.enter)="agregarCategoria()"
           />
@@ -79,7 +79,7 @@
             type="button"
             class="btn-add-categoria"
             (click)="agregarCategoria()"
-            [disabled]="!nuevaCategoria.trim()"
+            [disabled]="!nuevoVideojuego.get('nuevaCategoria')?.value.trim()"
           >
             Agregar
           </button>
