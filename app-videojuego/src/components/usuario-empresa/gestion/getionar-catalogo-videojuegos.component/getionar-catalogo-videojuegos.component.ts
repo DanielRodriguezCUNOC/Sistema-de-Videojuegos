@@ -52,8 +52,8 @@ export class GetionarCatalogoVideojuegosComponent implements OnInit {
 
   cambiarVisibilidad(idVideojuego: string, estadoActual: boolean): void {
     const data: editarEstadoVideojuegoDto = {
-      idVideojuego: idVideojuego,
-      estado: !estadoActual,
+      idVideojuego: Number(idVideojuego),
+      nuevoEstado: !estadoActual,
     };
 
     this.gestionService.cambiarVisibilidadVideojuego(data).subscribe({

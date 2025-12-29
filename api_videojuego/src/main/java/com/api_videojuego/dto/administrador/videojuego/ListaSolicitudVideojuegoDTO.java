@@ -1,10 +1,15 @@
 package com.api_videojuego.dto.administrador.videojuego;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaSolicitudVideojuegoDTO {
 
 	private List<SolicitudVideojuegoResponseDTO> solicitudes;
+
+	public ListaSolicitudVideojuegoDTO() {
+		this.solicitudes = new ArrayList<>();
+	}
 
 	public List<SolicitudVideojuegoResponseDTO> getSolicitudes() {
 		return solicitudes;

@@ -12,7 +12,7 @@ export class SolicitudVideojuegoService {
   private apiUrl = `${environment.apiBaseUrl}/admin/solicitud-videojuego`;
   constructor(private http: HttpClient) {}
 
-  getSolicitudes(): Observable<ListaSolicitudVideojuegoDTO> {
+  obtenerSolicitudes(): Observable<ListaSolicitudVideojuegoDTO> {
     return this.http.get<ListaSolicitudVideojuegoDTO>(`${this.apiUrl}/listar-solicitudes`);
   }
 

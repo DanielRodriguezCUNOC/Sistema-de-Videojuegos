@@ -1,4 +1,4 @@
 export interface editarEstadoVideojuegoDto {
-  idVideojuego: string;
-  estado: boolean;
+  idVideojuego: number;
+  nuevoEstado: boolean;
 }

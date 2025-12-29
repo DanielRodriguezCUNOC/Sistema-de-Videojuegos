@@ -20,8 +20,7 @@ public class SolicitudVideojuegoResource {
 	@Path("/listar-solicitudes")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response listarSolicitudes(
-			SolicitudVideojuegoRequestDTO solicitudVideojuegoRequestDTO) {
+	public Response listarSolicitudes() {
 		SolicitudVideojuegoService service = new SolicitudVideojuegoService();
 		try {
 

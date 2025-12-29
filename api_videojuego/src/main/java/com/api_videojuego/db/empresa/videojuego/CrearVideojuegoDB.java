@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import com.api_videojuego.db.administrador.videojuego.SolicitudCategoriaDB;
 import com.api_videojuego.db.connection.DBConnectionSingleton;
+import com.api_videojuego.db.empresa.usuario.UsuarioEmpresaDB;
 import com.api_videojuego.dto.empresa.videojuego.VideojuegoRequestDTO;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
@@ -45,63 +46,93 @@ public class CrearVideojuegoDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		try {
-
 			// * Iniciamos la transacción */
 			conn.setAutoCommit(false);
 
 			SolicitudCategoriaDB solicitudCategoriaDB = new SolicitudCategoriaDB();
-
 			VideojuegoDesarrolladoraDB videojuegoDesarrolladoraDB = new VideojuegoDesarrolladoraDB();
-
 			ClasificacionVideojuegoDB clasificacionVideojuegoDB = new ClasificacionVideojuegoDB();
+			UsuarioEmpresaDB usuarioEmpresaDB = new UsuarioEmpresaDB();
+
+			System.out.println(
+					"Iniciando registro de videojuego: " + videojuego.getTitulo());
 
 			// * Registramos el videojuego y obtenemos su ID */
 			Integer idVideojuego = crearVideojuego(videojuego.getTitulo(),
 					videojuego.getDescripcion(), videojuego.getFechaLanzamiento(),
 					videojuego.getPrecio(), videojuego.getRecursosMinimos(), conn);
+			System.out.println("Videojuego creado con ID: " + idVideojuego);
 
 			// * Generamos la solicitud de categoria */
 			Integer idSolicitudCategoria = solicitudCategoriaDB
 					.generarSolicitudCategoria(idVideojuego,
 							videojuego.getIdUsuarioEmpresa(), videojuego.getCategorias(),
 							conn);
+			System.out
+					.println("Solicitudes de categoría creadas: " + idSolicitudCategoria);
+
+			// * Obtenemos el id de la empresa con el id del usuario */
+			Integer idEmpresa = usuarioEmpresaDB.obtenerIdEmpresaPorIdUsuario(
+					Integer.parseInt(videojuego.getIdUsuarioEmpresa()));
+			System.out.println("ID EMPRESA: " + idEmpresa);
 
 			// * Registramos la relacion entre el videojuego y la desarrolladora */
 			Integer idVideojuegoDesarrolladora = videojuegoDesarrolladoraDB
-					.registrarVideojuegoDesarrolladora(idVideojuego, conn);
+					.registrarVideojuegoDesarrolladora(idEmpresa, idVideojuego, conn);
+			System.out.println("Relación videojuego-desarrolladora creada: "
+					+ idVideojuegoDesarrolladora);
 
 			// * Registramos la clasificacion del videojuego */
 			Integer idClasificacion = clasificacionVideojuegoDB
 					.registrarClasificacionVideojuego(idVideojuego,
 							videojuego.getClasificacion(), conn);
+			System.out.println("Clasificación registrada: " + idClasificacion);
 
 			if (idVideojuego > 0 && idSolicitudCategoria > 0
 					&& idVideojuegoDesarrolladora > 0 && idClasificacion > 0) {
 
 				// * Confirmamos la transacción */
 				conn.commit();
+				System.out.println("Transacción confirmada exitosamente");
 
 				return idVideojuego;
 			}
 			else {
 				conn.rollback();
+				System.out.println("Rollback ejecutado - valores: idVideojuego="
+						+ idVideojuego + ", idSolicitudCategoria=" + idSolicitudCategoria
+						+ ", idVideojuegoDesarrolladora=" + idVideojuegoDesarrolladora
+						+ ", idClasificacion=" + idClasificacion);
 				throw new ErrorInsertarDB(
 						"No se pudo registrar el videojuego correctamente.");
-
 			}
 		} catch (SQLException e) {
+			System.out
+					.println("SQLException en registrarVideojuego: " + e.getMessage());
+			e.printStackTrace();
 			try {
 				conn.rollback();
-				throw new ErrorInsertarDB(
-						"Error al registrar el videojuego en la base de datos.");
 			} catch (SQLException ex) {
-				throw new ErrorInsertarDB(
-						"Error al registrar el videojuego en la base de datos.");
+				System.out.println("Error en rollback: " + ex.getMessage());
 			}
+			throw new ErrorInsertarDB(
+					"Error SQL al registrar el videojuego: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println(
+					"Exception general en registrarVideojuego: " + e.getMessage());
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException ex) {
+				System.out.println("Error en rollback: " + ex.getMessage());
+			}
+			throw new ErrorInsertarDB(
+					"Error inesperado al registrar el videojuego: " + e.getMessage());
 		} finally {
 			try {
 				conn.setAutoCommit(true);
 			} catch (SQLException e) {
+				System.out.println("Error al restaurar autocommit: " + e.getMessage());
 			}
 		}
 	}
@@ -138,7 +169,7 @@ public class CrearVideojuegoDB {
 				}
 			}
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new ErrorInsertarDB(
 					"Error al crear el videojuego en la base de datos");
 		}

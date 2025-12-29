@@ -63,7 +63,7 @@ export class EditarVideojuegoComponent implements OnInit {
         this.tituloVideojuego = videojuego.titulo;
         this.descripcionVideojuego = videojuego.descripcion;
         this.precioVideojuego = videojuego.precio;
-        this.recursosMinimosVideojuego = videojuego.recurosMinimos;
+        this.recursosMinimosVideojuego = videojuego.recursosMinimos;
 
         this.editarForm.patchValue({
           titulo: this.tituloVideojuego,
@@ -86,10 +86,10 @@ export class EditarVideojuegoComponent implements OnInit {
         titulo: titulo,
         descripcion: descripcion,
         precio: precio,
-        recurosMinimos: recursosMinimos,
+        recursosMinimos: recursosMinimos,
       };
 
-      this.gestionVideojuegosService.editarVideojuego(this.idVideojuego, data).subscribe({
+      this.gestionVideojuegosService.editarVideojuego(data).subscribe({
         next: () => {
           this.mostrarPopup('Videojuego editado exitosamente.', 'success');
           setTimeout(() => {
@@ -106,7 +106,7 @@ export class EditarVideojuegoComponent implements OnInit {
   }
 
   regresar(): void {
-    this.router.navigate(['/user-empresa/gestionar-videojuegos']);
+    this.router.navigate(['/user-empresa/gestionar-catalogo']);
   }
 
   private mostrarPopup(mensaje: string, tipo: 'error' | 'success' | 'info'): void {

@@ -26,6 +26,9 @@ import { GetionarComentariosComponent } from '../components/usuario-empresa/gest
 import { GestionarEmpresaComponent } from '../components/usuario-admin/empresa/gestionar-empresa.component/gestionar-empresa.component';
 import { EditarEmpresaComponent } from '../components/usuario-admin/empresa/editar-empresa.component/editar-empresa.component';
 import { EditarCategoriaComponent } from '../components/usuario-admin/categoria/editar-categoria.component/editar-categoria.component';
+import { EditarPortadaComponent } from '../components/usuario-empresa/gestion/editar-portada.component/editar-portada.component';
+import { EditarVideojuegoComponent } from '../components/usuario-empresa/gestion/editar-videojuego.component/editar-videojuego.component';
+import { SolicitudVideojuegoComponent } from '../components/usuario-admin/videojuego/solicitud-videojuego.component/solicitud-videojuego.component';
 
 export const routes: Routes = [
   {
@@ -105,6 +108,14 @@ export const routes: Routes = [
         component: GetionarCatalogoVideojuegosComponent,
       },
       {
+        path: 'editar-videojuego/:idVideojuego',
+        component: EditarVideojuegoComponent,
+      },
+      {
+        path: 'editar-portada/:idVideojuego',
+        component: EditarPortadaComponent,
+      },
+      {
         path: 'gestionar-comentarios',
         component: GetionarComentariosComponent,
       },
@@ -179,6 +190,10 @@ export const routes: Routes = [
       {
         path: 'editar-comision-especifica/:idEmpresa/:nombreEmpresa/:comisionActual',
         component: EditarComisionEspecificaComponent,
+      },
+      {
+        path: 'moderar-videojuegos',
+        component: SolicitudVideojuegoComponent,
       },
     ],
   },

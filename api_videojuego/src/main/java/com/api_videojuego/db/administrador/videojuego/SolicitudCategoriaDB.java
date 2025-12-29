@@ -13,7 +13,6 @@ import com.api_videojuego.db.empresa.videojuego.ClasificacionVideojuegoDB;
 import com.api_videojuego.db.empresa.videojuego.VideojuegoDesarrolladoraDB;
 import com.api_videojuego.dto.administrador.videojuego.ListaSolicitudVideojuegoDTO;
 import com.api_videojuego.dto.administrador.videojuego.SolicitudVideojuegoRequestDTO;
-import com.api_videojuego.dto.administrador.videojuego.SolicitudVideojuegoResponseDTO;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
@@ -205,12 +204,10 @@ public class SolicitudCategoriaDB {
 
 	public ListaSolicitudVideojuegoDTO listarSolicitudesVideojuego()
 			throws ErrorConsultaDB {
-		String query = "SELECT sc.id_solicitud, sc.id_videojuego, v.titulo AS titulo_videojuego, "
-				+ "sc.categoria, sc.estado, u.id_usuario, u.nombre_usuario "
-				+ "FROM solicitud_categoria sc "
+		String query = "SELECT sc.id AS id_solicitud, sc.id_videojuego, v.titulo AS titulo_videojuego, "
+				+ "sc.categoria, sc.estado " + "FROM solicitud_categoria sc "
 				+ "JOIN videojuego v ON sc.id_videojuego = v.id_videojuego "
-				+ "JOIN usuario u ON sc.id_usuario = u.id_usuario "
-				+ "ORDER BY sc.id_solicitud";
+				+ "ORDER BY sc.id";
 
 		ListaSolicitudVideojuegoDTO listaSolicitudes = new ListaSolicitudVideojuegoDTO();
 
@@ -218,26 +215,28 @@ public class SolicitudCategoriaDB {
 				PreparedStatement ps = conn.prepareStatement(query);
 				ResultSet rs = ps.executeQuery()) {
 
+			System.out.println("Ejecutando consulta: " + query);
+
 			while (rs.next()) {
-				SolicitudVideojuegoResponseDTO solicitudDTO = new SolicitudVideojuegoResponseDTO();
-				solicitudDTO.setIdSolicitud(rs.getInt("id_solicitud"));
-				solicitudDTO.setIdVideojuego(rs.getInt("id_videojuego"));
-				solicitudDTO.setNombreVideojuego(rs.getString("titulo_videojuego"));
-				solicitudDTO.setNombreCategoria(rs.getString("categoria"));
-				solicitudDTO.setEstadoSolicitud(rs.getString("estado"));
+				System.out
+						.println("Procesando solicitud ID: " + rs.getInt("id_solicitud"));
 
 				listaSolicitudes.agregarSolicitud(rs.getInt("id_solicitud"),
 						rs.getInt("id_videojuego"), rs.getString("titulo_videojuego"),
 						rs.getString("categoria"), rs.getString("estado"));
 			}
 
+			System.out.println("Total de solicitudes encontradas: "
+					+ listaSolicitudes.getSolicitudes().size());
 			return listaSolicitudes;
 
 		} catch (SQLException e) {
+			System.out.println(
+					"SQLException en listarSolicitudesVideojuego: " + e.getMessage());
+			e.printStackTrace();
 			throw new ErrorConsultaDB(
-					"Error al listar las solicitudes de videojuegos.");
+					"Error al listar las solicitudes de videojuegos: " + e.getMessage());
 		}
-
 	}
 
 }
