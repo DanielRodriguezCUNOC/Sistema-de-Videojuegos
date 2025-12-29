@@ -40,8 +40,8 @@
               <td class="status-cell">
                 <span
                   class="status-badge"
-                  [class.status-active]="empresa.estado === 'ACTIVA'"
-                  [class.status-inactive]="empresa.estado === 'INACTIVA'"
+                  [class.status-active]="empresa.estado === 'activa'"
+                  [class.status-inactive]="empresa.estado === 'inactiva'"
                 >
                   {{ empresa.estado }}
                 </span>
@@ -59,17 +59,17 @@
                 </button>
                 <button
                   class="action-btn status-btn"
-                  [class.activate-btn]="empresa.estado === 'INACTIVA'"
-                  [class.deactivate-btn]="empresa.estado === 'ACTIVA'"
+                  [class.activate-btn]="empresa.estado === 'inactiva'"
+                  [class.deactivate-btn]="empresa.estado === 'activa'"
                   (click)="cambiarEstadoEmpresa(empresa.idEmpresa, empresa.estado)"
-                  [title]="empresa.estado === 'ACTIVA' ? 'Desactivar empresa' : 'Activar empresa'"
+                  [title]="empresa.estado === 'activa' ? 'Inactivar empresa' : 'Activar empresa'"
                 >
                   <i
                     class="fas"
-                    [class.fa-toggle-off]="empresa.estado === 'INACTIVA'"
-                    [class.fa-toggle-on]="empresa.estado === 'ACTIVA'"
+                    [class.fa-toggle-off]="empresa.estado === 'inactiva'"
+                    [class.fa-toggle-on]="empresa.estado === 'activa'"
                   ></i>
-                  {{ empresa.estado === 'ACTIVA' ? 'Desactivar' : 'Activar' }}
+                  {{ empresa.estado === 'activa' ? 'inactivar' : 'activar' }}
                 </button>
               </td>
             </tr>

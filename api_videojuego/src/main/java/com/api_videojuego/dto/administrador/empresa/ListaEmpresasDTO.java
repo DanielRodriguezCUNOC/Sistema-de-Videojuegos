@@ -1,10 +1,15 @@
 package com.api_videojuego.dto.administrador.empresa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaEmpresasDTO {
 
 	private List<ObtenerDatoEmpresaDTO> empresas;
+
+	public ListaEmpresasDTO() {
+		this.empresas = new ArrayList<>();
+	}
 
 	public List<ObtenerDatoEmpresaDTO> getEmpresas() {
 		return empresas;

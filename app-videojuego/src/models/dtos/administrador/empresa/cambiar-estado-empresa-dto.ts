@@ -1,4 +1,4 @@
 export interface CambiarEstadoEmpresaDTO {
-  idEmpresa: number;
-  estado: 'ACTIVA' | 'INACTIVA';
+  idEmpresa: string;
+  estado: string;
 }

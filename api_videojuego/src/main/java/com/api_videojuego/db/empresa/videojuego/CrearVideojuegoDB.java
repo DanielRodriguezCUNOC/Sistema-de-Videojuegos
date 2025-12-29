@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.api_videojuego.db.administrador.videojuego.SolicitudCategoriaDB;
 import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.dto.empresa.videojuego.VideojuegoRequestDTO;
 import com.api_videojuego.excepciones.ErrorConsultaDB;

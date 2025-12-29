@@ -25,6 +25,7 @@ import { GetionarCatalogoVideojuegosComponent } from '../components/usuario-empr
 import { GetionarComentariosComponent } from '../components/usuario-empresa/gestion/getionar-comentarios.component/getionar-comentarios.component';
 import { GestionarEmpresaComponent } from '../components/usuario-admin/empresa/gestionar-empresa.component/gestionar-empresa.component';
 import { EditarEmpresaComponent } from '../components/usuario-admin/empresa/editar-empresa.component/editar-empresa.component';
+import { EditarCategoriaComponent } from '../components/usuario-admin/categoria/editar-categoria.component/editar-categoria.component';
 
 export const routes: Routes = [
   {
@@ -134,6 +135,10 @@ export const routes: Routes = [
       {
         path: 'crear-categoria',
         component: CrearCategoriaComponent,
+      },
+      {
+        path: 'editar-categoria/:id/:categoria',
+        component: EditarCategoriaComponent,
       },
       {
         path: 'gestionar-comisiones',

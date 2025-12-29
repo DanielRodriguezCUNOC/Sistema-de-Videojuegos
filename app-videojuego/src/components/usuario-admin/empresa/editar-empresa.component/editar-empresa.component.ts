@@ -66,12 +66,13 @@ export class EditarEmpresaComponent implements OnInit {
       };
 
       this.gestionEmpresaService.editarEmpresa(data).subscribe({
-        next: (response) => {
+        next: () => {
           this.mostrarPopup('Empresa editada exitosamente.', 'success');
           this.regresar();
         },
         error: (error) => {
-          this.mostrarPopup('Error al editar la empresa: ' + error.message, 'error');
+          this.mostrarPopup('Error al editar la empresa', 'error');
+          console.error('Error al editar la empresa:', error);
         },
       });
     } else {
@@ -80,7 +81,7 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   regresar() {
-    this.router.navigate(['/user-empresa/gestionar-empresas']);
+    this.router.navigate(['/user-admin/gestionar-empresas']);
   }
 
   private mostrarPopup(mensaje: string, tipo: 'error' | 'success' | 'info'): void {

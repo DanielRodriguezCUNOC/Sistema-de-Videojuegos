@@ -112,4 +112,26 @@ public class CRUDCategoriaDB {
 		return false;
 	}
 
+	public Integer obtenerIdCategoriaPorNombre(String categoria)
+			throws ErrorConsultaDB {
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+		String query = "SELECT id_categoria FROM categoria WHERE categoria = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query);) {
+			ps.setString(1, categoria);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("id_categoria");
+			}
+			else {
+				return -1;
+			}
+
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB(
+					"Error al consultar la categoria en la base de datos");
+		}
+	}
+
 }

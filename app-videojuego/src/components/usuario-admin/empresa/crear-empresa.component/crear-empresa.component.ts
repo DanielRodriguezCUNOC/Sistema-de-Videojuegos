@@ -63,7 +63,8 @@ export class CrearEmpresaComponent implements OnInit {
       this.empresaService.crearEmpresa(empresa).subscribe({
         next: () => {
           this.mostrarPopup('Empresa creada exitosamente', 'success');
-          this.router.navigate(['/admin/empresas']);
+          this.limpiarFormulario();
+          this.redireccionar();
         },
         error: (error) => {
           console.error('Error al crear empresa', error);
@@ -81,5 +82,14 @@ export class CrearEmpresaComponent implements OnInit {
     this.infoMessage = mensaje;
     this.popupTipo = tipo;
     this.popupMostrar = true;
+  }
+
+  redireccionar() {
+    this.router.navigate(['/user-admin/gestionar-empresas']);
+  }
+
+  limpiarFormulario(): void {
+    this.empresaForm.reset();
+    this.selectedFile = null;
   }
 }

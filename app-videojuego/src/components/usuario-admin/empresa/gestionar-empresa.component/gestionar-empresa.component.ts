@@ -55,8 +55,8 @@ export class GestionarEmpresaComponent implements OnInit {
 
   cambiarEstadoEmpresa(idEmpresa: number, estadoActual: string): void {
     const data: CambiarEstadoEmpresaDTO = {
-      idEmpresa: idEmpresa,
-      estado: estadoActual === 'ACTIVA' ? 'INACTIVA' : 'ACTIVA',
+      idEmpresa: idEmpresa.toString(),
+      estado: estadoActual === 'activa' ? 'inactiva' : 'activa',
     };
     this.gestionEmpresaService.cambiarEstadoEmpresa(data).subscribe({
       next: () => {

@@ -44,10 +44,8 @@ export class CrearCategoriaComponent implements OnInit {
           this.mostrarPopup('Categoría creada exitosamente.', 'success');
           this.isLoading = false;
           this.crearForm.reset();
-
-          setTimeout(() => {
-            this.router.navigate(['/admin-user/gestionar-categoria']);
-          }, 1500);
+          this.limpiarFormulario();
+          this.redirigir();
         },
         error: (err) => {
           console.error('Error al crear categoría:', err);
@@ -75,5 +73,9 @@ export class CrearCategoriaComponent implements OnInit {
     this.infoMessage = mensaje;
     this.popupTipo = tipo;
     this.popupMostrar = true;
+  }
+
+  redirigir() {
+    this.router.navigate(['/user-admin/gestionar-categorias']);
   }
 }

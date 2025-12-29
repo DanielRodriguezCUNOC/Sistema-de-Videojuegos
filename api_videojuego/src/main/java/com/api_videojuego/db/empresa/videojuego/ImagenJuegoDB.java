@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.api_videojuego.db.administrador.banner.BannerDB;
 import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.dto.empresa.imagen.ImagenVideojuegoDTO;
 import com.api_videojuego.excepciones.ErrorConsultaDB;

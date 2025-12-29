@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.api_videojuego.db.connection.DBConnectionSingleton;
+import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 
 public class VideojuegoDesarrolladoraDB {
@@ -29,6 +31,22 @@ public class VideojuegoDesarrolladoraDB {
 		} catch (SQLException e) {
 			throw new ErrorInsertarDB(
 					"Error al registrar la relacion videojuego-desarrolladora: "
+							+ e.getMessage());
+		}
+	}
+
+	public void eliminarRegistro(Integer idVideojuego)
+			throws ErrorEliminarRegistro {
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+		String query = "DELETE FROM videojuego_desarrolladora WHERE id_videojuego = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setInt(1, idVideojuego);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new ErrorEliminarRegistro(
+					"Error al eliminar la relación videojuego-desarrolladora: "
 							+ e.getMessage());
 		}
 	}

@@ -79,7 +79,7 @@ public class GestionEmpresaDB {
 
 		} catch (SQLException e) {
 			throw new ErrorConsultaDB(
-					"No se puo obtener el listado de empresas en la BD");
+					"No se pudo obtener el listado de empresas en la BD");
 		}
 	}
 }

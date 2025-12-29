@@ -27,7 +27,8 @@ public class GestionEmpresaResource {
 
 			gestionarEmpresaService.editarEmpresa(editarEmpresaRequetDTO);
 			return Response.status(Response.Status.OK)
-					.entity("Empresa editada correctamente").build();
+					.entity("{\"mensaje\": \"Empresa editada correctamente\"}")
+					.header("Content-Type", "application/json").build();
 		} catch (ErrorActualizarRegistro e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity("{\"error\": \" " + e.getMessage() + "\"}")
@@ -50,7 +51,10 @@ public class GestionEmpresaResource {
 			gestionarEmpresaService.cambiarEstadoEmpresa(cambiarEstadoEmpresaDTO);
 
 			return Response.status(Response.Status.OK)
-					.entity("Empresa editada correctamente").build();
+					.entity(
+							"{\"mensaje\": \"Estado de la empresa cambiado correctamente\"}")
+					.header("Content-Type", "application/json").build();
+
 		} catch (ErrorActualizarRegistro e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity("{\"error\": \" " + e.getMessage() + "\"}")
