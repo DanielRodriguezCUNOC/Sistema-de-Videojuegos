@@ -80,11 +80,11 @@ public class ComisionEspecificaDB {
 				comisiones.agregarComisionEspecifica(id, nombreEmpresa,
 						comisionEspecifica, fechaActualizacion);
 			}
-
+			return comisiones;
 		} catch (SQLException e) {
 			throw new ErrorConsultaDB("Error al obtener las comisiones especificas");
 		}
-		return comisiones;
+
 	}
 
 	public void registrarComisionEspecifica(ComisionEspecificaRequestDTO comision,

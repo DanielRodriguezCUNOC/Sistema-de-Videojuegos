@@ -29,10 +29,16 @@ $text-secondary: #e3e8f3;
     color: $text-secondary;
   }
 
+
+}
+
   .empresa {
-    font-size: 0.85rem;
-    color: $text-secondary;
-  }
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: $text-secondary;
+  font-weight: 500;
 }
 
 .logout-btn {

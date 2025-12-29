@@ -1,4 +1,4 @@
-package com.api_videojuego.db.empresa.videojuego;
+package com.api_videojuego.db.administrador.banner;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

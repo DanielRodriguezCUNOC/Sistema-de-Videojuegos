@@ -27,10 +27,7 @@ export class CrudCategoriaService {
 
   actualizarCategoria(editarCategoria: EditarCategoriaDTO): Observable<any> {
     const url = `${this.apiURL}/editar-categoria`;
-    const formData = new FormData();
-    formData.append('idCategoria', editarCategoria.idCategoria.toString());
-    formData.append('categoria', editarCategoria.categoria);
-    return this.http.put(url, formData);
+    return this.http.put(url, editarCategoria);
   }
 
   eliminarCategoria(idCategoria: number): Observable<any> {

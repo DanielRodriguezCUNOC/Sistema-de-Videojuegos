@@ -48,7 +48,7 @@ export class GestionarCategoriaComponent implements OnInit {
   }
 
   editarCategoria(id: number, categoria: string): void {
-    this.router.navigate(['/admin-user/editar-categoria', id, categoria]);
+    this.router.navigate(['/user-admin/editar-categoria', id, categoria]);
   }
 
   regresar(): void {

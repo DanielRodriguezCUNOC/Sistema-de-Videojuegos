@@ -1,0 +1,124 @@
+<div class="dashboard">
+  <div class="topbar">
+    <h1 class="page-title">Editar Videojuego</h1>
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Modificar Videojuego</h2>
+        <p>
+          ID: <span class="videojuego-id">{{ idVideojuego }}</span>
+        </p>
+      </div>
+
+      <form [formGroup]="editarForm" (ngSubmit)="onSubmit()" class="edit-form">
+        <div class="form-group">
+          <label for="titulo" class="form-label">
+            Título del Videojuego
+            <span class="required">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="titulo"
+            formControlName="titulo"
+            class="form-input"
+            placeholder="Ingrese el título del videojuego"
+            maxlength="100"
+          />
+
+          <div class="input-info">
+            <small class="char-count">
+              {{ editarForm.get('titulo')?.value?.length || 0 }}/100 caracteres
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion" class="form-label">
+            Descripción del Videojuego
+            <span class="required">*</span>
+          </label>
+
+          <textarea
+            id="descripcion"
+            formControlName="descripcion"
+            class="form-input textarea"
+            placeholder="Ingrese la descripción del videojuego"
+            rows="4"
+            maxlength="1000"
+          ></textarea>
+
+          <div class="input-info">
+            <small class="char-count">
+              {{ editarForm.get('descripcion')?.value?.length || 0 }}/1000 caracteres
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="precio" class="form-label">
+            Precio (Q.)
+            <span class="required">*</span>
+          </label>
+
+          <input
+            type="number"
+            id="precio"
+            formControlName="precio"
+            class="form-input"
+            placeholder="Ingrese el precio del videojuego"
+            min="0"
+            step="0.01"
+          />
+
+          <div class="input-info">
+            <small class="help-text">Precio en Quetzales</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="recursosMinimos" class="form-label">
+            Recursos Mínimos
+            <span class="required">*</span>
+          </label>
+
+          <textarea
+            id="recursosMinimos"
+            formControlName="recursosMinimos"
+            class="form-input textarea"
+            placeholder="Ej: CPU: Intel i5-8400, RAM: 8GB, GPU: GTX 1060, Storage: 50GB"
+            rows="4"
+            maxlength="500"
+          ></textarea>
+
+          <div class="input-info">
+            <small class="char-count">
+              {{ editarForm.get('recursosMinimos')?.value?.length || 0 }}/500 caracteres
+            </small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="regresar()">Cancelar</button>
+
+          <button type="submit" class="btn btn-primary" [disabled]="!editarForm.valid">
+            Actualizar Videojuego
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

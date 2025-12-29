@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
 import { VideojuegoGestionRequestDto } from '../../../../models/dtos/empresa/videojuego/videojuego-gestion-request-dto';
-import { CatalogoVideojuegosService } from '../../../../services/empresa/videojuego/gestion-videojuegos.service';
 import { editarEstadoVideojuegoDto } from '../../../../models/dtos/empresa/videojuego/editar-estado-videojuego-dto';
+import { GestionVideojuegosService } from '../../../../services/empresa/videojuego/gestion-videojuegos.service';
 
 @Component({
   selector: 'app-getionar-catalogo-videojuegos.component',
@@ -17,7 +17,7 @@ export class GetionarCatalogoVideojuegosComponent implements OnInit {
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
 
-  constructor(private router: Router, private gestionService: CatalogoVideojuegosService) {}
+  constructor(private router: Router, private gestionService: GestionVideojuegosService) {}
 
   ngOnInit(): void {
     this.cargarVideojuegos();

@@ -1,9 +1,14 @@
 package com.api_videojuego.dto.empresa.videojuego;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaVideojuegosDTO {
 	private List<VideojuegoGestionRequestDTO> videojuegos;
+
+	public ListaVideojuegosDTO() {
+		this.videojuegos = new ArrayList<>();
+	}
 
 	public List<VideojuegoGestionRequestDTO> getVideojuegos() {
 		return videojuegos;

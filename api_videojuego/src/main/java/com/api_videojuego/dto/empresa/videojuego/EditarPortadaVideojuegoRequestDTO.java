@@ -3,7 +3,7 @@ package com.api_videojuego.dto.empresa.videojuego;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-public class EditarPortadaVideojuegoDTO {
+public class EditarPortadaVideojuegoRequestDTO {
 	@FormDataParam("idVideojuego")
 	private int idVideojuego;
 	@FormDataParam("nuevaPortada")

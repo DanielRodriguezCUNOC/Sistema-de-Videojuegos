@@ -1,12 +1,17 @@
 package com.api_videojuego.dto.administrador.comision;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ListaComisionEspecificaDTO {
 
 	private List<ComisionEspecificaResponseDTO> comisiones;
+
+	public ListaComisionEspecificaDTO() {
+		this.comisiones = new ArrayList<>();
+	}
 
 	// * Getters and Setters */
 	public List<ComisionEspecificaResponseDTO> getComisiones() {

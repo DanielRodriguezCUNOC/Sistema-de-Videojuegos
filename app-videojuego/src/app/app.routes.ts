@@ -24,6 +24,8 @@ import { GestionarComisionEspecificaComponent } from '../components/usuario-admi
 import { GetionarCatalogoVideojuegosComponent } from '../components/usuario-empresa/gestion/getionar-catalogo-videojuegos.component/getionar-catalogo-videojuegos.component';
 import { GetionarComentariosComponent } from '../components/usuario-empresa/gestion/getionar-comentarios.component/getionar-comentarios.component';
 import { GestionarEmpresaComponent } from '../components/usuario-admin/empresa/gestionar-empresa.component/gestionar-empresa.component';
+import { EditarEmpresaComponent } from '../components/usuario-admin/empresa/editar-empresa.component/editar-empresa.component';
+import { EditarCategoriaComponent } from '../components/usuario-admin/categoria/editar-categoria.component/editar-categoria.component';
 
 export const routes: Routes = [
   {
@@ -135,6 +137,10 @@ export const routes: Routes = [
         component: CrearCategoriaComponent,
       },
       {
+        path: 'editar-categoria/:id/:categoria',
+        component: EditarCategoriaComponent,
+      },
+      {
         path: 'gestionar-comisiones',
         component: GestionarComisionComponent,
       },
@@ -145,6 +151,10 @@ export const routes: Routes = [
       {
         path: 'gestionar-empresas',
         component: GestionarEmpresaComponent,
+      },
+      {
+        path: 'editar-empresa/:idEmpresa/:nombreEmpresa/:descripcionEmpresa',
+        component: EditarEmpresaComponent,
       },
       {
         path: 'comision-global',

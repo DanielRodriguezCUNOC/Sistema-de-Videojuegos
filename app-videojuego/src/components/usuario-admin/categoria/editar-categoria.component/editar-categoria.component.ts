@@ -66,7 +66,7 @@ export class EditarCategoriaComponent implements OnInit {
           this.mostrarPopup('Categoría actualizada exitosamente.', 'success');
           this.isLoading = false;
           setTimeout(() => {
-            this.router.navigate(['/user-admin/gestionar-categoria']);
+            this.redirigir();
           }, 1500);
         },
         error: (err) => {
@@ -89,5 +89,9 @@ export class EditarCategoriaComponent implements OnInit {
     this.infoMessage = mensaje;
     this.popupTipo = tipo;
     this.popupMostrar = true;
+  }
+
+  redirigir() {
+    this.router.navigate(['/user-admin/gestionar-categorias']);
   }
 }

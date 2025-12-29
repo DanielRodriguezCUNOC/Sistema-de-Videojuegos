@@ -58,19 +58,22 @@ export class CrearUsuarioAdminComponent implements OnInit {
 
       this.crearUsuarioService.crearUsuarioAdmin(datosUsuario).subscribe({
         next: (response) => {
-          this.infoMessage = 'Usuario registrado correctamente';
-          this.popupTipo = 'success';
-          this.popupMostrar = true;
+          this.mostrarPopup('Usuario registrado correctamente', 'success');
           this.nuevoRegistroUsuario.reset();
           this.selectedFile = null;
         },
         error: (error) => {
-          this.infoMessage = error.error.mensaje || 'Error al registrar el usuario';
-          this.popupTipo = 'error';
+          this.mostrarPopup(error.error.mensaje || 'Error al registrar el usuario', 'error');
           this.popupMostrar = true;
         },
       });
     }
+  }
+
+  private mostrarPopup(mensaje: string, tipo: 'error' | 'success' | 'info'): void {
+    this.infoMessage = mensaje;
+    this.popupTipo = tipo;
+    this.popupMostrar = true;
   }
 
   regresar(): void {

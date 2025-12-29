@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
-import { CrearVideojuegoService } from '../../../../services/empresa/videojuego/crear-videojuego.service';
 import { VideojuegoRequestDto } from '../../../../models/dtos/empresa/videojuego/videojuego-request-dto';
 import { Router } from '@angular/router';
+import { GestionVideojuegosService } from '../../../../services/empresa/videojuego/gestion-videojuegos.service';
 
 @Component({
   selector: 'app-crear-videojuego.component',
@@ -24,7 +24,7 @@ export class CrearVideojuegoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private crearVideojuegoService: CrearVideojuegoService,
+    private crearVideojuegoService: GestionVideojuegosService,
     private router: Router
   ) {}
 
@@ -36,6 +36,7 @@ export class CrearVideojuegoComponent implements OnInit {
       precio: ['', [Validators.required, Validators.min(0)]],
       recursosMinimos: ['', [Validators.required, Validators.minLength(20)]],
       clasificacion: ['', [Validators.required]],
+      nuevaCategoria: [''],
     });
   }
 
@@ -49,7 +50,7 @@ export class CrearVideojuegoComponent implements OnInit {
 
   //* Agregar nueva categoría */
   agregarCategoria(): void {
-    const categoria = this.nuevaCategoria.trim();
+    const categoria = this.nuevoVideojuego.get('nuevaCategoria')?.value?.trim();
 
     if (!categoria) {
       return;
@@ -60,7 +61,7 @@ export class CrearVideojuegoComponent implements OnInit {
     );
 
     if (categoriaExiste) {
-      this.showMessage('Esta categoría ya ha sido agregada', 'error');
+      this.mostrarPopup('Esta categoría ya ha sido agregada', 'error');
       return;
     }
 
@@ -90,19 +91,19 @@ export class CrearVideojuegoComponent implements OnInit {
 
       this.crearVideojuegoService.crearVideojuego(datosVideojuego).subscribe({
         next: (response) => {
-          this.showMessage('Videojuego registrado correctamente', 'success');
+          this.mostrarPopup('Videojuego registrado correctamente', 'success');
           this.resetFormularioInterno();
         },
         error: (error) => {
           const mensaje = error.error?.mensaje || 'Error al registrar el videojuego';
-          this.showMessage(mensaje, 'error');
+          this.mostrarPopup(mensaje, 'error');
         },
       });
     }
   }
 
   //* Mostrar mensajes */
-  private showMessage(mensaje: string, tipo: 'error' | 'success' | 'info'): void {
+  private mostrarPopup(mensaje: string, tipo: 'error' | 'success' | 'info'): void {
     this.infoMessage = mensaje;
     this.popupTipo = tipo;
     this.popupMostrar = true;

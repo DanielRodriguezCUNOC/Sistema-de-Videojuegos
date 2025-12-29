@@ -1,6 +1,6 @@
 export interface ObtenerDatosEmpresaDTO {
   idEmpresa: number;
   nombreEmpresa: string;
-  descripcionEmpresa: string;
+  descripcion: string;
   estado: string;
 }

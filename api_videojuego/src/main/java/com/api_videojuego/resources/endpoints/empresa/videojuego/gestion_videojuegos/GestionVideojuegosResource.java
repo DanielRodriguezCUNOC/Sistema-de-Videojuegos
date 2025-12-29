@@ -3,8 +3,8 @@ package com.api_videojuego.resources.endpoints.empresa.videojuego.gestion_videoj
 import java.io.IOException;
 
 import com.api_videojuego.dto.empresa.videojuego.EditarEstadoVideojuegoDTO;
-import com.api_videojuego.dto.empresa.videojuego.EditarPortadaVideojuegoDTO;
-import com.api_videojuego.dto.empresa.videojuego.EditarVideojuegoDTO;
+import com.api_videojuego.dto.empresa.videojuego.EditarPortadaVideojuegoRequestDTO;
+import com.api_videojuego.dto.empresa.videojuego.EditarVideojuegoRequestDTO;
 import com.api_videojuego.dto.empresa.videojuego.VideojuegoRequestDTO;
 import com.api_videojuego.excepciones.AvatarExcepcion;
 import com.api_videojuego.excepciones.DatoYaExiste;
@@ -22,6 +22,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -95,7 +96,8 @@ public class GestionVideojuegosResource {
 	@Path("/editar-videojuego")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response editarVideojuego(EditarVideojuegoDTO editarVideojuegoDTO) {
+	public Response editarVideojuego(
+			EditarVideojuegoRequestDTO editarVideojuegoDTO) {
 		GestionarVideojuegoService service = new GestionarVideojuegoService();
 
 		try {
@@ -120,7 +122,7 @@ public class GestionVideojuegosResource {
 	@PUT
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response editarPortadaVideojuego(
-			@BeanParam EditarPortadaVideojuegoDTO editarPortadaDTO) {
+			@BeanParam EditarPortadaVideojuegoRequestDTO editarPortadaDTO) {
 		GestionarVideojuegoService service = new GestionarVideojuegoService();
 		try {
 			service.cambiarPortadaVideojuego(editarPortadaDTO);
@@ -166,6 +168,27 @@ public class GestionVideojuegosResource {
 		} catch (ErrorConsultaDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
 					"{\"error\": \"Error en la base de datos: " + e.getMessage() + "\"}")
+					.header("Content-Type", "application/json").build();
+		}
+	}
+
+	@Path("/obtener-videojuego/{idVideojuego}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response obtenerVideojuego(
+			@PathParam("idVideojuego") String idVideojuego) {
+		GestionarVideojuegoService service = new GestionarVideojuegoService();
+		try {
+			return Response.status(Response.Status.OK)
+					.entity(service.obtenerDatosVideojuego(idVideojuego))
+					.header("Content-Type", "application/json").build();
+		} catch (DatosInvalidos e) {
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("{\"error\": \"" + e.getMessage() + "\"}")
+					.header("Content-Type", "application/json").build();
+		} catch (ErrorConsultaDB e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity("{\"error\": \"" + e.getMessage() + "\"}")
 					.header("Content-Type", "application/json").build();
 		}
 	}

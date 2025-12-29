@@ -1,4 +1,4 @@
-export interface EditarVideojuegoDto {
+export interface EditarVideojuegoRequestDto {
   idVideojuego: number;
   titulo: string;
   descripcion: string;

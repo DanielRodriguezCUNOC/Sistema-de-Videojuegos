@@ -1,5 +1,6 @@
 package com.api_videojuego.dto.administrador.categoria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaCategoriaDTO {
@@ -7,6 +8,7 @@ public class ListaCategoriaDTO {
 	private List<CategoriaResponseDTO> categorias;
 
 	public ListaCategoriaDTO() {
+		this.categorias = new ArrayList<>();
 	}
 
 	public ListaCategoriaDTO(List<CategoriaResponseDTO> categorias) {

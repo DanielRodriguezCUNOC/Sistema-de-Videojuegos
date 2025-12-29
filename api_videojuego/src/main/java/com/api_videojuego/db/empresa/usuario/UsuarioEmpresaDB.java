@@ -39,7 +39,7 @@ public class UsuarioEmpresaDB {
 
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-		String query = "SELECT ue.nombre_completo e.nombre_empresa "
+		String query = "SELECT ue.nombre_completo, e.nombre_empresa "
 				+ "FROM usuario_empresa AS ue "
 				+ "JOIN empresa_desarrolladora AS e ON ue.id_empresa = e.id_empresa "
 				+ "WHERE ue.id_usuario = ?";
