@@ -27,8 +27,9 @@ export class SolicitudVideojuegoComponent implements OnInit {
 
   cargarSolicitudes(): void {
     this.solicitudService.obtenerSolicitudes().subscribe({
-      next: (data: ListaSolicitudVideojuegoDTO) => {
-        this.solicitudes = data.listado;
+      next: (data: SolicitudVideojuegoResponseDTO[]) => {
+        this.solicitudes = data;
+        console.log('Solicitudes cargadas:', this.solicitudes.length);
       },
       error: (error) => {
         this.mostrarPopup(
@@ -43,10 +44,12 @@ export class SolicitudVideojuegoComponent implements OnInit {
   aprobarSolicitud(idSolicitud: number, idVideojuego: number, nombreCategoria: string): void {
     const data: SolicitudVideojuegoRequestDTO = {
       idSolicitud: idSolicitud,
-      estado: 'aprobada',
+      estado: 'aprobado',
       idVideojuego: idVideojuego,
       categoria: nombreCategoria,
     };
+
+    console.log('Datos para aprobar solicitud:', data);
 
     this.solicitudService.gestionarSolicitud(data).subscribe({
       next: () => {
@@ -63,7 +66,7 @@ export class SolicitudVideojuegoComponent implements OnInit {
   rechazarSolicitud(idSolicitud: number, idVideojuego: number, nombreCategoria: string): void {
     const data: SolicitudVideojuegoRequestDTO = {
       idSolicitud: idSolicitud,
-      estado: 'rechazada',
+      estado: 'rechazado',
       idVideojuego: idVideojuego,
       categoria: nombreCategoria,
     };

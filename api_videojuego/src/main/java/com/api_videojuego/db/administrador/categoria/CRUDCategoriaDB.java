@@ -134,4 +134,27 @@ public class CRUDCategoriaDB {
 		}
 	}
 
+	public Integer obtenerIdPorNombre(String categoria, Connection conn)
+			throws ErrorConsultaDB {
+
+		String query = "SELECT id_categoria FROM categoria WHERE categoria = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query);) {
+			ps.setString(1, categoria);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("id_categoria");
+			}
+			else {
+				throw new ErrorConsultaDB("La categoría '" + categoria
+						+ "' no existe en la tabla categoria.");
+			}
+
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB(
+					"Error al consultar la categoria en la base de datos"
+							+ e.getMessage());
+		}
+	}
+
 }

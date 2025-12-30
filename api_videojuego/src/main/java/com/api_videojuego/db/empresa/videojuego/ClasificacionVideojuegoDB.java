@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
@@ -76,10 +75,8 @@ public class ClasificacionVideojuegoDB {
 		}
 	}
 
-	public void eliminarRegistro(Integer idVideojuego)
+	public void eliminarRegistro(Integer idVideojuego, Connection conn)
 			throws ErrorEliminarRegistro {
-
-		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "DELETE FROM clasificacion_videojuego WHERE id_videojuego = ?";
 
@@ -91,7 +88,8 @@ public class ClasificacionVideojuegoDB {
 
 		} catch (SQLException e) {
 			throw new ErrorEliminarRegistro(
-					"Error al eliminar las clasificaciones del videojuego con ID");
+					"Error al eliminar las clasificaciones del videojuego con ID"
+							+ idVideojuego + ": " + e.getMessage());
 		}
 	}
 

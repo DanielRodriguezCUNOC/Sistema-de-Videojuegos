@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 
@@ -36,9 +35,8 @@ public class VideojuegoDesarrolladoraDB {
 		}
 	}
 
-	public void eliminarRegistro(Integer idVideojuego)
+	public void eliminarRegistro(Integer idVideojuego, Connection conn)
 			throws ErrorEliminarRegistro {
-		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "DELETE FROM videojuego_desarrolladora WHERE id_videojuego = ?";
 

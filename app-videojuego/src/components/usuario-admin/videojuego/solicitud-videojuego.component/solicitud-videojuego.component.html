@@ -19,7 +19,13 @@
     <div class="table-container">
       <div class="table-header">
         <h2>Lista de Solicitudes</h2>
-        <span class="total-count">Total: {{ solicitudes.length || 0 }}</span>
+        @if(solicitudes){
+
+        <span class="total-count">Total: {{ solicitudes.length }}</span>
+        }@else {
+
+        <span class="total-count">Total: 0</span>
+        }
       </div>
 
       @if(solicitudes && solicitudes.length > 0) {

@@ -4,6 +4,7 @@ import { SharePopupComponent } from '../../../../shared/share-popup.component/sh
 import { VideojuegoGestionRequestDto } from '../../../../models/dtos/empresa/videojuego/videojuego-gestion-request-dto';
 import { editarEstadoVideojuegoDto } from '../../../../models/dtos/empresa/videojuego/editar-estado-videojuego-dto';
 import { GestionVideojuegosService } from '../../../../services/empresa/videojuego/gestion-videojuegos.service';
+import { MasterLoginService } from '../../../../services/login/masterlogin.service';
 
 @Component({
   selector: 'app-getionar-catalogo-videojuegos.component',
@@ -17,14 +18,20 @@ export class GetionarCatalogoVideojuegosComponent implements OnInit {
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
 
-  constructor(private router: Router, private gestionService: GestionVideojuegosService) {}
+  constructor(
+    private router: Router,
+    private gestionService: GestionVideojuegosService,
+    private master: MasterLoginService
+  ) {}
 
   ngOnInit(): void {
     this.cargarVideojuegos();
   }
 
   cargarVideojuegos(): void {
-    this.gestionService.obtenerCatalogoVideojuegos().subscribe({
+    const idUsuario = this.master.getUserId();
+
+    this.gestionService.obtenerCatalogoVideojuegos(idUsuario).subscribe({
       next: (videojuegos) => {
         this.videojuegos = videojuegos.videojuegos;
       },

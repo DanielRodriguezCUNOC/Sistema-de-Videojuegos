@@ -20,8 +20,8 @@ export class GestionVideojuegosService {
 
   constructor(private http: HttpClient, private masterLoginService: MasterLoginService) {}
 
-  obtenerCatalogoVideojuegos() {
-    return this.http.get<ListaVideojuegosDto>(`${this.apiUrl}/catalogo`);
+  obtenerCatalogoVideojuegos(idUsuario: number | null): Observable<ListaVideojuegosDto> {
+    return this.http.get<ListaVideojuegosDto>(`${this.apiUrl}/catalogo/${idUsuario}`);
   }
 
   crearVideojuego(datosVideojuego: VideojuegoRequestDto): Observable<any> {
