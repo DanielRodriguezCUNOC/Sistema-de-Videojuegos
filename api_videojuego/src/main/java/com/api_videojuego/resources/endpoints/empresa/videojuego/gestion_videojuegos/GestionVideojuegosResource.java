@@ -156,14 +156,15 @@ public class GestionVideojuegosResource {
 
 	}
 
-	@Path("/catalogo")
+	@Path("/catalogo/{idUsuario}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response obtenerVideojuegos() {
+	public Response obtenerVideojuegos(
+			@PathParam("idUsuario") Integer idUsuario) {
 		GestionarVideojuegoService service = new GestionarVideojuegoService();
 		try {
 			return Response.status(Response.Status.OK)
-					.entity(service.obtenerVideojuegos())
+					.entity(service.obtenerVideojuegos(idUsuario))
 					.header("Content-Type", "application/json").build();
 		} catch (ErrorConsultaDB e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(

@@ -3,6 +3,7 @@ package com.api_videojuego.services.empresa.videojuego;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.api_videojuego.db.empresa.usuario.UsuarioEmpresaDB;
 import com.api_videojuego.db.empresa.videojuego.GestionVideojuegoDB;
 import com.api_videojuego.dto.empresa.videojuego.EditarEstadoVideojuegoDTO;
 import com.api_videojuego.dto.empresa.videojuego.EditarPortadaVideojuegoRequestDTO;
@@ -89,8 +90,14 @@ public class GestionarVideojuegoService {
 
 	}
 
-	public ListaVideojuegosDTO obtenerVideojuegos() throws ErrorConsultaDB {
-		return gestionVideojuegoDB.obtenerListaVideojuegos();
+	public ListaVideojuegosDTO obtenerVideojuegos(Integer idUsuarioEmpresa)
+			throws ErrorConsultaDB {
+
+		UsuarioEmpresaDB usuarioEmpresaDB = new UsuarioEmpresaDB();
+		Integer idEmpresa = usuarioEmpresaDB
+				.obtenerIdEmpresaPorIdUsuario(idUsuarioEmpresa);
+
+		return gestionVideojuegoDB.obtenerListaVideojuegos(idEmpresa);
 	}
 
 	public EditarVideojuegoResponseDTO obtenerDatosVideojuego(String idVideojuego)

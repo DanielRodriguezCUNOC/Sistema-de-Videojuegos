@@ -79,7 +79,7 @@
             type="button"
             class="btn-add-categoria"
             (click)="agregarCategoria()"
-            [disabled]="!nuevoVideojuego.get('nuevaCategoria')?.value.trim()"
+            [disabled]="!nuevoVideojuego.get('nuevaCategoria')?.value?.trim()"
           >
             Agregar
           </button>

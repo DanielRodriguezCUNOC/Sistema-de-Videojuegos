@@ -17,7 +17,8 @@ public class ImagenVideojuegoDB {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new ErrorEliminarRegistro(
-					"No se pudieron eliminar las imágenes del videojuego");
+					"No se pudieron eliminar las imágenes del videojuego"
+							+ e.getMessage());
 
 		}
 	}

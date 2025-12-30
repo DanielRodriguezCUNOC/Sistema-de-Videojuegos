@@ -1,1 +1,126 @@
-<p>solicitud-videojuego.component works!</p>
+<div class="dashboard">
+  <div class="topbar">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="page-title">Solicitudes de Videojuegos</h1>
+    <div class="filter-section">
+      <select class="filter-select">
+        <option value="all">Todas las solicitudes</option>
+        <option value="pendiente">Pendientes</option>
+        <option value="aprobada">Aprobadas</option>
+        <option value="rechazada">Rechazadas</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="table-container">
+      <div class="table-header">
+        <h2>Lista de Solicitudes</h2>
+        @if(solicitudes){
+
+        <span class="total-count">Total: {{ solicitudes.length }}</span>
+        }@else {
+
+        <span class="total-count">Total: 0</span>
+        }
+      </div>
+
+      @if(solicitudes && solicitudes.length > 0) {
+
+      <div class="table-wrapper">
+        <table class="requests-table">
+          <thead>
+            <tr>
+              <th>ID Solicitud</th>
+              <th>ID Videojuego</th>
+              <th>Nombre Videojuego</th>
+              <th>Categoría</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(solicitud of solicitudes; track solicitud.idSolicitud) {
+            <tr class="table-row">
+              <td class="id-cell">{{ solicitud.idSolicitud }}</td>
+              <td class="game-id-cell">{{ solicitud.idVideojuego }}</td>
+              <td class="name-cell">{{ solicitud.nombreVideojuego }}</td>
+              <td class="category-cell">
+                <span class="category-badge">{{ solicitud.nombreCategoria }}</span>
+              </td>
+              <td class="status-cell">
+                <span
+                  class="status-badge"
+                  [class.status-pending]="solicitud.estadoSolicitud === 'pendiente'"
+                  [class.status-approved]="solicitud.estadoSolicitud === 'aprobada'"
+                  [class.status-rejected]="solicitud.estadoSolicitud === 'rechazada'"
+                >
+                  {{ solicitud.estadoSolicitud }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                @if(solicitud.estadoSolicitud === 'pendiente') {
+                <button
+                  class="action-btn approve-btn"
+                  (click)="
+                    aprobarSolicitud(
+                      solicitud.idSolicitud,
+                      solicitud.idVideojuego,
+                      solicitud.nombreCategoria
+                    )
+                  "
+                  title="Aprobar solicitud"
+                >
+                  <i class="fas fa-check"></i>
+                  Aprobar
+                </button>
+                <button
+                  class="action-btn reject-btn"
+                  (click)="
+                    rechazarSolicitud(
+                      solicitud.idSolicitud,
+                      solicitud.idVideojuego,
+                      solicitud.nombreCategoria
+                    )
+                  "
+                  title="Rechazar solicitud"
+                >
+                  <i class="fas fa-times"></i>
+                  Rechazar
+                </button>
+                } @else {
+                <span class="processed-text">
+                  <i class="fas fa-info-circle"></i>
+                  Ya procesada
+                </span>
+                }
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }@else{
+      <div class="no-data">
+        <i class="fas fa-gamepad"></i>
+        <h3>No hay solicitudes de videojuegos</h3>
+        <p>No se han encontrado solicitudes para revisar</p>
+        <button class="refresh-btn" (click)="cargarSolicitudes()">
+          <i class="fas fa-refresh"></i>
+          Actualizar
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

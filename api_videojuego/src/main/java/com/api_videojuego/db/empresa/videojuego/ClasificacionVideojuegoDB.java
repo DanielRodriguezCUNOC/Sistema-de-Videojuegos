@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.api_videojuego.db.connection.DBConnectionSingleton;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
@@ -42,56 +41,42 @@ public class ClasificacionVideojuegoDB {
 		String query = "INSERT INTO clasificacion_videojuego (id_clasificacion, id_videojuego) VALUES (?, ?)";
 
 		try {
-			conn.setAutoCommit(false);
-
 			Integer idClasificacion;
 			try {
 				idClasificacion = obtenerIdClasificacionPorNombre(clasificacion, conn);
 			} catch (ErrorConsultaDB e) {
-				conn.rollback();
+				System.out.println(
+						"Error al obtener el ID de la clasificación: " + e.getMessage());
 				throw new ErrorInsertarDB(
 						"No se pudo obtener el ID de la clasificación: " + e.getMessage());
 			}
 
 			try (PreparedStatement stmt = conn.prepareStatement(query)) {
-
 				stmt.setInt(1, idClasificacion);
 				stmt.setInt(2, idVideojuego);
 
 				int filasInsertadas = stmt.executeUpdate();
 
 				if (filasInsertadas > 0) {
-					conn.commit();
 					return idClasificacion;
 				}
 				else {
-					conn.rollback();
+					System.out
+							.println("No se pudo registrar la clasificación del videojuego.");
 					throw new ErrorInsertarDB(
 							"No se pudo registrar la clasificación del videojuego.");
 				}
-
 			}
 
 		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException ex) {
-			}
 			throw new ErrorInsertarDB(
 					"Error al registrar la clasificación del videojuego: "
 							+ e.getMessage());
-		} finally {
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e) {
-			}
 		}
 	}
 
-	public void eliminarRegistro(Integer idVideojuego)
+	public void eliminarRegistro(Integer idVideojuego, Connection conn)
 			throws ErrorEliminarRegistro {
-
-		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "DELETE FROM clasificacion_videojuego WHERE id_videojuego = ?";
 
@@ -103,7 +88,8 @@ public class ClasificacionVideojuegoDB {
 
 		} catch (SQLException e) {
 			throw new ErrorEliminarRegistro(
-					"Error al eliminar las clasificaciones del videojuego con ID");
+					"Error al eliminar las clasificaciones del videojuego con ID"
+							+ idVideojuego + ": " + e.getMessage());
 		}
 	}
 

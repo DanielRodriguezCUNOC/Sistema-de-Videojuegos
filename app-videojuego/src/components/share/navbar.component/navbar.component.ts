@@ -9,14 +9,5 @@ import { MasterLoginService } from '../../../services/login/masterlogin.service'
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  router = inject(Router);
-  isLoggedIn = false;
-
-  constructor(private masterLoginService: MasterLoginService) {
-    this.readDataLoggedIn();
-  }
-
-  readDataLoggedIn() {
-    this.isLoggedIn = this.masterLoginService.isLoggedIn();
-  }
+  constructor() {}
 }

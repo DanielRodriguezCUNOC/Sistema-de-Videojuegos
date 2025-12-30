@@ -20,8 +20,8 @@ export class GestionVideojuegosService {
 
   constructor(private http: HttpClient, private masterLoginService: MasterLoginService) {}
 
-  obtenerCatalogoVideojuegos() {
-    return this.http.get<ListaVideojuegosDto>(`${this.apiUrl}/catalogo`);
+  obtenerCatalogoVideojuegos(idUsuario: number | null): Observable<ListaVideojuegosDto> {
+    return this.http.get<ListaVideojuegosDto>(`${this.apiUrl}/catalogo/${idUsuario}`);
   }
 
   crearVideojuego(datosVideojuego: VideojuegoRequestDto): Observable<any> {
@@ -50,7 +50,7 @@ export class GestionVideojuegosService {
   }
 
   cambiarVisibilidadVideojuego(data: editarEstadoVideojuegoDto) {
-    const url = `${this.apiUrl}/cambiar-visibilidad`;
+    const url = `${this.apiUrl}/cambiar-estado`;
     return this.http.put(url, data);
   }
 
@@ -64,20 +64,10 @@ export class GestionVideojuegosService {
     return this.http.put(url, formData);
   }
 
-  editarVideojuego(
-    idVideojuego: string,
-    datosVideojuego: EditarVideojuegoRequestDto
-  ): Observable<any> {
-    const url = `${this.apiUrl}/editar-videojuego/${idVideojuego}`;
-    const formData = new FormData();
+  editarVideojuego(datosVideojuego: EditarVideojuegoRequestDto): Observable<any> {
+    const url = `${this.apiUrl}/editar-videojuego`;
 
-    formData.append('titulo', datosVideojuego.titulo);
-    formData.append('descripcion', datosVideojuego.descripcion);
-
-    formData.append('precio', datosVideojuego.precio.toString());
-    formData.append('recursosMinimos', datosVideojuego.recurosMinimos);
-
-    return this.http.put(url, formData);
+    return this.http.put(url, datosVideojuego);
   }
 
   obtenerVideojuegoPorId(idVideojuego: string): Observable<EditarVideojuegoResponseDto> {

@@ -81,14 +81,18 @@ public class GestionVideojuegoDB {
 
 	}
 
-	public ListaVideojuegosDTO obtenerListaVideojuegos() throws ErrorConsultaDB {
+	public ListaVideojuegosDTO obtenerListaVideojuegos(Integer idEmpresa)
+			throws ErrorConsultaDB {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-		String query = "SELECT id_videojuego, titulo, estado FROM videojuego";
+		String query = "SELECT v.id_videojuego, v.titulo, v.estado FROM videojuego v"
+				+ " JOIN videojuego_desarrolladora vd ON v.id_videojuego = vd.id_videojuego"
+				+ " WHERE vd.id_empresa = ?";
 
 		ListaVideojuegosDTO listaVideojuegosDTO = new ListaVideojuegosDTO();
 
 		try (PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setInt(1, idEmpresa);
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -102,7 +106,8 @@ public class GestionVideojuegoDB {
 			return listaVideojuegosDTO;
 
 		} catch (SQLException e) {
-			throw new ErrorConsultaDB("Error al obtener la lista de videojuegos");
+			throw new ErrorConsultaDB(
+					"Error al obtener la lista de videojuegos" + e.getMessage());
 		}
 	}
 

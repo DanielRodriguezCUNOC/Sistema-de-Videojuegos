@@ -66,7 +66,7 @@ export class CrearVideojuegoComponent implements OnInit {
     }
 
     this.categoriasSeleccionadas.push(categoria);
-    this.nuevaCategoria = '';
+    this.nuevoVideojuego.get('nuevaCategoria')?.setValue('');
   }
 
   //* Eliminar categoria */
@@ -92,7 +92,8 @@ export class CrearVideojuegoComponent implements OnInit {
       this.crearVideojuegoService.crearVideojuego(datosVideojuego).subscribe({
         next: (response) => {
           this.mostrarPopup('Videojuego registrado correctamente', 'success');
-          this.resetFormularioInterno();
+
+          this.regresar();
         },
         error: (error) => {
           const mensaje = error.error?.mensaje || 'Error al registrar el videojuego';
@@ -121,11 +122,6 @@ export class CrearVideojuegoComponent implements OnInit {
     if (fileInput) {
       fileInput.value = '';
     }
-  }
-
-  //* Resetear formulario privado - para uso interno */
-  private resetFormularioInterno(): void {
-    this.resetFormulario();
   }
 
   regresar(): void {

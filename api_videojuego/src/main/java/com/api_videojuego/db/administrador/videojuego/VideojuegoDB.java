@@ -9,21 +9,22 @@ import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 
 public class VideojuegoDB {
 
-	public void cambiarEstadoVideojuego(Integer idVideojuego, int estado,
+	public void cambiarEstadoVideojuego(Integer idVideojuego, boolean estado,
 			Connection conn) throws ErrorActualizarRegistro {
 
 		String query = "UPDATE videojuego SET estado = ? WHERE id_videojuego = ?";
 
 		try (PreparedStatement ps = conn.prepareStatement(query)) {
 
-			ps.setInt(1, estado);
+			ps.setBoolean(1, estado);
 			ps.setInt(2, idVideojuego);
 
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			throw new ErrorActualizarRegistro(
-					"Error al cambiar el estado del videojuego");
+					"Error al cambiar el estado del videojuego desde la tabla videojuego."
+							+ e.getMessage());
 		}
 
 	}
@@ -38,7 +39,9 @@ public class VideojuegoDB {
 		} catch (
 
 		SQLException e) {
-			throw new ErrorEliminarRegistro("Error al eliminar el videojuego");
+			throw new ErrorEliminarRegistro(
+					"Error al eliminar el videojuego de la tabla videojuego."
+							+ e.getMessage());
 		}
 	}
 }

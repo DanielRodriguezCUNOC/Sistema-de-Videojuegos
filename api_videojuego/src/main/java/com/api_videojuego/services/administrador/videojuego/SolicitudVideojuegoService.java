@@ -20,13 +20,14 @@ public class SolicitudVideojuegoService {
 			throws ErrorInsertarDB, ErrorEliminarRegistro, ErrorConsultaDB {
 
 		try {
-			if (solicitudDTO.getEstado().equals("aceptado")) {
+			if (solicitudDTO.getEstado().equals("aprobado")) {
 				solicitudCategoriaDB.aceptarSolicitudCategoria(solicitudDTO);
 				return;
 			}
 			else if (solicitudDTO.getEstado().equals("rechazado")) {
 				solicitudCategoriaDB.eliminarRegistro(solicitudDTO.getIdSolicitud());
 			}
+
 			int solicitudesRestantes = solicitudCategoriaDB
 					.solicitudesRestantesPorVideojuego(solicitudDTO.getIdVideojuego());
 

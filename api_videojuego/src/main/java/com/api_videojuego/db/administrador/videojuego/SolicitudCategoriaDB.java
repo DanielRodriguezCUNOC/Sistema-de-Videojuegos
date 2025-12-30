@@ -13,7 +13,6 @@ import com.api_videojuego.db.empresa.videojuego.ClasificacionVideojuegoDB;
 import com.api_videojuego.db.empresa.videojuego.VideojuegoDesarrolladoraDB;
 import com.api_videojuego.dto.administrador.videojuego.ListaSolicitudVideojuegoDTO;
 import com.api_videojuego.dto.administrador.videojuego.SolicitudVideojuegoRequestDTO;
-import com.api_videojuego.dto.administrador.videojuego.SolicitudVideojuegoResponseDTO;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
@@ -62,18 +61,18 @@ public class SolicitudCategoriaDB {
 
 			// * Obtener el id de la categoria mediante su nombre/
 			Integer idCategoria = crudCategoriaDB
-					.obtenerIdCategoriaPorNombre(solicitudDTO.getCategoria());
+					.obtenerIdPorNombre(solicitudDTO.getCategoria(), conn);
 
 			// * Agregar el registro en la tabla categoria_videojuego */
-			categoriaVideojuegoDB.agregarRegistro(idCategoria,
-					solicitudDTO.getIdVideojuego());
+			categoriaVideojuegoDB.nuevoRegistro(idCategoria,
+					solicitudDTO.getIdVideojuego(), conn);
 
 			// * Cambiar el estado del videojuego a 'activo' */
-			videojuegoDB.cambiarEstadoVideojuego(solicitudDTO.getIdVideojuego(), 1,
+			videojuegoDB.cambiarEstadoVideojuego(solicitudDTO.getIdVideojuego(), true,
 					conn);
 
 			// * Eliminar el registro de la solicitud */
-			eliminarRegistro(solicitudDTO.getIdSolicitud());
+			borrarRegistro(solicitudDTO.getIdSolicitud(), conn);
 
 			// * Confirmar la transacción */
 			conn.commit();
@@ -84,7 +83,7 @@ public class SolicitudCategoriaDB {
 			} catch (SQLException ex) {
 			}
 			throw new ErrorInsertarDB(
-					"No se pudo aceptar la solicitud de categoría.");
+					"No se pudo aceptar la solicitud de categoría." + e.getMessage());
 		} finally {
 			try {
 				conn.setAutoCommit(true);
@@ -98,14 +97,29 @@ public class SolicitudCategoriaDB {
 			throws ErrorEliminarRegistro {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
-		String query = "DELETE FROM solicitud_categoria WHERE id_solicitud = ?";
+		String query = "DELETE FROM solicitud_categoria WHERE id = ?";
 
 		try (PreparedStatement ps = conn.prepareStatement(query)) {
 			ps.setInt(1, idSolicitud);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new ErrorEliminarRegistro(
-					"No se pudo eliminar el registro de la base de datos.");
+					"No se pudo eliminar el registro en la tabla solicitud_categoria.");
+		}
+	}
+
+	private void borrarRegistro(Integer idSolicitud, Connection conn)
+			throws ErrorEliminarRegistro {
+
+		String query = "DELETE FROM solicitud_categoria WHERE id = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setInt(1, idSolicitud);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new ErrorEliminarRegistro(
+					"No se pudo eliminar el registro en la tabla solicitud_categoria."
+							+ e.getMessage());
 		}
 	}
 
@@ -124,14 +138,13 @@ public class SolicitudCategoriaDB {
 
 			// * Eliminar registros de videojuego_desarrolladora */
 			videojuegoDesarrolladoraDB
-					.eliminarRegistro(solicitudDTO.getIdVideojuego());
+					.eliminarRegistro(solicitudDTO.getIdVideojuego(), conn);
 
 			// * Eliminar registros de clasificacion_videojuego */
-			clasificacionVideojuegoDB
-					.eliminarRegistro(solicitudDTO.getIdVideojuego());
+			clasificacionVideojuegoDB.eliminarRegistro(solicitudDTO.getIdVideojuego(),
+					conn);
 
 			// * Eliminar imágenes del videojuego
-
 			imagenVideojuegoDB
 					.eliminarImagenesVideojuego(solicitudDTO.getIdVideojuego(), conn);
 
@@ -147,7 +160,7 @@ public class SolicitudCategoriaDB {
 			} catch (SQLException ex) {
 			}
 			throw new ErrorEliminarRegistro(
-					"No se pudo rechazar la solicitud de categoría");
+					"No se pudo rechazar la solicitud de categoría" + e.getMessage());
 		} finally {
 			try {
 				conn.setAutoCommit(true);
@@ -205,12 +218,10 @@ public class SolicitudCategoriaDB {
 
 	public ListaSolicitudVideojuegoDTO listarSolicitudesVideojuego()
 			throws ErrorConsultaDB {
-		String query = "SELECT sc.id_solicitud, sc.id_videojuego, v.titulo AS titulo_videojuego, "
-				+ "sc.categoria, sc.estado, u.id_usuario, u.nombre_usuario "
-				+ "FROM solicitud_categoria sc "
+		String query = "SELECT sc.id AS id, sc.id_videojuego, v.titulo AS titulo_videojuego, "
+				+ "sc.categoria, sc.estado " + "FROM solicitud_categoria sc "
 				+ "JOIN videojuego v ON sc.id_videojuego = v.id_videojuego "
-				+ "JOIN usuario u ON sc.id_usuario = u.id_usuario "
-				+ "ORDER BY sc.id_solicitud";
+				+ "ORDER BY sc.id_videojuego DESC";
 
 		ListaSolicitudVideojuegoDTO listaSolicitudes = new ListaSolicitudVideojuegoDTO();
 
@@ -218,15 +229,11 @@ public class SolicitudCategoriaDB {
 				PreparedStatement ps = conn.prepareStatement(query);
 				ResultSet rs = ps.executeQuery()) {
 
-			while (rs.next()) {
-				SolicitudVideojuegoResponseDTO solicitudDTO = new SolicitudVideojuegoResponseDTO();
-				solicitudDTO.setIdSolicitud(rs.getInt("id_solicitud"));
-				solicitudDTO.setIdVideojuego(rs.getInt("id_videojuego"));
-				solicitudDTO.setNombreVideojuego(rs.getString("titulo_videojuego"));
-				solicitudDTO.setNombreCategoria(rs.getString("categoria"));
-				solicitudDTO.setEstadoSolicitud(rs.getString("estado"));
+			System.out.println("Ejecutando consulta: " + query);
 
-				listaSolicitudes.agregarSolicitud(rs.getInt("id_solicitud"),
+			while (rs.next()) {
+
+				listaSolicitudes.agregarSolicitud(rs.getInt("id"),
 						rs.getInt("id_videojuego"), rs.getString("titulo_videojuego"),
 						rs.getString("categoria"), rs.getString("estado"));
 			}
@@ -234,10 +241,10 @@ public class SolicitudCategoriaDB {
 			return listaSolicitudes;
 
 		} catch (SQLException e) {
-			throw new ErrorConsultaDB(
-					"Error al listar las solicitudes de videojuegos.");
-		}
 
+			throw new ErrorConsultaDB(
+					"Error al listar las solicitudes de videojuegos: " + e.getMessage());
+		}
 	}
 
 }

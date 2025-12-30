@@ -17,11 +17,7 @@ export class CrearComisionEspecificaComponent implements OnInit {
   popupMostrar = false;
   isLoading = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router
-  ) // private comisionService: ComisionService // Uncomment when service is available
-  {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.comisionForm = this.formBuilder.group({
       nombreEmpresa: [
         '',
