@@ -1,4 +1,4 @@
-export interface DatosVideojuegoResponseDTO {
+export interface PerfilVideojuegoResponseDTO {
   titulo: string;
   categorias: string[];
   clasificacion: string;

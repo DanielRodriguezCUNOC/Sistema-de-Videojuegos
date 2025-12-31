@@ -1,0 +1,72 @@
+@if(perfilVideojuego) {
+<main class="perfil-main">
+  <div class="regresar-contenedor">
+    <button class="btn-regresar" (click)="regresar()" aria-label="Regresar">← Regresar</button>
+  </div>
+
+  <section class="perfil-header">
+    <div class="header-imagen">
+      <img
+        [src]="obtenerImagenBase64(perfilVideojuego.imagenPortada)"
+        [alt]="perfilVideojuego.titulo"
+        class="imagen-portada"
+      />
+      <div class="precio-overlay">
+        <span class="precio-valor">${{ perfilVideojuego.precio }}</span>
+      </div>
+    </div>
+
+    <div class="header-info">
+      <h1 class="titulo-juego">{{ perfilVideojuego.titulo }}</h1>
+
+      <div class="clasificacion-contenedor">
+        <span class="clasificacion-badge">{{ perfilVideojuego.clasificacion }}</span>
+      </div>
+
+      <div class="categorias-contenedor">
+        <h3>Categorías:</h3>
+        <div class="categorias-lista">
+          @for(categoria of perfilVideojuego.categorias; track categoria) {
+          <span class="categoria-tag">{{ categoria }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="perfil-seccion">
+    <h2 class="seccion-titulo">Descripción</h2>
+    <div class="seccion-contenido">
+      <p class="descripcion-texto">{{ perfilVideojuego.descripcion }}</p>
+    </div>
+  </section>
+
+  <section class="perfil-seccion">
+    <h2 class="seccion-titulo">Requisitos Mínimos</h2>
+    <div class="seccion-contenido">
+      <div class="requisitos-contenedor">
+        <p class="requisitos-texto">{{ perfilVideojuego.recursosMinimos }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="perfil-acciones">
+    <button class="btn-comprar">Comprar Ahora</button>
+    <button class="btn-carrito">Agregar al Carrito</button>
+  </section>
+</main>
+
+}@else {
+<div class="cargando">
+  <div class="cargando-contenido">
+    <h2>Cargando información del videojuego...</h2>
+    <div class="spinner"></div>
+  </div>
+</div>
+}
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarPopup)="popupMostrar = false"
+></app-share-popup>

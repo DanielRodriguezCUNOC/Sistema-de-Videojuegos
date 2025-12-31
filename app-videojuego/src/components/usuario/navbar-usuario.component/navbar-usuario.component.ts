@@ -13,6 +13,7 @@ import { RedireccionarService } from '../../../services/login/redireccionar.serv
 import { UsuarioResponseService } from '../../../services/user/usuario-response.service';
 import { UsuarioGamerResponseDTO } from '../../../models/dtos/usuario/response/usuario-gamer-response-dto';
 import { Subscription } from 'rxjs';
+import { ConvertirImagen } from '../../../utils/convertir-imagen';
 
 @Component({
   selector: 'app-navbar-usuario',
@@ -21,6 +22,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './navbar-usuario.component.scss',
 })
 export class NavbarUsuarioComponent implements OnInit, OnDestroy {
+  private convertirImagen: ConvertirImagen = new ConvertirImagen();
   avatarUrl: string = '';
   nickname = '';
 
@@ -53,7 +55,7 @@ export class NavbarUsuarioComponent implements OnInit, OnDestroy {
     this.usuarioResponseService.obtenerUsuarioGamerResponse(userId).subscribe({
       next: (usuario: UsuarioGamerResponseDTO) => {
         this.nickname = usuario.nickname;
-        this.avatarUrl = this.createImageDataUrl(usuario.avatar);
+        this.avatarUrl = this.convertirImagen.createImageDataUrl(usuario.avatar);
         this.cdr.detectChanges();
         this.enviarNickname.emit(this.nickname);
       },
@@ -66,26 +68,6 @@ export class NavbarUsuarioComponent implements OnInit, OnDestroy {
   logout(): void {
     this.masterLoginService.setLogout();
     this.redireccionarService.redirectToHome();
-  }
-
-  /*
-   * Crea una data URL detectando automáticamente si la imagen es PNG o JPEG
-   */
-  private createImageDataUrl(base64Data: string): string {
-    const imageType = this.detectImageType(base64Data);
-    return `data:image/${imageType};base64,${base64Data}`;
-  }
-
-  /*
-   * Detecta el tipo de imagen (png o jpeg) basado en el MIME
-   */
-  private detectImageType(base64Data: string): string {
-    if (base64Data.startsWith('/9j/') || base64Data.startsWith('/9k/')) {
-      return 'jpeg';
-    } else if (base64Data.startsWith('iVBORw0KGgo')) {
-      return 'png';
-    }
-    return 'png';
   }
 
   carteraDigital(): void {

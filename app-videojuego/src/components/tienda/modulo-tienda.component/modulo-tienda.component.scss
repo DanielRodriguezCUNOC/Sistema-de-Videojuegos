@@ -13,7 +13,7 @@
   border-radius: 12px;
   padding: 2rem;
   text-align: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 
   h1 {
     margin: 0 0 0.5rem 0;
@@ -32,7 +32,7 @@
   background: #18222b;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .filtros-container {
     display: flex;
@@ -129,12 +129,12 @@
     background: #18222b;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: transform 0.2s, box-shadow 0.2s;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.20);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
     .videojuego-imagen {
@@ -216,7 +216,7 @@
 
       .videojuego-requisitos {
         margin-bottom: 1.5rem;
-        
+
         small {
           color: #888;
           font-size: 0.8rem;
@@ -228,7 +228,7 @@
         display: flex;
         gap: 1rem;
 
-        .btn-comprar,
+        .btn-ver-videojuego,
         .btn-detalles {
           flex: 1;
           padding: 0.75rem 1rem;
@@ -239,7 +239,7 @@
           transition: background 0.2s;
         }
 
-        .btn-comprar {
+        .btn-ver-videojuego {
           background: #66c0f4;
           color: #fff;
 
@@ -258,6 +258,35 @@
             color: #fff;
           }
         }
+      }
+    }
+  }
+  .cargar-mas-contenedor {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+
+    .btn-cargar-mas {
+      background: transparent;
+      color: #66c0f4;
+      border: 2px solid #66c0f4;
+      border-radius: 8px;
+      padding: 0.75rem 2rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+      min-width: 200px;
+
+      &:hover {
+        background: #66c0f4;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 192, 244, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
       }
     }
   }

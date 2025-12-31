@@ -11,21 +11,21 @@ export class TiendaService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerVideojuegos(offset: number, limite: number) {
+  obtenerVideojuegos(offset: number, limit: number) {
     return this.http.get<DatosVideojuegoTiendaDTO[]>(
-      `${this.apiUrl}/videojuegos?offset=${offset}&limite=${limite}`
+      `${this.apiUrl}/obtener-videojuegos/${offset}/${limit}`
     );
   }
 
-  obtenerVideojuegoPorNombre(nombre: string) {
+  obtenerVideojuegoPorTitulo(titulo: string) {
     return this.http.get<DatosVideojuegoTiendaDTO>(
-      `${this.apiUrl}/videojuegos/buscar?nombre=${nombre}`
+      `${this.apiUrl}/obtener-videojuegos-titulo/${titulo}`
     );
   }
 
   obtenerVideojuegosPorCategoria(categoriaId: number) {
     return this.http.get<DatosVideojuegoTiendaDTO[]>(
-      `${this.apiUrl}/videojuegos/categoria/${categoriaId}`
+      `${this.apiUrl}/obtener-videojuegos-categoria/${categoriaId}`
     );
   }
 }
