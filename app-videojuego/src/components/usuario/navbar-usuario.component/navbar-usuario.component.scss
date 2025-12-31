@@ -1,5 +1,3 @@
-
-
 $bg: #0f1115;
 $bg-soft: #151821;
 $text: #e6e6e6;
@@ -28,28 +26,6 @@ $radius: 10px;
     letter-spacing: 0.4px;
     white-space: nowrap;
     background: linear-gradient(45deg, #ff00cc, #333399); 
-  }
-
-  .nav-busqueda {
-    flex: 1;
-
-    input {
-      width: 100%;
-      background: $bg-soft;
-      border: none;
-      border-radius: $radius;
-      padding: 0.55rem 0.9rem;
-      color: $text;
-      font-size: 0.85rem;
-
-      &::placeholder {
-        color: $text-muted;
-      }
-
-      &:focus {
-        outline: 1px solid rgba($accent, 0.6);
-      }
-    }
   }
 
   .nav-menu {

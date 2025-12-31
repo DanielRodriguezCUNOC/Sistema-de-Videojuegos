@@ -1,0 +1,73 @@
+<div class="dashboard">
+  <div class="topbar">
+    <h1 class="page-title">Recargar Cartera Digital</h1>
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Agregar Fondos a tu Cartera</h2>
+        <p>
+          Saldo actual: <span class="balance-value">Q {{ saldoActual | number : '1.2-2' }}</span>
+        </p>
+      </div>
+
+      <form [formGroup]="recargarForm" (ngSubmit)="onSubmit()" class="recharge-form">
+        <div class="form-group">
+          <label for="monto" class="form-label">
+            Monto a Recargar
+            <span class="required">*</span>
+          </label>
+
+          <div class="input-wrapper">
+            <span class="input-prefix">Q</span>
+            <input
+              type="number"
+              id="monto"
+              formControlName="monto"
+              class="form-input"
+              placeholder="Ingrese el monto"
+              min="1"
+              max="10000"
+              step="0.01"
+            />
+          </div>
+
+        <div class="input-info">
+          <small class="input-hint">
+            <i class="fas fa-info-circle"></i>
+            Monto mínimo: Q1.00 - Máximo: Q10,000.00
+          </small>
+        </div>
+      </div>
+
+      <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="regresar()">
+            <i class="fas fa-times"></i>
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="recargarForm.invalid || isLoading"
+          >
+            <i class="fas fa-wallet"></i>
+            {{ isLoading ? 'Procesando...' : 'Recargar Saldo' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

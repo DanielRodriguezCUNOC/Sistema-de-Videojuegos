@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MasterLoginService } from '../../../services/login/masterlogin.service';
 import { RedireccionarService } from '../../../services/login/redireccionar.service';
@@ -31,6 +31,7 @@ export class NavbarUsuarioComponent implements OnInit, OnDestroy {
     private masterLoginService: MasterLoginService,
     private redireccionarService: RedireccionarService,
     private usuarioResponseService: UsuarioResponseService,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -76,7 +77,7 @@ export class NavbarUsuarioComponent implements OnInit, OnDestroy {
   }
 
   /*
-   * Detecta el tipo de imagen (png o jpeg) basado en la firma del base64
+   * Detecta el tipo de imagen (png o jpeg) basado en el MIME
    */
   private detectImageType(base64Data: string): string {
     if (base64Data.startsWith('/9j/') || base64Data.startsWith('/9k/')) {
@@ -85,6 +86,14 @@ export class NavbarUsuarioComponent implements OnInit, OnDestroy {
       return 'png';
     }
     return 'png';
+  }
+
+  carteraDigital(): void {
+    this.router.navigate(['/user-gamer/cartera-digital']);
+  }
+
+  tiendaVideojuegos(): void {
+    this.router.navigate(['/user-gamer/tienda']);
   }
 
   ngOnDestroy(): void {

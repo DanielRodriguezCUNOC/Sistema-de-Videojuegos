@@ -29,6 +29,9 @@ import { EditarCategoriaComponent } from '../components/usuario-admin/categoria/
 import { EditarPortadaComponent } from '../components/usuario-empresa/gestion/editar-portada.component/editar-portada.component';
 import { EditarVideojuegoComponent } from '../components/usuario-empresa/gestion/editar-videojuego.component/editar-videojuego.component';
 import { SolicitudVideojuegoComponent } from '../components/usuario-admin/videojuego/solicitud-videojuego.component/solicitud-videojuego.component';
+import { CarteraDigitalComponent } from '../components/usuario-gamer/cartera/cartera-digital.component/cartera-digital.component';
+import { RecargarCarteraDigitalComponent } from '../components/usuario-gamer/cartera/recargar-cartera-digital.component/recargar-cartera-digital.component';
+import { ModuloTiendaComponent } from '../components/tienda/modulo-tienda.component/modulo-tienda.component';
 
 export const routes: Routes = [
   {
@@ -79,6 +82,18 @@ export const routes: Routes = [
         path: '',
         redirectTo: 'gamer-module',
         pathMatch: 'full',
+      },
+      {
+        path: 'cartera-digital',
+        component: CarteraDigitalComponent,
+      },
+      {
+        path: 'recargar-cartera/:saldoActual',
+        component: RecargarCarteraDigitalComponent,
+      },
+      {
+        path: 'tienda',
+        component: ModuloTiendaComponent,
       },
     ],
   },
