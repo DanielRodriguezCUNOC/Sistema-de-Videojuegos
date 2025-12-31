@@ -32,6 +32,7 @@ import { SolicitudVideojuegoComponent } from '../components/usuario-admin/videoj
 import { CarteraDigitalComponent } from '../components/usuario-gamer/cartera/cartera-digital.component/cartera-digital.component';
 import { RecargarCarteraDigitalComponent } from '../components/usuario-gamer/cartera/recargar-cartera-digital.component/recargar-cartera-digital.component';
 import { ModuloTiendaComponent } from '../components/tienda/modulo-tienda.component/modulo-tienda.component';
+import { PerfilVideojuegoComponent } from '../components/perfiles/perfil-videojuego.component/perfil-videojuego.component';
 
 export const routes: Routes = [
   {
@@ -209,6 +210,23 @@ export const routes: Routes = [
       {
         path: 'moderar-videojuegos',
         component: SolicitudVideojuegoComponent,
+      },
+    ],
+  },
+  {
+    path: 'perfil',
+    children: [
+      {
+        path: 'videojuego/:idVideojuego',
+        component: PerfilVideojuegoComponent,
+      },
+      {
+        path: 'empresa/:nombreEmpresa',
+        component: CrearEmpresaComponent,
+      },
+      {
+        path: 'usuario/:nickname',
+        component: CrearUsuarioEmpresaComponent,
       },
     ],
   },

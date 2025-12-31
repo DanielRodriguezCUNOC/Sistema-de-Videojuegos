@@ -7,16 +7,17 @@ public class DatosVideojuegoTiendaDTO {
 	private String titulo;
 	private BigDecimal precio;
 	private String imagenPortada;
+	private byte[] imagenPortadaBytes;
 
 	public DatosVideojuegoTiendaDTO() {
 	}
 
 	public DatosVideojuegoTiendaDTO(Integer idVideojuego, String titulo,
-			BigDecimal precio, String imagenPortada) {
+			BigDecimal precio, byte[] imagenPortadaBytes) {
 		this.idVideojuego = idVideojuego;
 		this.titulo = titulo;
 		this.precio = precio;
-		this.imagenPortada = imagenPortada;
+		this.imagenPortadaBytes = imagenPortadaBytes;
 	}
 
 	public Integer getIdVideojuego() {
@@ -33,6 +34,14 @@ public class DatosVideojuegoTiendaDTO {
 
 	public String getImagenPortada() {
 		return imagenPortada;
+	}
+
+	public void setImagenPortada(String imagenPortada) {
+		this.imagenPortada = imagenPortada;
+	}
+
+	public byte[] getImagenPortadaBytes() {
+		return imagenPortadaBytes;
 	}
 
 }

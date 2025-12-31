@@ -1,22 +1,20 @@
 <main class="tienda-main">
-  <!-- Banner de bienvenida -->
   <section class="tienda-banner">
     <h1>¡Explora Nuestros Videojuegos!</h1>
     <p>Descubre los mejores títulos y encuentra tu próximo juego favorito.</p>
   </section>
 
-  <!-- Header de búsqueda y filtros -->
   <section class="tienda-filtros">
     <div class="filtros-container">
       <div class="busqueda-contenedor">
         <input
           type="text"
           [(ngModel)]="textoBusqueda"
-          (keyup.enter)="buscarVideojuegos()"
+          (keyup.enter)="buscarVideojuegoPorTitulo()"
           placeholder="Buscar videojuegos..."
           class="busqueda-input"
         />
-        <button class="busqueda-btn" (click)="buscarVideojuegos()" aria-label="Buscar">
+        <button class="busqueda-btn" (click)="buscarVideojuegoPorTitulo()" aria-label="Buscar">
           Buscar
         </button>
       </div>
@@ -26,7 +24,7 @@
         <select
           id="categoria-select"
           [(ngModel)]="categoriaSeleccionada"
-          (change)="onCategoriaChange()"
+          (change)="buscarVideojuegosPorCategoria()"
           class="categoria-select"
         >
           <option value="0">Todas las categorías</option>
@@ -38,7 +36,6 @@
     </div>
   </section>
 
-  <!-- Grid de videojuegos -->
   <section class="tienda-videojuegos">
     <div class="videojuegos-grid">
       @for(videojuego of videojuegosFiltrados; track videojuego.titulo) {
@@ -58,11 +55,13 @@
           <h3 class="videojuego-titulo">{{ videojuego.titulo }}</h3>
 
           <div class="videojuego-acciones">
-            <button class="btn-comprar">Comprar</button>
-            <button class="btn-detalles">Ver Detalles</button>
+            <button class="btn-ver-videojuego" (click)="irAlVideojuego(videojuego.idVideojuego)">
+              Ver Videojuego
+            </button>
           </div>
         </div>
       </div>
+
       } @empty {
       <div class="sin-resultados">
         <h3>No se encontraron videojuegos</h3>
@@ -70,5 +69,16 @@
       </div>
       }
     </div>
+    @if(hayMasResultados && videojuegosFiltrados.length > 0) {
+    <div class="cargar-mas-contenedor">
+      <button class="btn-cargar-mas" (click)="cargarMasVideojuegos()">Cargar más</button>
+    </div>
+    }
   </section>
 </main>
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarPopup)="popupMostrar = false"
+></app-share-popup>
