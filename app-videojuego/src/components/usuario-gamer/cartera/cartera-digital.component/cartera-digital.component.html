@@ -1,0 +1,29 @@
+<div class="dashboard">
+  <header class="topbar">
+    <div class="user-info">
+      <h2 style="color: #ebeef2; margin: 0">Mi Cartera Digital</h2>
+    </div>
+    <button class="back-btn" (click)="regresar()">Regresar</button>
+  </header>
+
+  <main class="content">
+    <div class="cartera-card">
+      <div class="card-header">
+        <h3>Saldo Disponible</h3>
+        <div class="saldo-display">
+          <span class="currency">Q</span>
+          <span class="amount">{{ saldo | number : '1.2-2' }}</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="description">Este es tu saldo disponible para realizar compras de videojuegos</p>
+
+        <button class="btn-recargar" (click)="recargarSaldo()">
+          <i class="icon">💳</i>
+          Recargar Saldo
+        </button>
+      </div>
+    </div>
+  </main>
+</div>

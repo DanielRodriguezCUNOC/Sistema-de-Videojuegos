@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
+import com.api_videojuego.dto.gamer.cartera.RecargarCarteraRequestDTO;
 import com.api_videojuego.dto.usuario.crear.CrearUsuarioGamerDTO;
 import com.api_videojuego.excepciones.ErrorActualizarRegistro;
 import com.api_videojuego.excepciones.ErrorConsultaDB;
@@ -31,15 +32,15 @@ public class CarteraDigitalDB {
 		}
 	}
 
-	public void agregarSaldo(Integer idUsuario, BigDecimal monto)
+	public void agregarSaldo(RecargarCarteraRequestDTO requestDTO)
 			throws ErrorActualizarRegistro {
 		Connection conn = DBConnectionSingleton.getInstance().getConnection();
 
 		String query = "UPDATE cartera_digital SET saldo = saldo + ? WHERE id_usuario = ?";
 
 		try (PreparedStatement ps = conn.prepareStatement(query)) {
-			ps.setBigDecimal(1, monto);
-			ps.setInt(2, idUsuario);
+			ps.setBigDecimal(1, requestDTO.getMonto());
+			ps.setInt(2, requestDTO.getIdUsuario());
 			int filasActualizadas = ps.executeUpdate();
 
 			if (filasActualizadas == 0) {

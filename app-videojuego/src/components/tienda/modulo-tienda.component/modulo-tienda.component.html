@@ -1,0 +1,74 @@
+<main class="tienda-main">
+  <!-- Banner de bienvenida -->
+  <section class="tienda-banner">
+    <h1>¡Explora Nuestros Videojuegos!</h1>
+    <p>Descubre los mejores títulos y encuentra tu próximo juego favorito.</p>
+  </section>
+
+  <!-- Header de búsqueda y filtros -->
+  <section class="tienda-filtros">
+    <div class="filtros-container">
+      <div class="busqueda-contenedor">
+        <input
+          type="text"
+          [(ngModel)]="textoBusqueda"
+          (keyup.enter)="buscarVideojuegos()"
+          placeholder="Buscar videojuegos..."
+          class="busqueda-input"
+        />
+        <button class="busqueda-btn" (click)="buscarVideojuegos()" aria-label="Buscar">
+          Buscar
+        </button>
+      </div>
+
+      <div class="categoria-contenedor">
+        <label for="categoria-select">Categoría:</label>
+        <select
+          id="categoria-select"
+          [(ngModel)]="categoriaSeleccionada"
+          (change)="onCategoriaChange()"
+          class="categoria-select"
+        >
+          <option value="0">Todas las categorías</option>
+          @for(categoria of categorias; track categoria.idCategoria) {
+          <option [value]="categoria.idCategoria">{{ categoria.categoria }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid de videojuegos -->
+  <section class="tienda-videojuegos">
+    <div class="videojuegos-grid">
+      @for(videojuego of videojuegosFiltrados; track videojuego.titulo) {
+      <div class="videojuego-card">
+        <div class="videojuego-imagen">
+          <img
+            [src]="obtenerImagenBase64(videojuego.imagenPortada)"
+            [alt]="videojuego.titulo"
+            loading="lazy"
+          />
+          <div class="videojuego-precio">
+            <span>${{ videojuego.precio }}</span>
+          </div>
+        </div>
+
+        <div class="videojuego-info">
+          <h3 class="videojuego-titulo">{{ videojuego.titulo }}</h3>
+
+          <div class="videojuego-acciones">
+            <button class="btn-comprar">Comprar</button>
+            <button class="btn-detalles">Ver Detalles</button>
+          </div>
+        </div>
+      </div>
+      } @empty {
+      <div class="sin-resultados">
+        <h3>No se encontraron videojuegos</h3>
+        <p>Intenta con otros términos de búsqueda o selecciona una categoría diferente.</p>
+      </div>
+      }
+    </div>
+  </section>
+</main>
