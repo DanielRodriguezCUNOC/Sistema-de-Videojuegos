@@ -48,8 +48,7 @@ public class DBConnectionSingleton {
       datasource.setPoolProperties(p);
 
     } catch (ClassNotFoundException e) {
-      System.getLogger(DBConnectionSingleton.class.getName())
-          .log(System.Logger.Level.ERROR, (String) null, e);
+      System.out.println("Error al cargar el driver de la base de datos");
     }
   }
 
@@ -57,8 +56,7 @@ public class DBConnectionSingleton {
     try {
       return datasource.getConnection();
     } catch (SQLException e) {
-      System.getLogger(DBConnectionSingleton.class.getName())
-          .log(System.Logger.Level.ERROR, (String) null, e);
+      System.out.println("Error al obtener la conexión");
     }
     return null;
   }

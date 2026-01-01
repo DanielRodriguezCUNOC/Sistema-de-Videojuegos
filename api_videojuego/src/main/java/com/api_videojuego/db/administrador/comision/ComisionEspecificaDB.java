@@ -140,4 +140,26 @@ public class ComisionEspecificaDB {
 		}
 	}
 
+	public BigDecimal consultarComisionEspecificaPorEmpresa(Integer idEmpresa)
+			throws ErrorConsultaDB {
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+		String query = "SELECT comision_especifica FROM comision_especifica WHERE id_empresa = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setInt(1, idEmpresa);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getBigDecimal("comision_especifica");
+			}
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB(
+					"Error al consultar la comision especifica por empresa: "
+							+ e.getMessage());
+		}
+		return null;
+	}
+
 }

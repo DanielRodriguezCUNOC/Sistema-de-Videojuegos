@@ -1,17 +1,33 @@
 package com.api_videojuego.dto.videojuego;
 
-public class DatosVideojuegoResponseDTO {
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PerfilVideojuegoResponseDTO {
 
 	private String titulo;
-	private String[] categorias;
+	private List<String> categorias;
 	private String clasificacion;
-	private String nombreEmpresa;
 	private String descripcion;
 	private String recursosMinimos;
-	private String precio;
+	private BigDecimal precio;
 	private String imagenPortada;
 
-	public DatosVideojuegoResponseDTO() {
+	public PerfilVideojuegoResponseDTO() {
+		this.categorias = new ArrayList<>();
+	}
+
+	public PerfilVideojuegoResponseDTO(String titulo, List<String> categorias,
+			String clasificacion, String descripcion, String recursosMinimos,
+			BigDecimal precio, String imagenPortada) {
+		this.titulo = titulo;
+		this.categorias = categorias != null ? categorias : new ArrayList<>();
+		this.clasificacion = clasificacion;
+		this.descripcion = descripcion;
+		this.recursosMinimos = recursosMinimos;
+		this.precio = precio;
+		this.imagenPortada = imagenPortada;
 	}
 
 	public String getTitulo() {
@@ -22,11 +38,11 @@ public class DatosVideojuegoResponseDTO {
 		this.titulo = titulo;
 	}
 
-	public String[] getCategorias() {
+	public List<String> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(String[] categorias) {
+	public void setCategorias(List<String> categorias) {
 		this.categorias = categorias;
 	}
 
@@ -36,14 +52,6 @@ public class DatosVideojuegoResponseDTO {
 
 	public void setClasificacion(String clasificacion) {
 		this.clasificacion = clasificacion;
-	}
-
-	public String getNombreEmpresa() {
-		return nombreEmpresa;
-	}
-
-	public void setNombreEmpresa(String nombreEmpresa) {
-		this.nombreEmpresa = nombreEmpresa;
 	}
 
 	public String getDescripcion() {
@@ -62,11 +70,11 @@ public class DatosVideojuegoResponseDTO {
 		this.recursosMinimos = recursosMinimos;
 	}
 
-	public String getPrecio() {
+	public BigDecimal getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(String precio) {
+	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
 	}
 
@@ -76,6 +84,10 @@ public class DatosVideojuegoResponseDTO {
 
 	public void setImagenPortada(String imagenPortada) {
 		this.imagenPortada = imagenPortada;
+	}
+
+	public void addCategoria(String categoria) {
+		this.categorias.add(categoria);
 	}
 
 }

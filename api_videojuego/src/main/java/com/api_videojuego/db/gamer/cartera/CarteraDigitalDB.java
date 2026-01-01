@@ -68,13 +68,13 @@ public class CarteraDigitalDB {
 				}
 				else {
 					throw new ErrorConsultaDB(
-							"No se encontró la cartera digital del usuario");
+							"No se encontró la cartera digital del usuario" + idUsuario);
 				}
 			}
 
 		} catch (SQLException e) {
 			throw new ErrorConsultaDB(
-					"Error al obtener el saldo de la cartera digital");
+					"Error al obtener el saldo de la cartera digital" + e.getMessage());
 		}
 	}
 

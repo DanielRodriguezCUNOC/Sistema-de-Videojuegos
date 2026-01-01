@@ -5,6 +5,9 @@ import { PerfilVideojuegoService } from '../../../services/perfiles/perfil-video
 import { SharePopupComponent } from '../../../shared/share-popup.component/share-popup.component';
 import { PerfilVideojuegoResponseDTO } from '../../../models/dtos/videojuego/perfil-videojuego-response-dto';
 import { ConvertirImagen } from '../../../utils/convertir-imagen';
+import { ComprarVideojuegoService } from '../../../services/gamer/compra/ComprarVideojuego.service';
+import { ComprarVideojuegoRequestDTO } from '../../../models/dtos/gamer/compra/ComprarVideojuegoRequestDTO';
+import { MasterLoginService } from '../../../services/login/masterlogin.service';
 
 @Component({
   selector: 'app-perfil-videojuego.component',
@@ -23,7 +26,9 @@ export class PerfilVideojuegoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private perfilVideojuegoService: PerfilVideojuegoService
+    private perfilVideojuegoService: PerfilVideojuegoService,
+    private comprarVideojuegoService: ComprarVideojuegoService,
+    private masterLogin: MasterLoginService
   ) {}
   ngOnInit(): void {
     this.obtenerParametros();
@@ -55,12 +60,42 @@ export class PerfilVideojuegoComponent implements OnInit {
   }
 
   regresar() {
-    this.router.navigate(['/user-gamer']);
+    this.router.navigate(['/user-gamer/tienda']);
   }
 
   obtenerImagenBase64(imagenBase64: string): string {
     if (!imagenBase64) return '';
     return this.convertirImagen.createImageDataUrl(imagenBase64);
+  }
+
+  comprarVideojuego(): void {
+    if (!this.idVideojuego) {
+      this.mostrarPopup('ID de videojuego inválido.', 'error');
+      return;
+    }
+    const data: ComprarVideojuegoRequestDTO = {
+      idVideojuego: this.idVideojuego,
+      idUsuario: this.masterLogin.getUserId()!,
+      precio: this.perfilVideojuego?.precio || 0,
+    };
+
+    if (data.idUsuario === null) {
+      this.mostrarPopup('Debe iniciar sesión para comprar un videojuego.', 'error');
+      return;
+    }
+
+    this.comprarVideojuegoService.comprarVideojuego(data).subscribe({
+      next: () => {
+        this.mostrarPopup('Compra realizada con éxito.', 'success');
+        setTimeout(() => {
+          this.regresar();
+        }, 2000);
+      },
+      error: (error) => {
+        this.mostrarPopup('Error al realizar la compra del videojuego.', 'error');
+        console.error('Error al comprar el videojuego:', error);
+      },
+    });
   }
 
   private mostrarPopup(mensaje: string, tipo: 'error' | 'success' | 'info'): void {
