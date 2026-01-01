@@ -35,6 +35,10 @@ import { ModuloTiendaComponent } from '../components/tienda/modulo-tienda.compon
 import { PerfilVideojuegoComponent } from '../components/perfiles/perfil-videojuego.component/perfil-videojuego.component';
 import { VideojuegosCompradosComponent } from '../components/usuario-gamer/biblioteca/videojuegos-comprados.component/videojuegos-comprados.component';
 import { GestionarGruposComponent } from '../components/usuario-gamer/grupos/gestionar-grupos.component/gestionar-grupos.component';
+import { authGuard } from '../guard/auth-guard';
+import { authGamerUserGuard } from '../guard/auth-gamer-user';
+import { authEmpresaUserGuard } from '../guard/auth-empresa-user';
+import { authAdminUserGuard } from '../guard/auth-admin-user';
 
 export const routes: Routes = [
   {
@@ -76,6 +80,8 @@ export const routes: Routes = [
   {
     path: 'user-gamer',
     component: ModuloUsuarioPageComponent,
+    canActivate: [authGuard],
+    canActivateChild: [authGamerUserGuard],
     children: [
       {
         path: 'gamer-module',
@@ -111,6 +117,8 @@ export const routes: Routes = [
   {
     path: 'user-empresa',
     component: ModuloUsuarioPageComponent,
+    canActivate: [authGuard],
+    canActivateChild: [authEmpresaUserGuard],
     children: [
       {
         path: 'empresa-module',
@@ -150,6 +158,8 @@ export const routes: Routes = [
   {
     path: 'user-admin',
     component: ModuloUsuarioPageComponent,
+    canActivate: [authGuard],
+    canActivateChild: [authAdminUserGuard],
     children: [
       {
         path: 'admin-module',
