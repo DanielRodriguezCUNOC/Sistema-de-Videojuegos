@@ -3,6 +3,7 @@ package com.api_videojuego.services.empresa.gestionar_comentario;
 import java.util.List;
 
 import com.api_videojuego.db.empresa.EmpresaDesarrolladoraDB;
+import com.api_videojuego.db.empresa.usuario.UsuarioEmpresaDB;
 import com.api_videojuego.db.empresa.videojuego.VideojuegoDesarrolladoraDB;
 import com.api_videojuego.dto.empresa.comentarios.EditarEstadoEmpresaRequestDTO;
 import com.api_videojuego.dto.empresa.comentarios.EditarEstadoEmpresaResponseDTO;
@@ -15,15 +16,22 @@ public class GestionarComentariosService {
 
 	private EmpresaDesarrolladoraDB empresaDesarrolladoraDB;
 	private VideojuegoDesarrolladoraDB videojuegoDesarrolladoraDB;
+	private UsuarioEmpresaDB usuarioEmpresaDB;
 
 	public GestionarComentariosService() {
 		this.empresaDesarrolladoraDB = new EmpresaDesarrolladoraDB();
 		this.videojuegoDesarrolladoraDB = new VideojuegoDesarrolladoraDB();
+		this.usuarioEmpresaDB = new UsuarioEmpresaDB();
 	}
 
 	public EditarEstadoEmpresaResponseDTO obtenerEstadoComentariosEmpresa(
-			Integer idEmpresa) throws ErrorConsultaDB {
+			Integer idUsuario) throws ErrorConsultaDB {
 		try {
+
+			// *Obtener el id de la empresa mediante el id del usuario */
+			Integer idEmpresa = usuarioEmpresaDB
+					.obtenerIdEmpresaPorIdUsuario(idUsuario);
+
 			return empresaDesarrolladoraDB.obtenerEstadoComentariosEmpresa(idEmpresa);
 
 		} catch (ErrorConsultaDB e) {
@@ -43,8 +51,12 @@ public class GestionarComentariosService {
 	}
 
 	public List<EditarEstadoVideojuegoResponseDTO> obtenerEstadoComentariosVideojuegosEmpresa(
-			Integer idEmpresa) throws ErrorConsultaDB {
+			Integer idUsuario) throws ErrorConsultaDB {
 		try {
+
+			// * Obtener el id de la empresa mediante el id del usuario */
+			Integer idEmpresa = usuarioEmpresaDB
+					.obtenerIdEmpresaPorIdUsuario(idUsuario);
 			return videojuegoDesarrolladoraDB
 					.obtenerEstadoComentariosVideojuegosEmpresa(idEmpresa);
 		} catch (ErrorConsultaDB e) {

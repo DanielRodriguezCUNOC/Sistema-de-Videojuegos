@@ -1,0 +1,22 @@
+<div class="dashboard">
+  <header class="topbar">
+    <div class="user-info">
+      <h2>Gestionar Grupos</h2>
+    </div>
+    <button class="back-btn" (click)="regresar()">Regresar</button>
+  </header>
+
+  <main class="content">
+    <section class="cards-grid">
+      <div class="card card--purple" (click)="misGrupos()">
+        <h3>Mis Grupos</h3>
+        <p>Grupos que he creado y administro</p>
+      </div>
+
+      <div class="card card--orange" (click)="gruposQuePertenezco()">
+        <h3>Grupos que Pertenezco</h3>
+        <p>Grupos donde soy miembro</p>
+      </div>
+    </section>
+  </main>
+</div>

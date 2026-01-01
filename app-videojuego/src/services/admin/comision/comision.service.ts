@@ -13,35 +13,40 @@ import { environment } from '../../../environment/environment';
   providedIn: 'root',
 })
 export class ComisionService {
-  private apiUrl = `${environment.apiBaseUrl}/comision-global`;
-
   constructor(private http: HttpClient) {}
 
   obtenerComisionGlobal(): Observable<ObtenerComisionGlobalDTO> {
-    return this.http.get<ObtenerComisionGlobalDTO>(`${this.apiUrl}/obtener-comision`);
+    const apiUrl = `${environment.apiBaseUrl}/comision-global`;
+    return this.http.get<ObtenerComisionGlobalDTO>(`${apiUrl}/obtener-comision`);
   }
 
   editarComisionGlobal(dto: EditarComisionGlobalDto): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/actualizar-comision`, dto);
+    const apiUrl = `${environment.apiBaseUrl}/comision-global`;
+    return this.http.put<any>(`${apiUrl}/actualizar-comision`, dto);
   }
 
   obtenerComisionesEspecificas(): Observable<ListaComisionEspecificaDTO> {
-    return this.http.get<ListaComisionEspecificaDTO>(`${this.apiUrl}/comisiones-especificas`);
+    const apiUrl = `${environment.apiBaseUrl}/comision-especifica`;
+    return this.http.get<ListaComisionEspecificaDTO>(`${apiUrl}/obtener-comisiones`);
   }
 
   obtenerComisionEspecificaPorId(id: number): Observable<ComisionEspecificaDTO> {
-    return this.http.get<ComisionEspecificaDTO>(`${this.apiUrl}/comision-especifica/${id}`);
+    const apiUrl = `${environment.apiBaseUrl}/comision-especifica`;
+    return this.http.get<ComisionEspecificaDTO>(`${apiUrl}/obtener-comisiones/${id}`);
   }
 
   crearComisionEspecifica(dto: CrearComisionEspecificaDTO): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/comision-especifica`, dto);
+    const apiUrl = `${environment.apiBaseUrl}/comision-especifica`;
+    return this.http.post<any>(`${apiUrl}/registrar-comision`, dto);
   }
 
   editarComisionEspecifica(dto: EditarComisionEspecificaDTO): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/comision-especifica`, dto);
+    const apiUrl = `${environment.apiBaseUrl}/comision-especifica`;
+    return this.http.put<any>(`${apiUrl}/actualizar-comision`, dto);
   }
 
   eliminarComisionEspecifica(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/comision-especifica/${id}`);
+    const apiUrl = `${environment.apiBaseUrl}/comision-especifica`;
+    return this.http.delete<any>(`${apiUrl}/comision-especifica/${id}`);
   }
 }

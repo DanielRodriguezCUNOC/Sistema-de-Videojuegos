@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.api_videojuego.db.connection.DBConnectionSingleton;
+import com.api_videojuego.db.empresa.videojuego.VideojuegoDesarrolladoraDB;
 import com.api_videojuego.dto.empresa.comentarios.EditarEstadoEmpresaRequestDTO;
 import com.api_videojuego.dto.empresa.comentarios.EditarEstadoEmpresaResponseDTO;
 import com.api_videojuego.excepciones.ErrorActualizarRegistro;
@@ -21,13 +22,51 @@ public class EmpresaDesarrolladoraDB {
 
 		String query = "UPDATE empresa_desarrolladora SET estado_comentarios = ? WHERE id_empresa = ?";
 
-		try (PreparedStatement ps = conn.prepareStatement(query)) {
-			ps.setBoolean(1, editarEstadoEmpresaRequestDTO.getEstadoComentarios());
-			ps.setInt(2, editarEstadoEmpresaRequestDTO.getIdEmpresa());
-			ps.executeUpdate();
+		try {
+			conn.setAutoCommit(false);
+			try (PreparedStatement ps = conn.prepareStatement(query)) {
+				ps.setBoolean(1, editarEstadoEmpresaRequestDTO.getEstadoComentarios());
+				ps.setInt(2, editarEstadoEmpresaRequestDTO.getIdEmpresa());
+				ResultSet rs = ps.executeQuery();
+
+				if (rs.next()) {
+
+					/*
+					 * Cambiar estado de comentarios de todos los videojuegos de la
+					 * empresa
+					 */
+					VideojuegoDesarrolladoraDB videojuegoDB = new VideojuegoDesarrolladoraDB();
+					videojuegoDB.cambiarEstadoComentariosVideojuego(
+							editarEstadoEmpresaRequestDTO.getIdEmpresa(),
+							editarEstadoEmpresaRequestDTO.getEstadoComentarios(), conn);
+
+					conn.commit();
+
+				}
+				else {
+					throw new ErrorActualizarRegistro(
+							"No se pudo actualizar el estado de comentarios generales para la empresa");
+				}
+			} catch (SQLException e) {
+				throw new ErrorActualizarRegistro(
+						"Error al cambiar el estado de comentarios generales desde la DB");
+			}
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException ex) {
+				throw new ErrorActualizarRegistro(
+						"Error al realizar rollback de la transacción: " + ex.getMessage());
+			}
 			throw new ErrorActualizarRegistro(
-					"Error al cambiar el estado de comentarios generales desde la DB");
+					"Error al registrar el pago del videojuego: " + e.getMessage());
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				throw new ErrorActualizarRegistro(
+						"Error al restablecer el modo de autocommit: " + e.getMessage());
+			}
 		}
 	}
 

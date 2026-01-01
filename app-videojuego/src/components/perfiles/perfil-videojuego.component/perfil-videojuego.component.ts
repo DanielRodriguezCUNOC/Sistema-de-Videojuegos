@@ -9,11 +9,11 @@ import { ConvertirImagen } from '../../../utils/convertir-imagen';
 import { ComprarVideojuegoService } from '../../../services/gamer/compra/ComprarVideojuego.service';
 import { ComprarVideojuegoRequestDTO } from '../../../models/dtos/gamer/compra/ComprarVideojuegoRequestDTO';
 import { MasterLoginService } from '../../../services/login/masterlogin.service';
-import { ComentarioService } from '../../../services/comentario/comentario.service';
 import { ComentarioResponseDTO } from '../../../models/dtos/videojuego/comentarios/ComentarioResponseDTO';
 import { ComentarioRequestDTO } from '../../../models/dtos/videojuego/comentarios/ComentarioRequestDTO';
 import { CalificacionVideojuegoService } from '../../../services/calificacion/calificacion-videojuego.service';
 import { CalificacionVideojuegoRequestDTO } from '../../../models/dtos/videojuego/calificacion-videojuego-request-dto';
+import { ComentarioService } from '../../../services/comentario/comentario.service';
 
 @Component({
   selector: 'app-perfil-videojuego.component',

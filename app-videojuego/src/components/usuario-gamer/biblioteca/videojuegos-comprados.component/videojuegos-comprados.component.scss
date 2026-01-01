@@ -1,0 +1,332 @@
+.biblioteca-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.biblioteca-navegacion {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: -1rem;
+
+  .btn-regresar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #18222b;
+    color: #66c0f4;
+    border: 2px solid #222e3c;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-decoration: none;
+
+    .icono-regresar {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    &:hover {
+      background: #222e3c;
+      border-color: #66c0f4;
+      transform: translateX(-2px);
+    }
+
+    &:active {
+      transform: translateX(0);
+    }
+  }
+}
+
+.biblioteca-banner {
+  background: linear-gradient(90deg, #3a7ca5 0%, #66c0f4 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+}
+
+.cargando-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  color: #66c0f4;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #222e3c;
+    border-top: 4px solid #66c0f4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.biblioteca-videojuegos {
+  .videojuegos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .videojuego-card {
+    background: #18222b;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .videojuego-imagen {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .estado-instalacion {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        backdrop-filter: blur(10px);
+
+        &.instalado {
+          background: rgba(22, 163, 74, 0.9);
+          color: #fff;
+        }
+
+        &.no-instalado {
+          background: rgba(239, 68, 68, 0.9);
+          color: #fff;
+        }
+
+        .icono-estado {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .videojuego-info {
+      padding: 1.5rem;
+      color: #fff;
+
+      .videojuego-titulo {
+        margin: 0 0 1rem 0;
+        color: #66c0f4;
+        font-size: 1.4rem;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      .videojuego-acciones {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+
+        .btn-instalacion,
+        .btn-ver-videojuego {
+          padding: 0.75rem 1rem;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 600;
+          transition: all 0.2s;
+          text-align: center;
+        }
+
+        .btn-instalacion {
+          &.instalar {
+            background: #16a34a;
+            color: #fff;
+
+            &:hover {
+              background: #15803d;
+            }
+          }
+
+          &.desinstalar {
+            background: #dc2626;
+            color: #fff;
+
+            &:hover {
+              background: #b91c1c;
+            }
+          }
+        }
+
+        .btn-ver-videojuego {
+          background: transparent;
+          color: #66c0f4;
+          border: 2px solid #66c0f4;
+
+          &:hover {
+            background: #66c0f4;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  .sin-resultados {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #fff;
+    background: #18222b;
+    border-radius: 12px;
+    border: 2px dashed #222e3c;
+
+    .sin-resultados-icono {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: #66c0f4;
+      margin: 0 0 1rem 0;
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin: 0 0 2rem 0;
+      opacity: 0.8;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .btn-ir-tienda {
+      background: #66c0f4;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #3a7ca5;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 192, 244, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .biblioteca-main {
+    padding: 1rem 0.5rem;
+    gap: 1.5rem;
+  }
+
+  .biblioteca-navegacion {
+    margin-bottom: -0.5rem;
+
+    .btn-regresar {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .biblioteca-banner {
+    padding: 1.5rem 1rem;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .videojuegos-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .videojuego-card {
+    .videojuego-info {
+      padding: 1rem;
+
+      .videojuego-acciones {
+        gap: 0.5rem;
+      }
+    }
+  }
+
+  .sin-resultados {
+    padding: 2rem 1rem;
+
+    .sin-resultados-icono {
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    .btn-ir-tienda {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+}
