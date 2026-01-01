@@ -33,6 +33,8 @@ import { CarteraDigitalComponent } from '../components/usuario-gamer/cartera/car
 import { RecargarCarteraDigitalComponent } from '../components/usuario-gamer/cartera/recargar-cartera-digital.component/recargar-cartera-digital.component';
 import { ModuloTiendaComponent } from '../components/tienda/modulo-tienda.component/modulo-tienda.component';
 import { PerfilVideojuegoComponent } from '../components/perfiles/perfil-videojuego.component/perfil-videojuego.component';
+import { VideojuegosCompradosComponent } from '../components/usuario-gamer/biblioteca/videojuegos-comprados.component/videojuegos-comprados.component';
+import { GestionarGruposComponent } from '../components/usuario-gamer/grupos/gestionar-grupos.component/gestionar-grupos.component';
 
 export const routes: Routes = [
   {
@@ -95,6 +97,14 @@ export const routes: Routes = [
       {
         path: 'tienda',
         component: ModuloTiendaComponent,
+      },
+      {
+        path: 'videojuegos-comprados',
+        component: VideojuegosCompradosComponent,
+      },
+      {
+        path: 'gestionar-grupo',
+        component: GestionarGruposComponent,
       },
     ],
   },

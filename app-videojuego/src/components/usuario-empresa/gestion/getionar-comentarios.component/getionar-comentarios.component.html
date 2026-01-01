@@ -5,13 +5,31 @@
       Regresar
     </button>
     <h1 class="page-title">Gestión de Comentarios</h1>
-    <button class="save-btn" (click)="guardarCambios()">
-      <i class="fas fa-save"></i>
-      Guardar Cambios
+    <button
+      class="load-btn"
+      (click)="cargarDatosComentarios()"
+      [disabled]="isLoading"
+      title="Cargar datos desde el servidor"
+    >
+      <i class="fas fa-refresh" [class.fa-spin]="isLoading"></i>
+      {{ isLoading ? 'Cargando...' : 'Cargar Datos' }}
     </button>
   </div>
 
   <div class="content">
+    @if(isLoading) {
+    <div class="loading-container">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Cargando datos de comentarios...</p>
+    </div>
+    } @else if(videojuegos.length === 0 && estadoComentarioGeneral.idEmpresa === 0) {
+    <div class="initial-state">
+      <i class="fas fa-database"></i>
+      <h3>Datos no cargados</h3>
+      <p>Presiona el botón "Cargar Datos" para obtener la información de comentarios</p>
+    </div>
+    } @else {
+
     <div class="general-settings">
       <div class="settings-header">
         <h2>Estado General de Comentarios</h2>
@@ -23,16 +41,17 @@
           <span class="toggle-label">Comentarios Generales:</span>
           <input
             type="checkbox"
-            [(ngModel)]="estadoComentarioGeneral"
+            [(ngModel)]="estadoComentarioGeneral.estadoComentarioGeneral"
             (change)="cambiarEstadoGeneral($event)"
+            [disabled]="isLoading"
           />
           <span class="slider"></span>
           <span
             class="status-text"
-            [class.enabled]="estadoComentarioGeneral"
-            [class.disabled]="!estadoComentarioGeneral"
+            [class.enabled]="estadoComentarioGeneral.estadoComentarioGeneral"
+            [class.disabled]="!estadoComentarioGeneral.estadoComentarioGeneral"
           >
-            {{ estadoComentarioGeneral ? 'Habilitados' : 'Deshabilitados' }}
+            {{ estadoComentarioGeneral.estadoComentarioGeneral ? 'Habilitados' : 'Deshabilitados' }}
           </span>
         </label>
       </div>
@@ -65,10 +84,10 @@
               <td class="status-cell">
                 <span
                   class="status-badge"
-                  [class.status-enabled]="videojuego.estadoComentarioGeneral"
-                  [class.status-disabled]="!videojuego.estadoComentarioGeneral"
+                  [class.status-enabled]="videojuego.estadoComentarioVideojuego"
+                  [class.status-disabled]="!videojuego.estadoComentarioVideojuego"
                 >
-                  {{ videojuego.estadoComentarioGeneral ? 'Habilitado' : 'Deshabilitado' }}
+                  {{ videojuego.estadoComentarioVideojuego ? 'Habilitado' : 'Deshabilitado' }}
                 </span>
               </td>
               <td class="videogame-status-cell">
@@ -85,6 +104,7 @@
                   class="action-btn toggle-btn"
                   [class.enable-btn]="!videojuego.estadoComentarioVideojuego"
                   [class.disable-btn]="videojuego.estadoComentarioVideojuego"
+                  [disabled]="isLoading"
                   (click)="
                     cambiarEstadoVideojuego(
                       videojuego.idVideojuego,
@@ -118,6 +138,8 @@
       </div>
       }
     </div>
+
+    }
   </div>
 </div>
 

@@ -156,4 +156,21 @@ public class VideojuegoDesarrolladoraDB {
 		}
 	}
 
+	public void cambiarEstadoComentariosVideojuego(Integer idEmpresa,
+			boolean estadoComentario, Connection conn) throws ErrorActualizarRegistro {
+
+
+		String query = "UPDATE videojuego_desarrolladora SET estado_comentario = ? WHERE id_empresa = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setBoolean(1, estadoComentario);
+			ps.setInt(2, idEmpresa);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new ErrorActualizarRegistro(
+					"Error al cambiar el estado de comentarios del videojuego desde la DB: "
+							+ e.getMessage());
+		}
+	}
+
 }

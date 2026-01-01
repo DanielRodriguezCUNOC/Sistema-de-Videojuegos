@@ -18,14 +18,14 @@ import jakarta.ws.rs.core.Response;
 @Path("/empresa/gestionar-comentarios")
 public class GestionComentariosResource {
 
-	@Path("/estado-comentarios-empresa/{idEmpresa}")
+	@Path("/estado-comentarios-empresa/{idUsuario}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response obtenerEstadoComentariosEmpresa(
-			@PathParam("idEmpresa") Integer idEmpresa) {
+			@PathParam("idUsuario") Integer idUsuario) {
 		GestionarComentariosService service = new GestionarComentariosService();
 		try {
-			return Response.ok(service.obtenerEstadoComentariosEmpresa(idEmpresa))
+			return Response.ok(service.obtenerEstadoComentariosEmpresa(idUsuario))
 					.build();
 
 		} catch (ErrorConsultaDB e) {
@@ -48,15 +48,15 @@ public class GestionComentariosResource {
 		}
 	}
 
-	@Path("/estado-comentarios-videojuego/{idEmpresa}")
+	@Path("/estado-comentarios-videojuego/{idUsuario}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response obtenerEstadoComentariosVideojuegosEmpresa(
-			@PathParam("idEmpresa") Integer idEmpresa) {
+			@PathParam("idUsuario") Integer idUsuario) {
 		GestionarComentariosService service = new GestionarComentariosService();
 		try {
 			return Response
-					.ok(service.obtenerEstadoComentariosVideojuegosEmpresa(idEmpresa))
+					.ok(service.obtenerEstadoComentariosVideojuegosEmpresa(idUsuario))
 					.build();
 
 		} catch (ErrorConsultaDB e) {

@@ -1,0 +1,88 @@
+<main class="biblioteca-main">
+  <section class="biblioteca-navegacion">
+    <button class="btn-regresar" (click)="regresar()" aria-label="Regresar">
+      <span class="icono-regresar">←</span>
+      Regresar
+    </button>
+  </section>
+
+  <section class="biblioteca-banner">
+    <h1>Mi Biblioteca de Videojuegos</h1>
+    <p>Gestiona tus videojuegos comprados y controla su estado de instalación.</p>
+  </section>
+
+  @if (cargando) {
+  <div class="cargando-container">
+    <div class="spinner"></div>
+    <p>Cargando tu biblioteca...</p>
+  </div>
+  } @if (!cargando) {
+  <section class="biblioteca-videojuegos">
+    <div class="videojuegos-grid">
+      @for(videojuego of videojuegosComprados; track videojuego.idVideojuego) {
+      <div class="videojuego-card">
+        <div class="videojuego-imagen">
+          <img
+            [src]="obtenerImagenBase64(videojuego.portada)"
+            [alt]="videojuego.titulo"
+            loading="lazy"
+          />
+
+          <div
+            class="estado-instalacion"
+            [class]="videojuego.estadoInstalacion ? 'instalado' : 'no-instalado'"
+          >
+            @if (videojuego.estadoInstalacion) {
+            <span class="icono-estado">✓</span>
+            <span>Instalado</span>
+            } @else {
+            <span class="icono-estado">↓</span>
+            <span>No instalado</span>
+            }
+          </div>
+        </div>
+
+        <div class="videojuego-info">
+          <h3 class="videojuego-titulo">{{ videojuego.titulo }}</h3>
+
+          <div class="videojuego-acciones">
+            <button
+              class="btn-instalacion"
+              [class]="videojuego.estadoInstalacion ? 'desinstalar' : 'instalar'"
+              (click)="cambiarEstadoInstalacion(videojuego)"
+            >
+              @if (videojuego.estadoInstalacion) { Marcar como No Instalado } @else { Marcar como
+              Instalado }
+            </button>
+
+            <button
+              class="btn-ver-videojuego"
+              (click)="verDetallesVideojuego(videojuego.idVideojuego)"
+            >
+              Ver Detalles
+            </button>
+          </div>
+        </div>
+      </div>
+      } @empty {
+      <div class="sin-resultados">
+        <div class="sin-resultados-icono">📚</div>
+        <h3>Tu biblioteca está vacía</h3>
+        <p>
+          No tienes videojuegos comprados aún. ¡Visita la tienda para encontrar tus juegos
+          favoritos!
+        </p>
+        <button class="btn-ir-tienda" (click)="irATienda()">Ir a la Tienda</button>
+      </div>
+      }
+    </div>
+  </section>
+  }
+</main>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

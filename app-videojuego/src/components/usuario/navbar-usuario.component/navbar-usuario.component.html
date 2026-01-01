@@ -9,8 +9,8 @@
       <li class="has-submenu">
         <span>Biblioteca</span>
         <ul class="submenu">
-          <li>Juegos Comprados</li>
-          <li>Juegos Prestados</li>
+          <li (click)="videojuegosComprados()">Videojuegos Comprados</li>
+          <li>Videojuegos Prestados</li>
         </ul>
       </li>
       <li class="has-submenu">
@@ -20,7 +20,7 @@
           <li>Ver Calificaciones</li>
         </ul>
       </li>
-      <li><span>Grupo</span></li>
+      <li><span (click)="gestionarGrupo()">Grupo</span></li>
       <li class="has-submenu">
         <span (click)="carteraDigital()">Cartera Digital</span>
       </li>

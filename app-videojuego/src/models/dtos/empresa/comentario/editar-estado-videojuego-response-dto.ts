@@ -1,5 +1,5 @@
 export interface EditarEstadoVideojuegoResponseDto {
-  idVideojuego: string;
+  idVideojuego: number;
   titulo: string;
   estadoComentarioVideojuego: boolean;
 }

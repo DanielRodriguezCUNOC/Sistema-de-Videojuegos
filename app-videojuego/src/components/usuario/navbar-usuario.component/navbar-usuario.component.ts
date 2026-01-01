@@ -78,6 +78,14 @@ export class NavbarUsuarioComponent implements OnInit, OnDestroy {
     this.router.navigate(['/user-gamer/tienda']);
   }
 
+  videojuegosComprados(): void {
+    this.router.navigate(['/user-gamer/videojuegos-comprados']);
+  }
+
+  gestionarGrupo(): void {
+    this.router.navigate(['/user-gamer/gestionar-grupo']);
+  }
+
   ngOnDestroy(): void {
     if (this.subscripcion) {
       this.subscripcion.unsubscribe();
