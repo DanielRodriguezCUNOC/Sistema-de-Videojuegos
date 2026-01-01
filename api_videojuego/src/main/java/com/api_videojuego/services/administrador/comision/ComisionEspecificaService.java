@@ -3,6 +3,7 @@ package com.api_videojuego.services.administrador.comision;
 import java.time.LocalDate;
 
 import com.api_videojuego.db.administrador.comision.ComisionEspecificaDB;
+import com.api_videojuego.db.administrador.comision.ComisionGlobalDB;
 import com.api_videojuego.dto.administrador.comision.ComisionEspecificaRequestDTO;
 import com.api_videojuego.dto.administrador.comision.EditarComisionEspecificaDTO;
 import com.api_videojuego.dto.administrador.comision.ListaComisionEspecificaDTO;
@@ -15,9 +16,11 @@ import com.api_videojuego.excepciones.ErrorInsertarDB;
 public class ComisionEspecificaService {
 
 	private ComisionEspecificaDB comisionDB;
+	private ComisionGlobalDB comisionGlobalDB;
 
 	public ComisionEspecificaService() {
 		this.comisionDB = new ComisionEspecificaDB();
+		this.comisionGlobalDB = new ComisionGlobalDB();
 	}
 
 	public void actualizarComisionEspecifica(EditarComisionEspecificaDTO comision)
@@ -27,6 +30,16 @@ public class ComisionEspecificaService {
 			if (!comision.esComisionValida()) {
 				throw new DatosInvalidos("Los datos no son correctos");
 			}
+			/*
+			 * Validamos que la comision especifica no sea mayor que la comision
+			 * global
+			 */
+			if (comisionGlobalDB.consultarComisionGlobal()
+					.compareTo(comision.getComisionEspecifica()) < 0) {
+				throw new DatosInvalidos(
+						"La comisión específica no puede ser mayor que la comisión global");
+			}
+
 			// * Validamos que exista una comision específica para la empresa */
 			if (!comisionDB.existeComisionEspecifica(comision.getId())) {
 				throw new DatosInvalidos(
