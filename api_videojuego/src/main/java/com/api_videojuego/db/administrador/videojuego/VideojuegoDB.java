@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.api_videojuego.db.administrador.categoria.CRUDCategoriaDB;
 import com.api_videojuego.db.connection.DBConnectionSingleton;
+import com.api_videojuego.db.empresa.videojuego.CalificacionVideojuegoDB;
 import com.api_videojuego.db.empresa.videojuego.CategoriaVideojuegoDB;
 import com.api_videojuego.dto.videojuego.PerfilVideojuegoResponseDTO;
 import com.api_videojuego.excepciones.ErrorActualizarRegistro;
@@ -59,6 +60,7 @@ public class VideojuegoDB {
 		PerfilVideojuegoResponseDTO perfil = new PerfilVideojuegoResponseDTO();
 		CategoriaVideojuegoDB categoriaVideojuegoDB = new CategoriaVideojuegoDB();
 		CRUDCategoriaDB crudCategoriaDB = new CRUDCategoriaDB();
+		CalificacionVideojuegoDB calificacionVideojuegoDB = new CalificacionVideojuegoDB();
 		String query = "SELECT titulo, descripcion, recursos_minimos, precio FROM videojuego WHERE id_videojuego = ?";
 		try {
 			conn.setAutoCommit(false);
@@ -77,6 +79,11 @@ public class VideojuegoDB {
 						perfil.addCategoria(
 								crudCategoriaDB.obtenerNombrePorId(idCategoria, conn));
 					}
+
+					// *Obtener la calificacion promedio */
+					Double calificacionPromedio = calificacionVideojuegoDB
+							.obtenerCalificacionPromedioPorIdVideojuego(idVideojuego, conn);
+					perfil.setCalificacion(calificacionPromedio);
 
 					perfil.setTitulo(rs.getString("titulo"));
 					perfil.setDescripcion(rs.getString("descripcion"));

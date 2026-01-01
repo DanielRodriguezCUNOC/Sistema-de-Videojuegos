@@ -122,6 +122,30 @@
         }
       }
     }
+
+    .calificacion-contenedor {
+      h3 {
+        margin: 0 0 0.75rem 0;
+        color: #66c0f4;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      .calificacion-display {
+        display: flex;
+        align-items: center;
+
+        .calificacion-numero {
+          background: linear-gradient(90deg, #3a7ca5 0%, #66c0f4 100%);
+          color: #fff;
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          font-size: 1.2rem;
+          font-weight: 700;
+          box-shadow: 0 2px 8px rgba(102, 192, 244, 0.3);
+        }
+      }
+    }
   }
 }
 
@@ -173,7 +197,7 @@
   padding: 2rem 0;
 
   .btn-comprar,
-  .btn-carrito {
+  .btn-calificar {
     padding: 1rem 2rem;
     border: none;
     border-radius: 8px;
@@ -195,15 +219,303 @@
     }
   }
 
-  .btn-carrito {
-    background: transparent;
-    color: #66c0f4;
-    border: 2px solid #66c0f4;
+  .btn-calificar {
+    background: linear-gradient(90deg, #f39c12 0%, #e67e22 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
 
     &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(243, 156, 18, 0.4);
+    }
+  }
+}
+
+// Estilos para el formulario de calificación
+.calificacion-form {
+  .calificacion-contenido {
+    text-align: center;
+
+    .calificacion-instruccion {
+      margin: 0 0 1.5rem 0;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+
+    .calificacion-selector {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      .calificacion-btn {
+        background: #222e3c;
+        color: #66c0f4;
+        border: 2px solid #66c0f4;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background: rgba(102, 192, 244, 0.1);
+          transform: scale(1.1);
+        }
+
+        &.seleccionado {
+          background: #f39c12;
+          color: #fff;
+          border-color: #f39c12;
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .calificacion-seleccionada {
+      margin: 0 0 2rem 0;
+      color: #f39c12;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .calificacion-acciones {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+
+      .btn-enviar-calificacion,
+      .btn-cancelar-calificacion {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all 0.2s;
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+
+      .btn-enviar-calificacion {
+        background: #f39c12;
+        color: #fff;
+
+        &:hover:not(:disabled) {
+          background: #e67e22;
+        }
+      }
+
+      .btn-cancelar-calificacion {
+        background: #6c757d;
+        color: #fff;
+
+        &:hover {
+          background: #5a6268;
+        }
+      }
+    }
+  }
+}
+
+.comentarios-seccion {
+  .agregar-comentario {
+    background: #222e3c;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 2px solid #66c0f4;
+
+    h3 {
+      margin: 0 0 1rem 0;
+      color: #66c0f4;
+      font-size: 1.1rem;
+    }
+
+    .comentario-textarea {
+      width: 100%;
+      background: #18222b;
+      border: 2px solid #444;
+      border-radius: 6px;
+      padding: 1rem;
+      color: #fff;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      margin-bottom: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: #66c0f4;
+      }
+
+      &::placeholder {
+        color: #888;
+      }
+    }
+
+    .btn-comentar {
       background: #66c0f4;
       color: #fff;
-      transform: translateY(-2px);
+      border: none;
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #3a7ca5;
+      }
+    }
+  }
+
+  .comentarios-lista {
+    .comentario-item {
+      background: #222e3c;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #66c0f4;
+
+      .comentario-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #444;
+
+        .comentario-usuario {
+          color: #66c0f4;
+          font-size: 1rem;
+        }
+
+        .comentario-fecha {
+          color: #888;
+          font-size: 0.9rem;
+        }
+      }
+
+      .comentario-contenido {
+        margin-bottom: 1rem;
+
+        p {
+          margin: 0;
+          line-height: 1.5;
+          color: #fff;
+        }
+      }
+
+      .comentario-acciones {
+        .btn-responder {
+          background: transparent;
+          color: #66c0f4;
+          border: 1px solid #66c0f4;
+          border-radius: 4px;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          font-size: 0.9rem;
+          transition: all 0.2s;
+
+          &:hover {
+            background: #66c0f4;
+            color: #fff;
+          }
+        }
+      }
+
+      .respuesta-form {
+        margin-top: 1rem;
+        background: #18222b;
+        border-radius: 6px;
+        padding: 1rem;
+        border: 1px solid #444;
+
+        .respuesta-textarea {
+          width: 100%;
+          background: #222e3c;
+          border: 1px solid #444;
+          border-radius: 4px;
+          padding: 0.75rem;
+          color: #fff;
+          font-family: inherit;
+          resize: vertical;
+          margin-bottom: 0.75rem;
+
+          &:focus {
+            outline: none;
+            border-color: #66c0f4;
+          }
+
+          &::placeholder {
+            color: #888;
+          }
+        }
+
+        .respuesta-acciones {
+          display: flex;
+          gap: 0.5rem;
+
+          .btn-enviar-respuesta,
+          .btn-cancelar-respuesta {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+          }
+
+          .btn-enviar-respuesta {
+            background: #66c0f4;
+            color: #fff;
+
+            &:hover {
+              background: #3a7ca5;
+            }
+          }
+
+          .btn-cancelar-respuesta {
+            background: #444;
+            color: #fff;
+
+            &:hover {
+              background: #666;
+            }
+          }
+        }
+      }
+
+      .respuestas-contenedor {
+        margin-top: 1rem;
+        margin-left: 2rem;
+        border-left: 2px solid #444;
+        padding-left: 1rem;
+
+        .respuesta-item {
+          background: #18222b;
+          border-radius: 6px;
+          padding: 1rem;
+          margin-bottom: 1rem;
+          border-left: 3px solid #888;
+        }
+      }
+    }
+
+    .sin-comentarios {
+      text-align: center;
+      padding: 2rem;
+      color: #888;
+      font-style: italic;
     }
   }
 }
@@ -240,7 +552,6 @@
   100% { transform: rotate(360deg); }
 }
 
-// Responsive design
 @media (max-width: 768px) {
   .perfil-main {
     padding: 1rem 0.5rem;
@@ -273,9 +584,34 @@
     gap: 1rem;
     
     .btn-comprar,
-    .btn-carrito {
+    .btn-calificar {
       min-width: unset;
       width: 100%;
+    }
+  }
+
+  // Estilos responsivos para calificación
+  .calificacion-form {
+    .calificacion-contenido {
+      .calificacion-selector {
+        gap: 0.5rem;
+
+        .calificacion-btn {
+          width: 50px;
+          height: 50px;
+          font-size: 1.3rem;
+        }
+      }
+
+      .calificacion-acciones {
+        flex-direction: column;
+        gap: 0.75rem;
+
+        .btn-enviar-calificacion,
+        .btn-cancelar-calificacion {
+          width: 100%;
+        }
+      }
     }
   }
 
@@ -283,6 +619,40 @@
     .btn-regresar {
       width: 100%;
       justify-content: center;
+    }
+  }
+
+  // Estilos responsivos para comentarios
+  .comentarios-seccion {
+    .agregar-comentario {
+      padding: 1rem;
+    }
+
+    .comentarios-lista {
+      .comentario-item {
+        padding: 1rem;
+
+        .respuestas-contenedor {
+          margin-left: 0.5rem;
+          padding-left: 0.5rem;
+
+          .respuesta-item {
+            padding: 0.75rem;
+          }
+        }
+
+        .respuesta-form {
+          .respuesta-acciones {
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .btn-enviar-respuesta,
+            .btn-cancelar-respuesta {
+              width: 100%;
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SharePopupComponent } from '../../../../shared/share-popup.component/share-popup.component';
-import { EstadoComentarioVideojuegoDto } from '../../../../models/dtos/empresa/comentario/estado-comentario-videojuego-dto';
-import { ComentarioEmpresaRequestDTO } from '../../../../models/dtos/empresa/comentario/comentario-empresa-request-dto';
+import { EditarEstadoVideojuegoRequestDto } from '../../../../models/dtos/empresa/comentario/editar-estado-videojuego-request';
+import { EditarEstadoEmpresaRequestDto } from '../../../../models/dtos/empresa/comentario/editar-estado-empresa-request-dto';
+import { EditarEstadoVideojuegoResponseDto } from '../../../../models/dtos/empresa/comentario/editar-estado-videojuego-response-dto';
+import { EditarEstadoEmpresaResponseDto } from '../../../../models/dtos/empresa/comentario/editar-estado-empresa-response-dto';
 
 @Component({
   selector: 'app-getionar-comentarios.component',
@@ -12,8 +14,12 @@ import { ComentarioEmpresaRequestDTO } from '../../../../models/dtos/empresa/com
   styleUrl: './getionar-comentarios.component.scss',
 })
 export class GetionarComentariosComponent implements OnInit {
-  videojuegos: EstadoComentarioVideojuegoDto[] = [];
-  estadoComentarioGeneral: boolean = true;
+  videojuegos: EditarEstadoVideojuegoResponseDto[] = [];
+  estadoComentarioGeneral: EditarEstadoEmpresaResponseDto = {
+    estadoComentarioGeneral: false,
+    idEmpresa: 0,
+    nombreEmpresa: '',
+  };
   infoMessage: string | null = null;
   popupTipo: 'error' | 'success' | 'info' = 'info';
   popupMostrar = false;
@@ -25,40 +31,10 @@ export class GetionarComentariosComponent implements OnInit {
     this.cargarDatosComentarios();
   }
 
-  cargarDatosComentarios(): void {
-    this.videojuegos = [
-      {
-        idVideojuego: '1',
-        titulo: 'Super Adventure Game',
-        estadoComentarioVideojuego: true,
-        estadoComentarioGeneral: true,
-      },
-      {
-        idVideojuego: '2',
-        titulo: 'Mystery Quest',
-        estadoComentarioVideojuego: false,
-        estadoComentarioGeneral: true,
-      },
-      {
-        idVideojuego: '3',
-        titulo: 'Space Explorer',
-        estadoComentarioVideojuego: true,
-        estadoComentarioGeneral: false,
-      },
-    ];
-
-    this.estadoComentarioGeneral =
-      this.videojuegos.length > 0 ? this.videojuegos[0].estadoComentarioGeneral : true;
-  }
+  cargarDatosComentarios(): void {}
 
   regresar(): void {
-    if (this.cambiosPendientes) {
-      if (confirm('¿Tienes cambios sin guardar. ¿Estás seguro de que quieres salir?')) {
-        this.router.navigate(['/user-empresa/empresa-module']);
-      }
-    } else {
-      this.router.navigate(['/user-empresa/empresa-module']);
-    }
+    this.router.navigate(['/user-empresa/gestion-comentarios']);
   }
 
   cambiarEstadoGeneral(event: any): void {

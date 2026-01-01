@@ -6,4 +6,5 @@ export interface PerfilVideojuegoResponseDTO {
   recursosMinimos: string;
   precio: number;
   imagenPortada: string;
+  calificacion: number;
 }

@@ -1,4 +1,4 @@
-package com.api_videojuego.resources.endpoints.empresa.videojuego.gestion_videojuegos;
+package com.api_videojuego.resources.endpoints.empresa.videojuego;
 
 import java.io.IOException;
 

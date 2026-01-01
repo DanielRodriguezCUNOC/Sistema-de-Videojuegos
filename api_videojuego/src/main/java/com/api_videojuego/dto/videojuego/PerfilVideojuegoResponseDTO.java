@@ -13,6 +13,7 @@ public class PerfilVideojuegoResponseDTO {
 	private String recursosMinimos;
 	private BigDecimal precio;
 	private String imagenPortada;
+	private Double calificacion;
 
 	public PerfilVideojuegoResponseDTO() {
 		this.categorias = new ArrayList<>();
@@ -84,6 +85,14 @@ public class PerfilVideojuegoResponseDTO {
 
 	public void setImagenPortada(String imagenPortada) {
 		this.imagenPortada = imagenPortada;
+	}
+
+	public Double getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(Double calificacion) {
+		this.calificacion = calificacion;
 	}
 
 	public void addCategoria(String categoria) {

@@ -31,6 +31,15 @@
           }
         </div>
       </div>
+
+      <div class="calificacion-contenedor">
+        <h3>Calificación:</h3>
+        <div class="calificacion-display">
+          <span class="calificacion-numero">
+            {{ perfilVideojuego.calificacion | number : '1.1-1' }}/5.0
+          </span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -52,7 +61,118 @@
 
   <section class="perfil-acciones">
     <button class="btn-comprar" (click)="comprarVideojuego()">Comprar Ahora</button>
-    <button class="btn-carrito">Agregar al Carrito</button>
+    <button class="btn-calificar" (click)="mostrarFormularioCalificacion()">Calificar Juego</button>
+  </section>
+
+  @if(mostrandoCalificacion) {
+  <section class="perfil-seccion calificacion-form">
+    <h2 class="seccion-titulo">Califica este videojuego</h2>
+
+    <div class="calificacion-contenido">
+      <p class="calificacion-instruccion">Selecciona tu calificación (1-5):</p>
+
+      <div class="calificacion-selector">
+        @for(numero of [1, 2, 3, 4, 5]; track numero) {
+        <button
+          class="calificacion-btn"
+          [class.seleccionado]="numero === calificacionSeleccionada"
+          (click)="seleccionarCalificacion(numero)"
+        >
+          {{ numero }}
+        </button>
+        }
+      </div>
+
+      @if(calificacionSeleccionada > 0) {
+      <p class="calificacion-seleccionada">Has seleccionado: {{ calificacionSeleccionada }}/5</p>
+      }
+
+      <div class="calificacion-acciones">
+        <button
+          class="btn-enviar-calificacion"
+          (click)="enviarCalificacion()"
+          [disabled]="calificacionSeleccionada === 0"
+        >
+          Enviar Calificación
+        </button>
+        <button class="btn-cancelar-calificacion" (click)="cerrarFormularioCalificacion()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </section>
+  }
+
+  <section class="perfil-seccion comentarios-seccion">
+    <h2 class="seccion-titulo">Comentarios</h2>
+
+    <div class="agregar-comentario">
+      <h3>Agregar Comentario</h3>
+      <textarea
+        [(ngModel)]="nuevoComentario"
+        placeholder="Escribe tu comentario aquí..."
+        rows="4"
+        class="comentario-textarea"
+      ></textarea>
+      <button class="btn-comentar" (click)="registrarComentario()">Publicar Comentario</button>
+    </div>
+
+    <div class="comentarios-lista">
+      @for(comentario of comentariosOrganizados; track comentario.idComentario) {
+      <div class="comentario-item">
+        <div class="comentario-header">
+          <strong class="comentario-usuario">{{ comentario.nickname }}</strong>
+          <span class="comentario-fecha">{{ comentario.fechaComentario | date : 'short' }}</span>
+        </div>
+        <div class="comentario-contenido">
+          <p>{{ comentario.comentario }}</p>
+        </div>
+        <div class="comentario-acciones">
+          <button class="btn-responder" (click)="iniciarRespuesta(comentario.idComentario)">
+            Responder
+          </button>
+        </div>
+
+        @if(respondiendo === comentario.idComentario) {
+        <div class="respuesta-form">
+          <textarea
+            [(ngModel)]="comentarioRespuesta"
+            placeholder="Escribe tu respuesta..."
+            rows="3"
+            class="respuesta-textarea"
+          ></textarea>
+          <div class="respuesta-acciones">
+            <button
+              class="btn-enviar-respuesta"
+              (click)="responderComentario(comentario.idComentario)"
+            >
+              Enviar Respuesta
+            </button>
+            <button class="btn-cancelar-respuesta" (click)="cancelarRespuesta()">Cancelar</button>
+          </div>
+        </div>
+        } @if(comentario && comentarios.length > 0) {
+        <div class="respuestas-contenedor">
+          @for(respuesta of comentarios; track respuesta.idComentario) {
+          <div class="respuesta-item">
+            <div class="comentario-header">
+              <strong class="comentario-usuario">{{ respuesta.nickname }}</strong>
+              <span class="comentario-fecha">{{ respuesta.fechaComentario | date : 'short' }}</span>
+            </div>
+            <div class="comentario-contenido">
+              <p>{{ respuesta.comentario }}</p>
+            </div>
+          </div>
+          }
+        </div>
+        }
+      </div>
+      } @empty {
+      <div class="sin-comentarios">
+        <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
+      </div>
+      }
+    </div>
   </section>
 </main>
 
