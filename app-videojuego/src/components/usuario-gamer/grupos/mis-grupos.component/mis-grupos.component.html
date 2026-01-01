@@ -1,0 +1,92 @@
+<div class="dashboard">
+  <div class="topbar">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="page-title">Mis Grupos</h1>
+    <button class="create-btn" (click)="crearGrupo()">
+      <i class="fas fa-plus"></i>
+      Crear Grupo
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="table-container">
+      <div class="table-header">
+        <h2>Lista de Mis Grupos</h2>
+        <span class="total-count">Total: {{ grupos.length || 0 }}</span>
+      </div>
+
+      @if(grupos && grupos.length > 0) {
+
+      <div class="table-wrapper">
+        <table class="groups-table">
+          <thead>
+            <tr>
+              <th>ID Grupo</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Miembros</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(grupo of grupos; track grupo.idGrupo) {
+            <tr class="table-row">
+              <td class="id-cell">{{ grupo.idGrupo }}</td>
+              <td class="name-cell">{{ grupo.nombreGrupo }}</td>
+              <td class="status-cell">
+                <span
+                  class="status-badge"
+                  [class.status-active]="grupo.estadoGrupo === true"
+                  [class.status-inactive]="grupo.estadoGrupo === false"
+                >
+                  {{ grupo.estadoGrupo ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td class="actions-cell">
+                <button
+                  class="action-btn manage-btn"
+                  (click)="administrarGrupo(grupo.idGrupo)"
+                  title="Administrar grupo"
+                >
+                  <i class="fas fa-cogs"></i>
+                  Administrar
+                </button>
+                <button
+                  class="action-btn edit-btn"
+                  (click)="editarGrupo(grupo.idGrupo, grupo.nombreGrupo)"
+                  title="Editar grupo"
+                >
+                  <i class="fas fa-edit"></i>
+                  Editar
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }@else{
+      <div class="no-data">
+        <i class="fas fa-users"></i>
+        <h3>No tienes grupos creados</h3>
+        <p>Comienza creando tu primer grupo para jugar con amigos</p>
+        <button class="create-btn" (click)="crearGrupo()">
+          <i class="fas fa-plus"></i>
+          Crear Primer Grupo
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

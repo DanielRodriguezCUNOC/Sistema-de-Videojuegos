@@ -1,0 +1,101 @@
+<div class="form-container">
+  <div class="form-header">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="form-title">
+      <i class="fas fa-users"></i>
+      Crear Nuevo Grupo
+    </h1>
+  </div>
+
+  <div class="form-wrapper">
+    <form [formGroup]="grupoForm" (ngSubmit)="crearGrupo()" class="grupo-form">
+      <div class="form-section">
+        <h2>Información del Grupo</h2>
+
+        <div class="input-group">
+          <label for="nombreGrupo" class="input-label">
+            <i class="fas fa-tag"></i>
+            Nombre del Grupo
+          </label>
+          <input
+            type="text"
+            id="nombreGrupo"
+            formControlName="nombreGrupo"
+            class="input-field"
+            [class.input-error]="
+              grupoForm.get('nombreGrupo')?.invalid && grupoForm.get('nombreGrupo')?.touched
+            "
+            placeholder="Ingresa un nombre atractivo para tu grupo"
+            maxlength="50"
+          />
+          <div class="input-help">
+            <small>Máximo 50 caracteres</small>
+            <small class="char-count"
+              >{{ grupoForm.get('nombreGrupo')?.value?.length || 0 }}/50</small
+            >
+          </div>
+
+          @if(grupoForm.get('nombreGrupo')?.invalid && grupoForm.get('nombreGrupo')?.touched) {
+          <div class="error-message">
+            @if(grupoForm.get('nombreGrupo')?.errors?.['required']) {
+            <span
+              ><i class="fas fa-exclamation-circle"></i> El nombre del grupo es obligatorio</span
+            >
+            } @if(grupoForm.get('nombreGrupo')?.errors?.['minlength']) {
+            <span
+              ><i class="fas fa-exclamation-circle"></i> El nombre debe tener al menos 3
+              caracteres</span
+            >
+            } @if(grupoForm.get('nombreGrupo')?.errors?.['maxlength']) {
+            <span
+              ><i class="fas fa-exclamation-circle"></i> El nombre no puede exceder los 50
+              caracteres</span
+            >
+            }
+          </div>
+          }
+        </div>
+
+        <div class="form-info">
+          <div class="info-card">
+            <i class="fas fa-info-circle"></i>
+            <div>
+              <h3>Información importante</h3>
+              <ul>
+                <li>Serás el administrador del grupo</li>
+                <li>Podrás invitar a otros gamers</li>
+                <li>El nombre debe ser único y descriptivo</li>
+                <li>Puedes modificar la información más tarde</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="regresar()" [disabled]="isLoading">
+          <i class="fas fa-times"></i>
+          Cancelar
+        </button>
+
+        <button type="submit" class="btn-primary" [disabled]="grupoForm.invalid || isLoading">
+          @if(isLoading) {
+          <i class="fas fa-spinner fa-spin"></i>
+          Creando... } @else {
+          <i class="fas fa-plus"></i>
+          Crear Grupo }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>
