@@ -8,6 +8,7 @@ import { TiendaService } from '../../../services/tienda/tienda.service';
 import { ConvertirImagen } from '../../../utils/convertir-imagen';
 import { SharePopupComponent } from '../../../shared/share-popup.component/share-popup.component';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-modulo-tienda.component',
@@ -143,5 +144,9 @@ export class ModuloTiendaComponent implements OnInit {
     this.infoMessage = mensaje;
     this.popupTipo = tipo;
     this.popupMostrar = true;
+  }
+
+  regresar(): void {
+    this.router.navigate(['/user-gamer/']);
   }
 }

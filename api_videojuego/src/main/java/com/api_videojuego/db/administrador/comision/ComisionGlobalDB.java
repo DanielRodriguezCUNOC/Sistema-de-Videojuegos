@@ -122,4 +122,23 @@ public class ComisionGlobalDB {
 		}
 	}
 
+	public BigDecimal consultarComisionGlobal() throws ErrorConsultaDB {
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+		String query = "SELECT comision FROM comision_global LIMIT 1";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return BigDecimal.valueOf(rs.getDouble("comision"));
+			}
+			return null;
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB(
+					"Error al obtener la comision global desde la BD");
+		}
+
+	}
+
 }

@@ -117,4 +117,29 @@ public class ImagenJuegoDB {
 		}
 	}
 
+	public byte[] obtenerImagenPorIdVideojuego(Integer idVideojuego)
+			throws ErrorConsultaDB {
+
+		String query = "SELECT imagen FROM imagen_juego WHERE id_videojuego = ?";
+
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+
+			ps.setInt(1, idVideojuego);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getBytes("imagen");
+			}
+			else {
+				return null;
+			}
+
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB("Error al obtener la imagen del videojuego");
+		}
+	}
+
 }

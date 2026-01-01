@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PerfilVideojuegoService {
-  private apiUrl = `${environment.apiBaseUrl}/perfil`;
+  private apiUrl = `${environment.apiBaseUrl}/perfil/videojuego`;
   constructor(private http: HttpClient) {}
 
   obtenerPerfilVideojuego(videojuegoId: number): Observable<PerfilVideojuegoResponseDTO> {
-    return this.http.get<PerfilVideojuegoResponseDTO>(`${this.apiUrl}/videojuego/${videojuegoId}`);
+    return this.http.get<PerfilVideojuegoResponseDTO>(
+      `${this.apiUrl}/obtener-informacion/${videojuegoId}`
+    );
   }
-
-
 }

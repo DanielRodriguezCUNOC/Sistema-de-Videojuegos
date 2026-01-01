@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.api_videojuego.db.connection.DBConnectionSingleton;
+import com.api_videojuego.excepciones.ErrorConsultaDB;
 import com.api_videojuego.excepciones.ErrorEliminarRegistro;
 import com.api_videojuego.excepciones.ErrorInsertarDB;
 
@@ -47,6 +49,53 @@ public class VideojuegoDesarrolladoraDB {
 			throw new ErrorEliminarRegistro(
 					"Error al eliminar la relación videojuego-desarrolladora: "
 							+ e.getMessage());
+		}
+	}
+
+	public Integer obtenerIdEmpresaPorIdVidejuego(Integer idVideojuego,
+			Connection conn) throws ErrorConsultaDB {
+
+		String query = "SELECT id_empresa FROM videojuego_desarrolladora WHERE id_videojuego = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setInt(1, idVideojuego);
+
+			var rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("id_empresa");
+			}
+			else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB(
+					"No se pudo obtener el id de la empresa desde la tabla videojuego_desarrolladora");
+		}
+	}
+
+	public Integer idEmpresaPorIdVidejuego(Integer idVideojuego)
+			throws ErrorConsultaDB {
+		Connection conn = DBConnectionSingleton.getInstance().getConnection();
+
+		String query = "SELECT id_empresa FROM videojuego_desarrolladora WHERE id_videojuego = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(query)) {
+			ps.setInt(1, idVideojuego);
+
+			var rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("id_empresa");
+			}
+			else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new ErrorConsultaDB(
+					"No se pudo obtener el id de la empresa desde la tabla videojuego_desarrolladora"
+							+ e.getMessage());
+
 		}
 	}
 

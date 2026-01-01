@@ -7,6 +7,43 @@
   gap: 2.5rem;
 }
 
+.tienda-navegacion {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: -1rem;
+
+  .btn-regresar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #18222b;
+    color: #66c0f4;
+    border: 2px solid #222e3c;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-decoration: none;
+
+    .icono-regresar {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    &:hover {
+      background: #222e3c;
+      border-color: #66c0f4;
+      transform: translateX(-2px);
+    }
+
+    &:active {
+      transform: translateX(0);
+    }
+  }
+}
+
 .tienda-banner {
   background: linear-gradient(90deg, #3a7ca5 0%, #66c0f4 100%);
   color: #fff;
@@ -315,6 +352,15 @@
   .tienda-main {
     padding: 1rem 0.5rem;
     gap: 1.5rem;
+  }
+
+  .tienda-navegacion {
+    margin-bottom: -0.5rem;
+
+    .btn-regresar {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
   }
 
   .tienda-banner {
