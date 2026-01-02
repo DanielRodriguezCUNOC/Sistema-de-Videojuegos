@@ -1,0 +1,81 @@
+<div class="dashboard">
+  <div class="topbar">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="page-title">Agregar Integrante</h1>
+  </div>
+
+  <div class="content">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>
+          <i class="fas fa-user-plus"></i>
+          Invitar Nuevo Miembro
+        </h2>
+        <p>Agrega un gamer a tu grupo introduciendo su nickname</p>
+      </div>
+
+      <form [formGroup]="integranteForm" (ngSubmit)="agregarIntegrante()" class="add-form">
+        <div class="form-group">
+          <label for="nickname" class="form-label">
+            <i class="fas fa-user"></i>
+            Nickname del Gamer *
+          </label>
+          <input
+            type="text"
+            id="nickname"
+            formControlName="nickname"
+            class="form-input"
+            [class.error]="
+              integranteForm.get('nickname')?.touched && integranteForm.get('nickname')?.invalid
+            "
+            placeholder="Ingresa el nickname del usuario"
+            maxlength="20"
+          />
+        </div>
+
+        <div class="form-info">
+          <div class="info-card">
+            <i class="fas fa-info-circle"></i>
+            <div>
+              <strong>Información importante:</strong>
+              <ul>
+                <li>El usuario debe estar registrado en la plataforma</li>
+                <li>Introduce el nickname exacto del gamer</li>
+                <li>El usuario será notificado de la invitación</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="regresar()"
+            [disabled]="isLoading"
+          >
+            <i class="fas fa-times"></i>
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="integranteForm.invalid || isLoading"
+          >
+            {{ isLoading ? 'Agregando...' : 'Agregar Integrante' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>

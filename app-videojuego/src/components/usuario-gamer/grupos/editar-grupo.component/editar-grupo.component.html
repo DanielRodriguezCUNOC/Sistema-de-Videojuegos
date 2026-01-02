@@ -1,0 +1,63 @@
+<div class="dashboard">
+  <div class="topbar">
+    <button class="back-btn" (click)="regresar()">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </button>
+    <h1 class="page-title">Editar Grupo</h1>
+  </div>
+
+  <div class="content">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>
+          <i class="fas fa-edit"></i>
+          Modificar Información del Grupo
+        </h2>
+        <p>Cambia el nombre de tu grupo</p>
+      </div>
+
+      <form [formGroup]="grupoForm" (ngSubmit)="editarGrupo()" class="edit-form">
+        <div class="form-group">
+          <label for="nombreGrupo" class="form-label">
+            <i class="fas fa-users"></i>
+            Nombre del Grupo *
+          </label>
+          <input
+            type="text"
+            id="nombreGrupo"
+            formControlName="nombreGrupo"
+            class="form-input"
+            [class.error]="
+              grupoForm.get('nombreGrupo')?.touched && grupoForm.get('nombreGrupo')?.invalid
+            "
+            placeholder="Ingresa el nombre del grupo"
+            maxlength="50"
+          />
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="regresar()"
+            [disabled]="isLoading"
+          >
+            <i class="fas fa-times"></i>
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="grupoForm.invalid || isLoading">
+            {{ isLoading ? 'Guardando...' : 'Guardar Cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-share-popup
+  [mensaje]="infoMessage || ''"
+  [tipo]="popupTipo"
+  [mostrar]="popupMostrar"
+  (cerrarEvent)="popupMostrar = false"
+></app-share-popup>
