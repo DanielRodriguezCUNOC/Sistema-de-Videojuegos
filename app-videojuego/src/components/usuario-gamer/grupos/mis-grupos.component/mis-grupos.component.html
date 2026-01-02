@@ -14,54 +14,114 @@
   <div class="content">
     <div class="table-container">
       <div class="table-header">
-        <h2>Lista de Mis Grupos</h2>
-        <span class="total-count">Total: {{ grupos.length || 0 }}</span>
+        <h2>
+          <i class="fas fa-check-circle"></i>
+          Grupos Activos
+        </h2>
+        <span class="total-count">Total: {{ gruposActivos.length || 0 }}</span>
       </div>
 
-      @if(grupos && grupos.length > 0) {
-
+      @if(gruposActivos && gruposActivos.length > 0) {
       <div class="table-wrapper">
         <table class="groups-table">
           <thead>
             <tr>
               <th>ID Grupo</th>
               <th>Nombre</th>
-              <th>Descripción</th>
               <th>Miembros</th>
-              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            @for(grupo of grupos; track grupo.idGrupo) {
+            @for(grupo of gruposActivos; track grupo.idGrupo) {
             <tr class="table-row">
               <td class="id-cell">{{ grupo.idGrupo }}</td>
               <td class="name-cell">{{ grupo.nombreGrupo }}</td>
-              <td class="status-cell">
-                <span
-                  class="status-badge"
-                  [class.status-active]="grupo.estadoGrupo === true"
-                  [class.status-inactive]="grupo.estadoGrupo === false"
-                >
-                  {{ grupo.estadoGrupo ? 'Activo' : 'Inactivo' }}
-                </span>
-              </td>
+              <td class="members-cell">{{ grupo.integrantes.length || 0 }}</td>
               <td class="actions-cell">
-                <button
-                  class="action-btn manage-btn"
-                  (click)="administrarGrupo(grupo.idGrupo)"
-                  title="Administrar grupo"
-                >
-                  <i class="fas fa-cogs"></i>
-                  Administrar
-                </button>
                 <button
                   class="action-btn edit-btn"
                   (click)="editarGrupo(grupo.idGrupo, grupo.nombreGrupo)"
-                  title="Editar grupo"
+                  title="Editar nombre del grupo"
                 >
                   <i class="fas fa-edit"></i>
                   Editar
+                </button>
+                <button
+                  class="action-btn deactivate-btn"
+                  (click)="desactivarGrupo(grupo.idGrupo)"
+                  title="Desactivar grupo"
+                >
+                  <i class="fas fa-pause-circle"></i>
+                  Desactivar
+                </button>
+                <button
+                  class="action-btn edit-btn"
+                  (click)="agregarIntegrante(grupo.idGrupo)"
+                  title="Agregar integrante al grupo"
+                >
+                  Agregar Integrante
+                </button>
+                @for(integrante of grupo.integrantes; track integrante.idIntegrante) {
+                @if(integrante.idIntegrante ) {
+                <button
+                  class="action-btn remove-member-btn"
+                  (click)="eliminarIntegrante(grupo.idGrupo, integrante.idIntegrante)"
+                  title="Eliminar integrante: {{ integrante.nickname }}"
+                >
+                  <i class="fas fa-user-minus"></i>
+                  Eliminar {{ integrante.nickname }}
+                </button>
+                } }
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }@else{
+      <div class="no-data">
+        <i class="fas fa-users-slash"></i>
+        <h3>No tienes grupos activos</h3>
+        <p>Activa algún grupo existente o crea uno nuevo</p>
+      </div>
+      }
+    </div>
+
+    <div class="table-container inactive-section">
+      <div class="table-header">
+        <h2>
+          <i class="fas fa-pause-circle"></i>
+          Grupos Inactivos
+        </h2>
+        <span class="total-count">Total: {{ gruposInactivos.length || 0 }}</span>
+      </div>
+
+      @if(gruposInactivos && gruposInactivos.length > 0) {
+      <div class="table-wrapper">
+        <table class="groups-table">
+          <thead>
+            <tr>
+              <th>ID Grupo</th>
+              <th>Nombre</th>
+              <th>Miembros</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(grupo of gruposInactivos; track grupo.idGrupo) {
+            <tr class="table-row inactive-row">
+              <td class="id-cell">{{ grupo.idGrupo }}</td>
+              <td class="name-cell">{{ grupo.nombreGrupo }}</td>
+              <td class="members-cell">{{ grupo.integrantes.length || 0 }}</td>
+              <td class="actions-cell">
+                <button
+                  class="action-btn activate-btn"
+                  (click)="activarGrupo(grupo.idGrupo)"
+                  title="Activar grupo"
+                >
+                  <i class="fas fa-play-circle"></i>
+                  Activar
                 </button>
               </td>
             </tr>
@@ -71,6 +131,16 @@
       </div>
       }@else{
       <div class="no-data">
+        <i class="fas fa-check-circle"></i>
+        <h3>Todos tus grupos están activos</h3>
+        <p>No tienes grupos desactivados</p>
+      </div>
+      }
+    </div>
+
+    @if(!grupos || grupos.length === 0) {
+    <div class="table-container">
+      <div class="no-data">
         <i class="fas fa-users"></i>
         <h3>No tienes grupos creados</h3>
         <p>Comienza creando tu primer grupo para jugar con amigos</p>
@@ -79,8 +149,8 @@
           Crear Primer Grupo
         </button>
       </div>
-      }
     </div>
+    }
   </div>
 </div>
 

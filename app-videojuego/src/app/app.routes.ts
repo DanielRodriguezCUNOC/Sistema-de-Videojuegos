@@ -39,6 +39,10 @@ import { authGuard } from '../guard/auth-guard';
 import { authGamerUserGuard } from '../guard/auth-gamer-user';
 import { authEmpresaUserGuard } from '../guard/auth-empresa-user';
 import { authAdminUserGuard } from '../guard/auth-admin-user';
+import { MisGruposComponent } from '../components/usuario-gamer/grupos/mis-grupos.component/mis-grupos.component';
+import { CrearGrupoComponent } from '../components/usuario-gamer/grupos/crear-grupo.component/crear-grupo.component';
+import { EditarGrupoComponent } from '../components/usuario-gamer/grupos/editar-grupo.component/editar-grupo.component';
+import { AgregarIntegranteGrupoComponent } from '../components/usuario-gamer/grupos/agregar-integrante-grupo.component/agregar-integrante-grupo.component';
 
 export const routes: Routes = [
   {
@@ -111,6 +115,22 @@ export const routes: Routes = [
       {
         path: 'gestionar-grupo',
         component: GestionarGruposComponent,
+      },
+      {
+        path: 'mis-grupos',
+        component: MisGruposComponent,
+      },
+      {
+        path: 'crear-grupo',
+        component: CrearGrupoComponent,
+      },
+      {
+        path: 'editar-grupo/:idGrupo/:nombreGrupo',
+        component: EditarGrupoComponent,
+      },
+      {
+        path: 'agregar-integrante-grupo/:idGrupo',
+        component: AgregarIntegranteGrupoComponent,
       },
     ],
   },

@@ -31,12 +31,6 @@
             placeholder="Ingresa un nombre atractivo para tu grupo"
             maxlength="50"
           />
-          <div class="input-help">
-            <small>Máximo 50 caracteres</small>
-            <small class="char-count"
-              >{{ grupoForm.get('nombreGrupo')?.value?.length || 0 }}/50</small
-            >
-          </div>
 
           @if(grupoForm.get('nombreGrupo')?.invalid && grupoForm.get('nombreGrupo')?.touched) {
           <div class="error-message">
